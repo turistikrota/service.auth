@@ -7,15 +7,15 @@ import (
 	"api.turistikrota.com/auth/src/config"
 	"api.turistikrota.com/auth/src/delivery"
 	"api.turistikrota.com/auth/src/service"
-	"api.turistikrota.com/shared/auth/session"
-	"api.turistikrota.com/shared/auth/token"
-	"api.turistikrota.com/shared/db/mongo"
-	"api.turistikrota.com/shared/db/redis"
-	"api.turistikrota.com/shared/env"
-	"api.turistikrota.com/shared/events/nats"
-	"api.turistikrota.com/shared/logs"
 	"github.com/mixarchitecture/i18np"
 	"github.com/ssibrahimbas/turnstile"
+	"github.com/turistikrota/service.shared/auth/session"
+	"github.com/turistikrota/service.shared/auth/token"
+	"github.com/turistikrota/service.shared/db/mongo"
+	"github.com/turistikrota/service.shared/db/redis"
+	"github.com/turistikrota/service.shared/env"
+	"github.com/turistikrota/service.shared/events/nats"
+	"github.com/turistikrota/service.shared/logs"
 )
 
 func main() {
@@ -44,6 +44,8 @@ func main() {
 	})
 	tknSrv := token.New(token.Config{
 		Expiration: config.TokenSrv.Expiration,
+		PublicKeyFile:  config.RSA.PublicKeyFile,
+		PrivateKeyFile: config.RSA.PrivateKeyFile,
 	})
 	session := session.NewSessionApp(session.Config{
 		Redis:       r,

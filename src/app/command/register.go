@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"api.turistikrota.com/auth/src/domain/user"
-	"api.turistikrota.com/shared/cipher"
-	"api.turistikrota.com/shared/decorator"
 	"github.com/google/uuid"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.shared/cipher"
+	"github.com/turistikrota/service.shared/decorator"
 )
 
 type RegisterCommand struct {

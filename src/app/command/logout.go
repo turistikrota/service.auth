@@ -5,11 +5,11 @@ import (
 
 	"api.turistikrota.com/auth/src/config"
 	"api.turistikrota.com/auth/src/domain/user"
-	"api.turistikrota.com/shared/auth/session"
-	"api.turistikrota.com/shared/auth/token"
-	"api.turistikrota.com/shared/decorator"
-	"api.turistikrota.com/shared/events"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.shared/auth/session"
+	"github.com/turistikrota/service.shared/auth/token"
+	"github.com/turistikrota/service.shared/decorator"
+	"github.com/turistikrota/service.shared/events"
 )
 
 type LogoutCommand struct {

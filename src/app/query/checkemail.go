@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"api.turistikrota.com/auth/src/domain/user"
-	"api.turistikrota.com/shared/cache"
-	"api.turistikrota.com/shared/decorator"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.shared/cache"
+	"github.com/turistikrota/service.shared/decorator"
 )
 
 type CheckEmailQuery struct {

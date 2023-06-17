@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"api.turistikrota.com/auth/src/domain/owner"
-	"api.turistikrota.com/shared/decorator"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.shared/decorator"
 )
 
 type OwnerDisableCommand struct {

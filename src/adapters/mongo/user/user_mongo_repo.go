@@ -3,7 +3,7 @@ package user
 import (
 	"api.turistikrota.com/auth/src/adapters/mongo/user/entity"
 	"api.turistikrota.com/auth/src/domain/user"
-	mongo2 "api.turistikrota.com/shared/db/mongo"
+	mongo2 "github.com/turistikrota/service.shared/db/mongo"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

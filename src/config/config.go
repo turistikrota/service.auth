@@ -1,6 +1,6 @@
 package config
 
-import "api.turistikrota.com/shared/types/cookie"
+import "github.com/turistikrota/service.shared/types/cookie"
 
 type MongoAuth struct {
 	Host       string `env:"MONGO_AUTH_HOST" envDefault:"localhost"`
@@ -14,6 +14,11 @@ type MongoAuth struct {
 
 type Turnstile struct {
 	Secret string `env:"CF_TURNSTILE_SECRET_KEY"`
+}
+
+type RSA struct {
+	PrivateKeyFile string `env:"RSA_PRIVATE_KEY"`
+	PublicKeyFile  string `env:"RSA_PUBLIC_KEY"`
 }
 
 type MongoAccount struct {
@@ -168,4 +173,5 @@ type App struct {
 		BaseEnv CsrfBaseEnv
 		Redis   CsrfRedis
 	}
+	RSA RSA
 }

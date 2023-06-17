@@ -6,8 +6,8 @@ import (
 	"api.turistikrota.com/auth/src/app"
 	"api.turistikrota.com/auth/src/config"
 	"api.turistikrota.com/auth/src/delivery/event_stream/dto"
-	"api.turistikrota.com/shared/events"
 	"github.com/sirupsen/logrus"
+	"github.com/turistikrota/service.shared/events"
 )
 
 type Server struct {

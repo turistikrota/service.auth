@@ -7,14 +7,14 @@ import (
 	"api.turistikrota.com/auth/src/domain/account"
 	"api.turistikrota.com/auth/src/domain/owner"
 	"api.turistikrota.com/auth/src/domain/user"
-	"api.turistikrota.com/shared/auth/session"
-	"api.turistikrota.com/shared/auth/token"
-	"api.turistikrota.com/shared/cipher"
-	"api.turistikrota.com/shared/decorator"
-	"api.turistikrota.com/shared/events"
-	"api.turistikrota.com/shared/helper"
-	"api.turistikrota.com/shared/jwt"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.shared/auth/session"
+	"github.com/turistikrota/service.shared/auth/token"
+	"github.com/turistikrota/service.shared/cipher"
+	"github.com/turistikrota/service.shared/decorator"
+	"github.com/turistikrota/service.shared/events"
+	"github.com/turistikrota/service.shared/helper"
+	"github.com/turistikrota/service.shared/jwt"
 )
 
 type LoginCommand struct {

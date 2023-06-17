@@ -3,7 +3,7 @@ package user
 import (
 	"time"
 
-	"api.turistikrota.com/shared/auth/session"
+	"github.com/turistikrota/service.shared/auth/session"
 )
 
 type User struct {

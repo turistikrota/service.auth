@@ -2,7 +2,7 @@ package res
 
 import (
 	"api.turistikrota.com/auth/src/app/query"
-	"api.turistikrota.com/shared/jwt"
+	"github.com/turistikrota/service.shared/jwt"
 )
 
 type Response interface {

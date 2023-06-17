@@ -2,7 +2,7 @@ package req
 
 import (
 	"api.turistikrota.com/auth/src/app/command"
-	"api.turistikrota.com/shared/auth/session"
+	"github.com/turistikrota/service.shared/auth/session"
 )
 
 type LoginVerifiedRequest struct {

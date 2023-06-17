@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"api.turistikrota.com/auth/src/domain/account"
-	"api.turistikrota.com/shared/decorator"
+	"github.com/turistikrota/service.shared/decorator"
 
 	"github.com/mixarchitecture/i18np"
 )

@@ -5,8 +5,8 @@ import (
 
 	"api.turistikrota.com/auth/src/adapters/mongo/account/entity"
 	"api.turistikrota.com/auth/src/domain/account"
-	"api.turistikrota.com/shared/jwt"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.shared/jwt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )

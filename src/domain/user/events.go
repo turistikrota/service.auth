@@ -4,9 +4,9 @@ import (
 	"fmt"
 
 	"api.turistikrota.com/auth/src/config"
-	"api.turistikrota.com/shared/events"
-	"api.turistikrota.com/shared/helper"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.shared/events"
+	"github.com/turistikrota/service.shared/helper"
 )
 
 type Events interface {

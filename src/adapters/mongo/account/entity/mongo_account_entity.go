@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"api.turistikrota.com/auth/src/domain/account"
-	"api.turistikrota.com/shared/jwt"
+	"github.com/turistikrota/service.shared/jwt"
 )
 
 type MongoAccount struct {

@@ -3,8 +3,8 @@ package owner
 import (
 	"context"
 
-	"api.turistikrota.com/shared/jwt"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.shared/jwt"
 )
 
 type UserDetail struct {

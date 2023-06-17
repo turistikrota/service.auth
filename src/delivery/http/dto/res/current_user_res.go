@@ -1,8 +1,8 @@
 package res
 
 import (
-	"api.turistikrota.com/shared/helper"
-	"api.turistikrota.com/shared/jwt"
+	"github.com/turistikrota/service.shared/helper"
+	"github.com/turistikrota/service.shared/jwt"
 )
 
 type (

@@ -7,14 +7,14 @@ import (
 	"api.turistikrota.com/auth/src/config"
 	"api.turistikrota.com/auth/src/delivery/event_stream"
 	"api.turistikrota.com/auth/src/delivery/http"
-	"api.turistikrota.com/shared/auth/session"
-	"api.turistikrota.com/shared/auth/token"
-	"api.turistikrota.com/shared/events"
-	sharedHttp "api.turistikrota.com/shared/server/http"
-	"api.turistikrota.com/shared/validator"
 	"github.com/gofiber/fiber/v2"
 	"github.com/mixarchitecture/i18np"
 	"github.com/ssibrahimbas/turnstile"
+	"github.com/turistikrota/service.shared/auth/session"
+	"github.com/turistikrota/service.shared/auth/token"
+	"github.com/turistikrota/service.shared/events"
+	sharedHttp "github.com/turistikrota/service.shared/server/http"
+	"github.com/turistikrota/service.shared/validator"
 )
 
 type Delivery interface {
