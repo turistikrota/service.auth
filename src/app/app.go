@@ -1,0 +1,41 @@
+package app
+
+import (
+	"api.turistikrota.com/auth/src/app/command"
+	"api.turistikrota.com/auth/src/app/query"
+)
+
+type Application struct {
+	Commands Commands
+	Queries  Queries
+}
+
+type Commands struct {
+	Login                     command.LoginHandler
+	LoginVerified             command.LoginVerifiedHandler
+	Register                  command.RegisterHandler
+	RefreshToken              command.RefreshTokenHandler
+	Logout                    command.LogoutHandler
+	UserUpdated               command.UserUpdatedHandler
+	Verify                    command.VerifyHandler
+	ReSendVerification        command.ReSendVerificationHandler
+	AccountCreate             command.AccountCreateHandler
+	AccountUpdate             command.AccountUpdateHandler
+	AccountDelete             command.AccountDeleteHandler
+	AccountEnable             command.AccountEnableHandler
+	AccountDisable            command.AccountDisableHandler
+	OwnerCreate               command.OwnerCreateHandler
+	OwnerAddUser              command.OwnerAddUserHandler
+	OwnerRemoveUser           command.OwnerRemoveUserHandler
+	OwnerAddUserPermission    command.OwnerAddUserPermissionHandler
+	OwnerRemoveUserPermission command.OwnerRemoveUserPermissionHandler
+	OwnerEnable               command.OwnerEnableHandler
+	OwnerDisable              command.OwnerDisableHandler
+	OwnerDelete               command.OwnerDeleteHandler
+	OwnerRecover              command.OwnerRecoverHandler
+	OwnerVerify               command.OwnerVerifyHandler
+}
+
+type Queries struct {
+	CheckEmail query.CheckEmailHandler
+}

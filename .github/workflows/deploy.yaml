@@ -1,0 +1,28 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploying and Running Docker Compose
+        uses: appleboy/ssh-action@master
+        env:
+          DIR: ${{ secrets.DIR }}
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          envs: DIR
+          script: |
+            cd $DIR
+            git checkout main
+            git pull origin main
+            docker compose down
+            docker compose up -d --build

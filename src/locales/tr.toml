@@ -1,0 +1,89 @@
+validation_required = "{{.Field}} alanı zorunludur."
+validation_required_if = "{{.Field}} alanı zorunludur."
+validation_min_length = "{{.Field}} alanı en az {{.Param}} karakter uzunluğunda olmalıdır."
+validation_max_length = "{{.Field}} alanı en fazla {{.Param}} karakter uzunluğunda olmalıdır."
+validation_min = "{{.Field}} alanı en az {{.Param}} olmalıdır."
+validation_max = "{{.Field}} alanı en fazla {{.Param}} olmalıdır."
+validation_email = "Bu alan geçerli bir e-posta adresi olmalıdır."
+validation_unique = "Bu alan benzersiz olmalıdır."
+validation_phone = "Bu alan geçerli bir telefon numarası olmalıdır."
+validation_password = "Bu alan en az bir büyük harf, bir küçük harf, bir sayı ve bir özel karakter içermelidir."
+validation_username = "Bu alan en az bir büyük harf, bir küçük harf ve bir sayı içermelidir."
+validation_e164 = "Bu alan geçerli bir E.164 numarası olmalıdır."
+validation_uuid = "Bu alan geçerli bir UUID olmalıdır."
+validation_slug = "Bu alan geçerli bir slug olmalıdır."
+validation_boolean = "Bu alan geçerli bir boolean olmalıdır."
+validation_object_id = "Bu alan geçerli bir ObjectId olmalıdır."
+validation_oneof = "Bu alan {{.Param}} değerlerinden biri olmalıdır."
+validation_latitude = "Bu alan geçerli bir enlem olmalıdır."
+validation_longitude = "Bu alan geçerli bir boylam olmalıdır."
+validation_datetime = "Bu alan geçerli bir tarih ve saat olmalıdır."
+validation_username_and_code = "Bu alan geçerli bir kullanıcı adı veya kod olmalıdır."
+
+
+error_invalid_request_body = "İstek gövdesi geçersiz."
+error_invalid_request_query = "İstek sorgusu geçersiz."
+error_invalid_request_params = "İstek parametreleri geçersiz."
+error_internal_server_error = "Sunucu hatası."
+error_validation_failed = "Doğrulama başarısız oldu."
+
+# Authentication
+errors_auth_current_user = "Geçerli kullanıcı bulunamadı."
+errors_auth_required_auth = "Kimlik doğrulama gerekiyor."
+errors_auth_refresh_token = "Yenileme jetonu geçersiz."
+
+# User Module
+error_user_email_empty = "E-posta adresi boş olamaz."
+error_user_not_found = "Kullanıcı bulunamadı."
+error_user_failed = "{{.Operation}} işlemi başarısız oldu."
+error_user_already_exists = "Kullanıcı zaten mevcut."
+error_user_invalid_password = "Geçersiz şifre."
+error_user_refresh_token_not_available = "Yenileme jetonu mevcut değil."
+error_user_two_factor_started = "İki faktörlü kimlik doğrulama başlatıldı."
+errors_auth_two_factor = "İki faktörlü kimlik doğrulama başarısız oldu."
+error_user_token_expired = "Token süresi doldu."
+error_user_already_verified = "Kullanıcı zaten doğrulanmış."
+error_user_not_verified = "Kullanıcı doğrulanmadı."
+error_user_token_not_expired = "Token süresi dolmadı."
+
+auth_registered_mail_subject = "Turistikrota'ya Hoşgeldiniz!"
+
+# Http Module
+success_login = "Başarıyla giriş yaptınız."
+success_logout = "Başarıyla çıkış yaptınız."
+success_register = "Başarıyla kayıt oldunuz."
+success_extend = "Başarıyla uzatıldı."
+success_verify_mail = "Başarıyla e-posta doğrulandı."
+success_email_available = "E-posta adresi kullanılabilir."
+success_verify = "Başarıyla doğrulandı."
+success_resend_verification = "Başarıyla yeniden gönderildi."
+success_current_user = "Kullanıcı başarıyla görüntülendi."
+error_login = "Giriş başarısız oldu."
+error_logout = "Çıkış başarısız oldu."
+error_register = "Kayıt başarısız oldu."
+error_extend = "Uzatma başarısız oldu."
+error_unexpected = "Beklenmeyen bir hata oluştu."
+error_login_verify = "Giriş başarısız oldu."
+
+cache_an_error_on_exist = "Cache varken bir hata oluştu."
+cache_an_error_on_get = "Cache getirilirken bir hata oluştu."
+cache_an_error_on_set = "Cache ayarlanırken bir hata oluştu."
+cache_not_runnable = "Cache çalıştırılamıyor. Konfigürasyonu kontrol edin."
+
+get_query_failed = "Veriler getirilirken bir hata oluştu."
+update_query_not_found = "Güncellenecek veri bulunamadı."
+update_query_failed = "Veri güncellenirken bir hata oluştu."
+
+
+owner_failed = "Sahip başarısız oldu."
+Owner_not_found = "Sahip bulunamadı."
+
+# Account Module Settings
+error_account_failed = "Hesap oluşturulamadı."
+error_account_not_found = "Hesap bulunamadı."
+
+# Turnstile
+error_turnstile_bad_request = "İstek geçersiz."
+error_turnstile_unauthorized = "Robot doğrulaması başarısız oldu."
+
+user_expired = "Kullanıcı süresi doldu."
