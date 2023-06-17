@@ -68,7 +68,7 @@ func (h Server) Load(router fiber.Router) fiber.Router {
 	router.Post("/login", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Login))
 	router.Post("/checkEmail", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.CheckEmail))
 	router.Post("/logout", h.rateLimit(10), h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.Logout))
-	router.Put("/refresh", h.rateLimit(10), h.currentUserRefresh(), h.requiredRefreshToken(), h.wrapWithTimeout(h.RefreshToken))
+	router.Put("/refresh", h.rateLimit(20), h.currentUserRefresh(), h.requiredRefreshToken(), h.wrapWithTimeout(h.RefreshToken))
 	router.Get("/2fa/check", h.rateLimit(10), h.currentUserTemp(), h.twoFactor(), h.wrapWithTimeout(h.LoginVerified))
 	router.Post("/re-verify", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.ReSendVerification))
 	router.Post("/:token", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Verify))

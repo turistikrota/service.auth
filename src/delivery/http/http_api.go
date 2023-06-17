@@ -91,13 +91,14 @@ func (h Server) RefreshToken(ctx *fiber.Ctx) error {
 	d.DeviceUUID = device_uuid.Parse(ctx)
 	d.IpAddress = ctx.IP()
 	d.RefreshToken = refresh_token.Parse(ctx)
-	d.AccessToken = current_user.GetBearerToken(ctx)
+	d.AccessToken = current_user.GetAccessTokenFromCookie(ctx)
 	l, a := httpI18n.GetLanguagesInContext(h.i18n, ctx)
 	res, err := h.app.Commands.RefreshToken.Handle(ctx.UserContext(), d.ToCommand())
 	if err != nil {
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	refresh_token.Set(ctx, h.config.HttpHeaders.Domain, res.RefreshToken)
+	current_user.SetCookie(ctx, auth.Cookies.AccessToken, h.config.HttpHeaders.Domain, res.AccessToken)
 	return result.SuccessDetail(Messages.Success.Extend, dto.Response.LoggedIn(res.AccessToken))
 }
 
