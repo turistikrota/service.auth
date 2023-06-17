@@ -1,29 +1,28 @@
 FROM golang:1.20-alpine AS builder
-ARG TARGETOS
-ARG TARGETARCH
-RUN apk --no-cache add ca-certificates
+ARG GITHUB_TOKEN GITHUB_USER
+RUN apk add --no-cache git ca-certificates
+
+ENV CGO_ENABLED=0 GO111MODULE=on GOOS=linux GOPRIVATE=github.com/turistikrota/service.shared
+
 WORKDIR /
-COPY services.auth services.auth
-COPY services.shared ../services.shared
-COPY keys keys 
-WORKDIR /services.auth
-ENV CGO_ENABLED=0
-COPY ./services.auth/go.mod ./services.auth/go.sum ./
-RUN  --mount=type=cache,target=/go/pkg/mod \
+
+RUN echo "machine github.com login $GITHUB_USER password $GITHUB_TOKEN" > ~/.netrc
+
+COPY go.* ./
+RUN   --mount=type=cache,target=/go/pkg/mod \
     go mod download
 COPY . . 
 RUN --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/root/.cache/go-build \
-    GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o main ./src/cmd/main.go
+    go build -o main ./src/cmd/main.go
 
 FROM scratch
 
 ENV PORT 8080
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder /services.auth/main .
-COPY --from=builder /keys ./keys
-COPY --from=builder /services.auth/src/locales ./src/locales
+COPY --from=builder /main .
+COPY --from=builder /src/locales ./src/locales
 
 EXPOSE $PORT
 
