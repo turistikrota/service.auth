@@ -18,6 +18,7 @@ validation_latitude = "This field must be a valid latitude."
 validation_longitude = "This field must be a valid longitude."
 validation_datetime = "This field must be a valid datetime."
 validation_username_and_code = "This field must be a valid username and code."
+validation_eq = "This field must be equal to {{.Param}}."
 
 
 error_invalid_request_body = "Invalid request body."

@@ -19,6 +19,7 @@ validation_latitude = "Bu alan geçerli bir enlem olmalıdır."
 validation_longitude = "Bu alan geçerli bir boylam olmalıdır."
 validation_datetime = "Bu alan geçerli bir tarih ve saat olmalıdır."
 validation_username_and_code = "Bu alan geçerli bir kullanıcı adı veya kod olmalıdır."
+validation_eq = "Bu alan {{.Param}} değerine eşit olmalıdır."
 
 
 error_invalid_request_body = "İstek gövdesi geçersiz."

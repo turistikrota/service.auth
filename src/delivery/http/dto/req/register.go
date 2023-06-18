@@ -7,6 +7,7 @@ import (
 type RegisterRequest struct {
 	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required,password"`
+	Privacy  *bool   `json:"privacy" validate:"required,eq=true"`
 }
 
 func (r *RegisterRequest) ToCommand(lang string) command.RegisterCommand {
