@@ -1,5 +1,6 @@
 FROM golang:1.20-alpine AS builder
 ARG GITHUB_TOKEN GITHUB_USER
+RUN apk update && apk add --no-cache git 
 
 ENV CGO_ENABLED=0 GO111MODULE=on GOOS=linux GOPRIVATE=github.com/turistikrota/service.shared
 
