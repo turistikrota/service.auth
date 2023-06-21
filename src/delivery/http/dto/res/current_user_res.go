@@ -8,7 +8,6 @@ import (
 type (
 	CurrentUserAccount struct {
 		Name   string `json:"name"`
-		Code   string `json:"code"`
 		Avatar string `json:"avatar"`
 	}
 )
@@ -36,8 +35,7 @@ func (r *response) CurrentUserAccount(u *jwt.UserClaim) []CurrentUserAccount {
 	for _, a := range u.Accounts {
 		accounts = append(accounts, CurrentUserAccount{
 			Name:   a.Name,
-			Code:   a.Code,
-			Avatar: helper.CDN.DressUser(a.Name, a.Code),
+			Avatar: helper.CDN.DressUser(a.Name),
 		})
 	}
 	return accounts
