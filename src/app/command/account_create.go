@@ -11,7 +11,6 @@ import (
 type AccountCreateCommand struct {
 	UserUUID    string
 	AccountName string
-	AccountCode string
 }
 type AccountCreateResult struct{}
 
@@ -39,7 +38,6 @@ func (h *accountCreateHandler) Handle(ctx context.Context, cmd AccountCreateComm
 	_ = h.repo.Create(ctx, &account.Entity{
 		UserUUID:   cmd.UserUUID,
 		UserName:   cmd.AccountName,
-		UserCode:   cmd.AccountCode,
 		IsActive:   false,
 		IsDeleted:  false,
 		IsVerified: false,

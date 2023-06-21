@@ -3,7 +3,6 @@ package entity
 type fields struct {
 	UserUUID   string
 	UserName   string
-	UserCode   string
 	FullName   string
 	Avatar     string
 	IsActive   string
@@ -16,7 +15,6 @@ type fields struct {
 var Fields = fields{
 	UserUUID:   "user_uuid",
 	UserName:   "user_name",
-	UserCode:   "user_code",
 	FullName:   "full_name",
 	Avatar:     "avatar",
 	IsActive:   "is_active",
