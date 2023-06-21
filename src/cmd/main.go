@@ -29,6 +29,7 @@ func main() {
 		Url:     config.Nats.Url,
 		Streams: config.Nats.Streams,
 	})
+	fmt.Printf("redis ghost: %s\n", config.Redis.Host)
 	r := redis.New(&redis.Config{
 		Host:     config.Redis.Host,
 		Port:     config.Redis.Port,
@@ -36,6 +37,7 @@ func main() {
 		DB:       config.Redis.Db,
 	})
 	mongo := loadMongo(config)
+	fmt.Printf("Redis ping:: %s\n", r.Ping())
 	cache := redis.New(&redis.Config{
 		Host:     config.CacheRedis.Host,
 		Port:     config.CacheRedis.Port,
