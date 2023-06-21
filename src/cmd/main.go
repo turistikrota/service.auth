@@ -45,7 +45,7 @@ func main() {
 		DB:       config.CacheRedis.Db,
 	})
 	tknSrv := token.New(token.Config{
-		Expiration: config.TokenSrv.Expiration,
+		Expiration:     config.TokenSrv.Expiration,
 		PublicKeyFile:  config.RSA.PublicKeyFile,
 		PrivateKeyFile: config.RSA.PrivateKeyFile,
 	})

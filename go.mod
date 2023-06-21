@@ -8,7 +8,7 @@ require (
 	github.com/mixarchitecture/i18np v0.0.0-20230331235711-ece4c5f1bb52
 	github.com/sirupsen/logrus v1.9.3
 	github.com/ssibrahimbas/turnstile v0.0.2
-	github.com/turistikrota/service.shared v0.0.17
+	github.com/turistikrota/service.shared v0.0.18
 	go.mongodb.org/mongo-driver v1.11.7
 )
 
