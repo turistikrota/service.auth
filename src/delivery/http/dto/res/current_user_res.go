@@ -35,7 +35,7 @@ func (r *response) CurrentUserAccount(u *jwt.UserClaim) []CurrentUserAccount {
 	for _, a := range u.Accounts {
 		accounts = append(accounts, CurrentUserAccount{
 			Name:   a.Name,
-			Avatar: helper.CDN.DressUser(a.Name),
+			Avatar: helper.CDN.DressAvatar(a.Name),
 		})
 	}
 	return accounts
