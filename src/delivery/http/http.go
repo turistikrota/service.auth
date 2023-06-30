@@ -123,6 +123,7 @@ func (h Server) turnstile() fiber.Handler {
 		I18n:               h.i18n,
 		BadRequestMsgKey:   Messages.Error.TurnstileBadRequest,
 		UnauthorizedMsgKey: Messages.Error.TurnstileUnauthorized,
+		Skip:               h.config.Turnstile.Skip,
 	})
 }
 
