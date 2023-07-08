@@ -1,4 +1,4 @@
-module api.turistikrota.com/auth
+module github.com/turistikrota/service.auth
 
 go 1.20
 

@@ -3,9 +3,9 @@ package account
 import (
 	"context"
 
-	"api.turistikrota.com/auth/src/adapters/mongo/account/entity"
-	"api.turistikrota.com/auth/src/domain/account"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.auth/src/adapters/mongo/account/entity"
+	"github.com/turistikrota/service.auth/src/domain/account"
 	"github.com/turistikrota/service.shared/jwt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"

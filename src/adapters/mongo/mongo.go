@@ -1,12 +1,12 @@
 package mongo
 
 import (
-	mongo_account "api.turistikrota.com/auth/src/adapters/mongo/account"
-	mongo_owner "api.turistikrota.com/auth/src/adapters/mongo/owner"
-	mongo_user "api.turistikrota.com/auth/src/adapters/mongo/user"
-	"api.turistikrota.com/auth/src/domain/account"
-	"api.turistikrota.com/auth/src/domain/owner"
-	"api.turistikrota.com/auth/src/domain/user"
+	mongo_account "github.com/turistikrota/service.auth/src/adapters/mongo/account"
+	mongo_owner "github.com/turistikrota/service.auth/src/adapters/mongo/owner"
+	mongo_user "github.com/turistikrota/service.auth/src/adapters/mongo/user"
+	"github.com/turistikrota/service.auth/src/domain/account"
+	"github.com/turistikrota/service.auth/src/domain/owner"
+	"github.com/turistikrota/service.auth/src/domain/user"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

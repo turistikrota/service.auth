@@ -1,6 +1,6 @@
 package req
 
-import "api.turistikrota.com/auth/src/app/command"
+import "github.com/turistikrota/service.auth/src/app/command"
 
 type ReSendVerificationRequest struct {
 	Email string `json:"email" validate:"required,email"`

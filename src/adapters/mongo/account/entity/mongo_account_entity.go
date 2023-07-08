@@ -3,7 +3,7 @@ package entity
 import (
 	"time"
 
-	"api.turistikrota.com/auth/src/domain/account"
+	"github.com/turistikrota/service.auth/src/domain/account"
 	"github.com/turistikrota/service.shared/jwt"
 )
 

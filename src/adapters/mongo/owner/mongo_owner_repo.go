@@ -1,8 +1,8 @@
 package owner
 
 import (
-	"api.turistikrota.com/auth/src/adapters/mongo/owner/entity"
-	"api.turistikrota.com/auth/src/domain/owner"
+	"github.com/turistikrota/service.auth/src/adapters/mongo/owner/entity"
+	"github.com/turistikrota/service.auth/src/domain/owner"
 	mongo2 "github.com/turistikrota/service.shared/db/mongo"
 	"go.mongodb.org/mongo-driver/mongo"
 )

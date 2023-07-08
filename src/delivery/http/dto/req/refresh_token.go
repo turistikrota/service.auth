@@ -1,7 +1,7 @@
 package req
 
 import (
-	"api.turistikrota.com/auth/src/app/command"
+	"github.com/turistikrota/service.auth/src/app/command"
 )
 
 type RefreshTokenRequest struct {

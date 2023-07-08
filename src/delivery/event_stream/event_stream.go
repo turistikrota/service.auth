@@ -3,10 +3,10 @@ package event_stream
 import (
 	"context"
 
-	"api.turistikrota.com/auth/src/app"
-	"api.turistikrota.com/auth/src/config"
-	"api.turistikrota.com/auth/src/delivery/event_stream/dto"
 	"github.com/sirupsen/logrus"
+	"github.com/turistikrota/service.auth/src/app"
+	"github.com/turistikrota/service.auth/src/config"
+	"github.com/turistikrota/service.auth/src/delivery/event_stream/dto"
 	"github.com/turistikrota/service.shared/events"
 )
 

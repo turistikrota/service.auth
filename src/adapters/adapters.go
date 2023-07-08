@@ -1,9 +1,9 @@
 package adapters
 
 import (
-	"api.turistikrota.com/auth/src/adapters/memory"
-	"api.turistikrota.com/auth/src/adapters/mongo"
-	"api.turistikrota.com/auth/src/adapters/mysql"
+	"github.com/turistikrota/service.auth/src/adapters/memory"
+	"github.com/turistikrota/service.auth/src/adapters/mongo"
+	"github.com/turistikrota/service.auth/src/adapters/mysql"
 )
 
 var (

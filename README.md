@@ -20,11 +20,11 @@ docker secret create jwt_public_key ./jwtRS256.key.pub
 ## 3. build image
 
 ```bash
-docker build --build-arg GITHUB_USER=<USER_NAME> --build-arg GITHUB_TOKEN=<ACCESS_TOKEN> -t api.turistikrota.com/auth .  
+docker build --build-arg GITHUB_USER=<USER_NAME> --build-arg GITHUB_TOKEN=<ACCESS_TOKEN> -t github.com/turistikrota/service.auth .  
 ```
 
 ## 4. run container
 
 ```bash
-docker service create --name auth-api-turistikrota-com --network turistikrota --secret jwt_private_key --secret jwt_public_key --env-file .env --publish 6015:6015 api.turistikrota.com/auth:latest
+docker service create --name auth-api-turistikrota-com --network turistikrota --secret jwt_private_key --secret jwt_public_key --env-file .env --publish 6015:6015 github.com/turistikrota/service.auth:latest
 ```

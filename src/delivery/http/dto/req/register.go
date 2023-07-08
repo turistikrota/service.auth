@@ -1,13 +1,13 @@
 package req
 
 import (
-	"api.turistikrota.com/auth/src/app/command"
+	"github.com/turistikrota/service.auth/src/app/command"
 )
 
 type RegisterRequest struct {
 	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required,password"`
-	Privacy  *bool   `json:"privacy" validate:"required,eq=true"`
+	Privacy  *bool  `json:"privacy" validate:"required,eq=true"`
 }
 
 func (r *RegisterRequest) ToCommand(lang string) command.RegisterCommand {

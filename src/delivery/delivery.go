@@ -3,13 +3,13 @@ package delivery
 import (
 	"context"
 
-	"api.turistikrota.com/auth/src/app"
-	"api.turistikrota.com/auth/src/config"
-	"api.turistikrota.com/auth/src/delivery/event_stream"
-	"api.turistikrota.com/auth/src/delivery/http"
 	"github.com/gofiber/fiber/v2"
 	"github.com/mixarchitecture/i18np"
 	"github.com/ssibrahimbas/turnstile"
+	"github.com/turistikrota/service.auth/src/app"
+	"github.com/turistikrota/service.auth/src/config"
+	"github.com/turistikrota/service.auth/src/delivery/event_stream"
+	"github.com/turistikrota/service.auth/src/delivery/http"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
 	"github.com/turistikrota/service.shared/events"

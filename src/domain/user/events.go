@@ -3,8 +3,8 @@ package user
 import (
 	"fmt"
 
-	"api.turistikrota.com/auth/src/config"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.auth/src/config"
 	"github.com/turistikrota/service.shared/events"
 	"github.com/turistikrota/service.shared/helper"
 )

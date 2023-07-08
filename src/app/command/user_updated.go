@@ -3,8 +3,8 @@ package command
 import (
 	"context"
 
-	"api.turistikrota.com/auth/src/domain/user"
 	"github.com/mixarchitecture/i18np"
+	"github.com/turistikrota/service.auth/src/domain/user"
 	"github.com/turistikrota/service.shared/decorator"
 )
 

@@ -1,8 +1,8 @@
 package http
 
 import (
-	"api.turistikrota.com/auth/src/delivery/http/dto"
 	"github.com/gofiber/fiber/v2"
+	"github.com/turistikrota/service.auth/src/delivery/http/dto"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/server/http/auth"
 	"github.com/turistikrota/service.shared/server/http/auth/current_user"
