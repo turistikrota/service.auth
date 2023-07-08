@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/mixarchitecture/i18np"
+	"github.com/mixarchitecture/microp/events"
 	"github.com/turistikrota/service.auth/src/config"
-	"github.com/turistikrota/service.shared/events"
 	"github.com/turistikrota/service.shared/helper"
 )
 

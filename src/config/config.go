@@ -1,6 +1,6 @@
 package config
 
-import "github.com/turistikrota/service.shared/types/cookie"
+import "github.com/mixarchitecture/microp/types/cookie"
 
 type MongoAuth struct {
 	Host       string `env:"MONGO_AUTH_HOST" envDefault:"localhost"`

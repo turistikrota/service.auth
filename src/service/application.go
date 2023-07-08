@@ -1,7 +1,10 @@
 package service
 
 import (
+	"github.com/mixarchitecture/cache"
 	"github.com/mixarchitecture/i18np"
+	"github.com/mixarchitecture/microp/decorator"
+	"github.com/mixarchitecture/microp/events"
 	"github.com/turistikrota/service.auth/src/adapters"
 	"github.com/turistikrota/service.auth/src/app"
 	"github.com/turistikrota/service.auth/src/app/command"
@@ -13,9 +16,6 @@ import (
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
 	"github.com/turistikrota/service.shared/db/mongo"
-	"github.com/turistikrota/service.shared/db/redis"
-	"github.com/turistikrota/service.shared/decorator"
-	"github.com/turistikrota/service.shared/events"
 )
 
 type Config struct {
@@ -25,7 +25,7 @@ type Config struct {
 	SessionSrv  session.Service
 	Mongo       *mongo.DB
 	I18n        *i18np.I18n
-	CacheSrv    redis.Service
+	CacheSrv    cache.Service
 }
 
 func NewApplication(c Config) app.Application {

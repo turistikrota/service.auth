@@ -4,6 +4,8 @@ import (
 	"context"
 
 	"github.com/mixarchitecture/i18np"
+	"github.com/mixarchitecture/microp/decorator"
+	"github.com/mixarchitecture/microp/events"
 	"github.com/turistikrota/service.auth/src/config"
 	"github.com/turistikrota/service.auth/src/domain/account"
 	"github.com/turistikrota/service.auth/src/domain/owner"
@@ -11,8 +13,6 @@ import (
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
 	"github.com/turistikrota/service.shared/cipher"
-	"github.com/turistikrota/service.shared/decorator"
-	"github.com/turistikrota/service.shared/events"
 	"github.com/turistikrota/service.shared/helper"
 	"github.com/turistikrota/service.shared/jwt"
 )

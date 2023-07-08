@@ -3,13 +3,16 @@ module github.com/turistikrota/service.auth
 go 1.20
 
 require (
-	github.com/gofiber/fiber/v2 v2.46.0
+	github.com/gofiber/fiber/v2 v2.47.0
 	github.com/google/uuid v1.3.0
+	github.com/mixarchitecture/cache v1.0.0
 	github.com/mixarchitecture/i18np v0.0.0-20230331235711-ece4c5f1bb52
+	github.com/mixarchitecture/microp v0.0.1
+	github.com/mixarchitecture/mredis v1.0.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/ssibrahimbas/turnstile v0.0.2
-	github.com/turistikrota/service.shared v0.0.21
-	go.mongodb.org/mongo-driver v1.11.7
+	github.com/turistikrota/service.shared v0.0.24
+	go.mongodb.org/mongo-driver v1.12.0
 )
 
 require (
@@ -36,12 +39,11 @@ require (
 	github.com/minio/highwayhash v1.0.2 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/nats-io/jwt/v2 v2.4.1 // indirect
-	github.com/nats-io/nats.go v1.27.0 // indirect
+	github.com/nats-io/nats.go v1.27.1 // indirect
 	github.com/nats-io/nkeys v0.4.4 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/nicksnyder/go-i18n/v2 v2.2.1 // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/redis/go-redis/v9 v9.0.5 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/savsgio/dictpool v0.0.0-20221023140959-7bf2e61cea94 // indirect
