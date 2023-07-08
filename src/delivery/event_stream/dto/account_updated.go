@@ -3,7 +3,7 @@ package dto
 import (
 	"time"
 
-	"api.turistikrota.com/auth/src/app/command"
+	"github.com/turistikrota/service.auth/src/app/command"
 )
 
 type AccountUpdated struct {

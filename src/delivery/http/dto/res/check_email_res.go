@@ -1,6 +1,6 @@
 package res
 
-import "api.turistikrota.com/auth/src/app/query"
+import "github.com/turistikrota/service.auth/src/app/query"
 
 type CheckEmailResponse struct {
 	Exists bool `json:"exists"`

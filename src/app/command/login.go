@@ -3,16 +3,16 @@ package command
 import (
 	"context"
 
-	"api.turistikrota.com/auth/src/config"
-	"api.turistikrota.com/auth/src/domain/account"
-	"api.turistikrota.com/auth/src/domain/owner"
-	"api.turistikrota.com/auth/src/domain/user"
 	"github.com/mixarchitecture/i18np"
+	"github.com/mixarchitecture/microp/decorator"
+	"github.com/mixarchitecture/microp/events"
+	"github.com/turistikrota/service.auth/src/config"
+	"github.com/turistikrota/service.auth/src/domain/account"
+	"github.com/turistikrota/service.auth/src/domain/owner"
+	"github.com/turistikrota/service.auth/src/domain/user"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
 	"github.com/turistikrota/service.shared/cipher"
-	"github.com/turistikrota/service.shared/decorator"
-	"github.com/turistikrota/service.shared/events"
 	"github.com/turistikrota/service.shared/helper"
 	"github.com/turistikrota/service.shared/jwt"
 )
@@ -123,7 +123,7 @@ func (h loginHandler) start2FA(config *Login2FAConfig, ses *session.SessionUser)
 		UserUUID:   config.User.UUID,
 		DeviceUUID: config.Command.DeviceUUID,
 		Redirect: helper.Start2FARedirect{
-			WebURL:     "https://api.turistikrota.com/auth/check-2fa",
+			WebURL:     "https://github.com/turistikrota/service.auth/check-2fa",
 			Stream:     h.authTopics.LoginVerified,
 			BaseStream: h.authTopics.Base,
 			StreamData: config,

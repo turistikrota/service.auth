@@ -1,8 +1,8 @@
 package user
 
 import (
-	"api.turistikrota.com/auth/src/adapters/mongo/user/entity"
-	"api.turistikrota.com/auth/src/domain/user"
+	"github.com/turistikrota/service.auth/src/adapters/mongo/user/entity"
+	"github.com/turistikrota/service.auth/src/domain/user"
 	mongo2 "github.com/turistikrota/service.shared/db/mongo"
 	"go.mongodb.org/mongo-driver/mongo"
 )

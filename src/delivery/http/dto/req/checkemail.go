@@ -1,7 +1,7 @@
 package req
 
 import (
-	"api.turistikrota.com/auth/src/app/query"
+	"github.com/turistikrota/service.auth/src/app/query"
 )
 
 type CheckEmailRequest struct {

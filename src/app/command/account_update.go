@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"api.turistikrota.com/auth/src/domain/account"
-	"github.com/turistikrota/service.shared/decorator"
+	"github.com/mixarchitecture/microp/decorator"
+	"github.com/turistikrota/service.auth/src/domain/account"
 
 	"github.com/mixarchitecture/i18np"
 )

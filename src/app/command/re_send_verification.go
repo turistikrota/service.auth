@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	"api.turistikrota.com/auth/src/domain/user"
 	"github.com/google/uuid"
 	"github.com/mixarchitecture/i18np"
-	"github.com/turistikrota/service.shared/decorator"
+	"github.com/mixarchitecture/microp/decorator"
+	"github.com/turistikrota/service.auth/src/domain/user"
 )
 
 type ReSendVerificationCommand struct {

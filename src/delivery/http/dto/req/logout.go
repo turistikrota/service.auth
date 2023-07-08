@@ -1,6 +1,6 @@
 package req
 
-import "api.turistikrota.com/auth/src/app/command"
+import "github.com/turistikrota/service.auth/src/app/command"
 
 type LogoutRequest struct {
 	UserUUID   string

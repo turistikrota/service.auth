@@ -4,18 +4,19 @@ import (
 	"context"
 	"fmt"
 
-	"api.turistikrota.com/auth/src/config"
-	"api.turistikrota.com/auth/src/delivery"
-	"api.turistikrota.com/auth/src/service"
 	"github.com/mixarchitecture/i18np"
+	"github.com/mixarchitecture/microp/env"
+	"github.com/mixarchitecture/microp/events/nats"
+	"github.com/mixarchitecture/microp/logs"
+	"github.com/mixarchitecture/mredis"
 	"github.com/ssibrahimbas/turnstile"
+	"github.com/turistikrota/service.auth/src/config"
+	"github.com/turistikrota/service.auth/src/delivery"
+	"github.com/turistikrota/service.auth/src/service"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
 	"github.com/turistikrota/service.shared/db/mongo"
 	"github.com/turistikrota/service.shared/db/redis"
-	"github.com/turistikrota/service.shared/env"
-	"github.com/turistikrota/service.shared/events/nats"
-	"github.com/turistikrota/service.shared/logs"
 )
 
 func main() {
@@ -29,7 +30,6 @@ func main() {
 		Url:     config.Nats.Url,
 		Streams: config.Nats.Streams,
 	})
-	fmt.Printf("redis ghost: %s\n", config.Redis.Host)
 	r := redis.New(&redis.Config{
 		Host:     config.Redis.Host,
 		Port:     config.Redis.Port,
@@ -37,8 +37,7 @@ func main() {
 		DB:       config.Redis.Db,
 	})
 	mongo := loadMongo(config)
-	fmt.Printf("Redis ping:: %s\n", r.Ping())
-	cache := redis.New(&redis.Config{
+	cache := mredis.New(&mredis.Config{
 		Host:     config.CacheRedis.Host,
 		Port:     config.CacheRedis.Port,
 		Password: config.CacheRedis.Pw,

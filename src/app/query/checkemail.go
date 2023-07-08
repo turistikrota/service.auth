@@ -4,10 +4,10 @@ import (
 	"context"
 	"time"
 
-	"api.turistikrota.com/auth/src/domain/user"
+	"github.com/mixarchitecture/cache"
 	"github.com/mixarchitecture/i18np"
-	"github.com/turistikrota/service.shared/cache"
-	"github.com/turistikrota/service.shared/decorator"
+	"github.com/mixarchitecture/microp/decorator"
+	"github.com/turistikrota/service.auth/src/domain/user"
 )
 
 type CheckEmailQuery struct {
@@ -45,7 +45,7 @@ func (h checkEmailHandler) Handle(ctx context.Context, query CheckEmailQuery) (*
 	cacheHandler := func() (bool, *i18np.Error) {
 		return h.repo.CheckEmail(ctx, query.Email)
 	}
-	res, err := h.cache.Creator(h.createCacheEntity).Handler(cacheHandler).Timeout(1 * time.Minute).Get(h.generateCacheKey(query))
+	res, err := h.cache.Creator(h.createCacheEntity).Handler(cacheHandler).Timeout(1*time.Minute).Get(ctx, h.generateCacheKey(query))
 	if err != nil {
 		return nil, err
 	}

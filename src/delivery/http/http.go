@@ -4,18 +4,20 @@ import (
 	"context"
 	"time"
 
-	"api.turistikrota.com/auth/src/app"
-	"api.turistikrota.com/auth/src/config"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/timeout"
 	"github.com/mixarchitecture/i18np"
+	"github.com/mixarchitecture/microp/server/http"
+	"github.com/mixarchitecture/microp/server/http/parser"
+	"github.com/mixarchitecture/microp/validator"
 	"github.com/ssibrahimbas/turnstile"
+	"github.com/turistikrota/service.auth/src/app"
+	"github.com/turistikrota/service.auth/src/config"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
 	"github.com/turistikrota/service.shared/csrf"
-	"github.com/turistikrota/service.shared/server/http"
 	"github.com/turistikrota/service.shared/server/http/auth"
 	"github.com/turistikrota/service.shared/server/http/auth/current_user"
 	"github.com/turistikrota/service.shared/server/http/auth/device_uuid"
@@ -23,8 +25,6 @@ import (
 	"github.com/turistikrota/service.shared/server/http/auth/required_access"
 	turnstile_middleware "github.com/turistikrota/service.shared/server/http/auth/turnstile"
 	"github.com/turistikrota/service.shared/server/http/auth/two_factor"
-	"github.com/turistikrota/service.shared/server/http/parser"
-	"github.com/turistikrota/service.shared/validator"
 )
 
 type Server struct {

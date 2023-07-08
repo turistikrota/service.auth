@@ -1,8 +1,8 @@
 package dto
 
 import (
-	"api.turistikrota.com/auth/src/app/command"
-	"api.turistikrota.com/auth/src/domain/owner"
+	"github.com/turistikrota/service.auth/src/app/command"
+	"github.com/turistikrota/service.auth/src/domain/owner"
 )
 
 type OwnerCreated struct {

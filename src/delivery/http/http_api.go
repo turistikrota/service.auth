@@ -1,16 +1,16 @@
 package http
 
 import (
-	"api.turistikrota.com/auth/src/delivery/http/dto"
 	"github.com/gofiber/fiber/v2"
+	httpI18n "github.com/mixarchitecture/microp/server/http/i18n"
+	"github.com/mixarchitecture/microp/server/http/result"
+	"github.com/turistikrota/service.auth/src/delivery/http/dto"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/server/http/auth"
 	"github.com/turistikrota/service.shared/server/http/auth/current_user"
 	"github.com/turistikrota/service.shared/server/http/auth/device_uuid"
 	"github.com/turistikrota/service.shared/server/http/auth/refresh_token"
 	"github.com/turistikrota/service.shared/server/http/auth/two_factor"
-	httpI18n "github.com/turistikrota/service.shared/server/http/i18n"
-	"github.com/turistikrota/service.shared/server/http/result"
 )
 
 func (h Server) Register(ctx *fiber.Ctx) error {

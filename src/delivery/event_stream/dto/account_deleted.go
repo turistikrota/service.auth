@@ -1,6 +1,6 @@
 package dto
 
-import "api.turistikrota.com/auth/src/app/command"
+import "github.com/turistikrota/service.auth/src/app/command"
 
 type AccountDeleted struct {
 	UserUUID    string `json:"user_uuid"`

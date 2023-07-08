@@ -3,13 +3,13 @@ package command
 import (
 	"context"
 
-	"api.turistikrota.com/auth/src/config"
-	"api.turistikrota.com/auth/src/domain/user"
 	"github.com/mixarchitecture/i18np"
+	"github.com/mixarchitecture/microp/decorator"
+	"github.com/mixarchitecture/microp/events"
+	"github.com/turistikrota/service.auth/src/config"
+	"github.com/turistikrota/service.auth/src/domain/user"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
-	"github.com/turistikrota/service.shared/decorator"
-	"github.com/turistikrota/service.shared/events"
 )
 
 type LogoutCommand struct {

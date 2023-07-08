@@ -3,9 +3,9 @@ package command
 import (
 	"context"
 
-	"api.turistikrota.com/auth/src/domain/owner"
 	"github.com/mixarchitecture/i18np"
-	"github.com/turistikrota/service.shared/decorator"
+	"github.com/mixarchitecture/microp/decorator"
+	"github.com/turistikrota/service.auth/src/domain/owner"
 )
 
 type OwnerEnableCommand struct {
