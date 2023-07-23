@@ -82,6 +82,7 @@ func (h Server) Logout(ctx *fiber.Ctx) error {
 	}
 	refresh_token.Remove(ctx, h.config.HttpHeaders.Domain)
 	current_user.RemoveCookie(ctx, auth.Cookies.AccessToken, h.config.HttpHeaders.Domain)
+	h.removeSelectedAccountInCookie(ctx)
 	return result.Success(Messages.Success.Logout)
 }
 

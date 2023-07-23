@@ -99,6 +99,18 @@ func (h Server) rateLimit(limit int) fiber.Handler {
 	})
 }
 
+func (h Server) removeSelectedAccountInCookie(ctx *fiber.Ctx) {
+	ctx.Cookie(&fiber.Cookie{
+		Name:     ".s.a.u",
+		Value:    "",
+		Expires:  time.Now().Add(time.Hour * -1),
+		HTTPOnly: true,
+		Secure:   true,
+		Domain:   h.config.HttpHeaders.Domain,
+		SameSite: "Strict",
+	})
+}
+
 func (h Server) csrf() fiber.Handler {
 	return csrf.New(csrf.Config{
 		Base: csrf.Base{
