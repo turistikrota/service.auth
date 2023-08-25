@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/mixarchitecture/i18np"
+	"github.com/mixarchitecture/microp/types/list"
 	"github.com/turistikrota/service.auth/src/adapters/mongo/user/entity"
 	"github.com/turistikrota/service.auth/src/domain/user"
 	sharedMongo "github.com/turistikrota/service.shared/db/mongo"
@@ -166,4 +167,30 @@ func (r *repo) checkExist(ctx context.Context, email string) (bool, *i18np.Error
 		return false, r.userFactory.Errors.Failed(err.Error())
 	}
 	return true, nil
+}
+
+func (r *repo) List(ctx context.Context, config list.Config) (*list.Result[*user.User], *i18np.Error) {
+	transformer := func(e *entity.MongoUser) *user.User {
+		return e.ToUser()
+	}
+	l, err := r.helper.GetListFilterTransform(ctx, bson.M{}, transformer)
+	if err != nil {
+		return nil, err
+	}
+	filtered, _err := r.helper.GetFilterCount(ctx, bson.M{})
+	if _err != nil {
+		return nil, _err
+	}
+	total, _err := r.helper.GetFilterCount(ctx, bson.M{})
+	if _err != nil {
+		return nil, _err
+	}
+	return &list.Result[*user.User]{
+		IsNext:        filtered > config.Offset+config.Limit,
+		IsPrev:        config.Offset > 0,
+		FilteredTotal: filtered,
+		Total:         total,
+		Page:          config.Offset/config.Limit + 1,
+		List:          l,
+	}, nil
 }
