@@ -128,6 +128,7 @@ func (h Server) CurrentUser(ctx *fiber.Ctx) error {
 func (h Server) UserList(ctx *fiber.Ctx) error {
 	d := dto.Request.Pagination()
 	h.parseQuery(ctx, d)
+	d.Default()
 	res, err := h.app.Queries.UserList.Handle(ctx.UserContext(), query.UserListQuery{
 		Offset: int64(*d.Page-1) * *d.Limit,
 		Limit:  *d.Limit,
