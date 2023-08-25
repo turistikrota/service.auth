@@ -21,6 +21,7 @@ type errorMessages struct {
 	LoginVerify           string
 	TurnstileBadRequest   string
 	TurnstileUnauthorized string
+	AdminRoute            string
 }
 
 type messages struct {
@@ -49,5 +50,6 @@ var Messages = messages{
 		LoginVerify:           "error_login_verify",
 		TurnstileBadRequest:   "error_turnstile_bad_request",
 		TurnstileUnauthorized: "error_turnstile_unauthorized",
+		AdminRoute:            "error_admin_route",
 	},
 }
