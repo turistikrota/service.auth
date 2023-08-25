@@ -9,6 +9,7 @@ type successMessages struct {
 	ReSendVerification string
 	CurrentUser        string
 	EmailAvailable     string
+	UserList           string
 }
 
 type errorMessages struct {
@@ -37,6 +38,7 @@ var Messages = messages{
 		ReSendVerification: "success_resend_verification",
 		CurrentUser:        "success_current_user",
 		EmailAvailable:     "success_email_available",
+		UserList:           "success_user_list",
 	},
 	Error: errorMessages{
 		Login:                 "error_login",

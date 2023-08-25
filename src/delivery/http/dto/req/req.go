@@ -9,6 +9,7 @@ type Request interface {
 	Verify() *VerifyRequest
 	ReSendVerification() *ReSendVerificationRequest
 	CheckEmail() *CheckEmailRequest
+	Pagination() *PaginationRequest
 }
 
 type request struct{}
