@@ -17,5 +17,5 @@ type Repository interface {
 	SetToken(ctx context.Context, email string, token string) *i18np.Error
 	Verify(ctx context.Context, token string) *i18np.Error
 	UpdateByUUID(ctx context.Context, user *User) (*User, *i18np.Error)
-	List(ctx context.Context, config list.Config) (*list.Result[*User], *i18np.Error)
+	List(ctx context.Context, config list.Config) (*list.Result[*ListEntity], *i18np.Error)
 }

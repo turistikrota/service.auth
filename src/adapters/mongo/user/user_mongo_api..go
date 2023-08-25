@@ -169,7 +169,7 @@ func (r *repo) checkExist(ctx context.Context, email string) (bool, *i18np.Error
 	return true, nil
 }
 
-func (r *repo) List(ctx context.Context, config list.Config) (*list.Result[*user.User], *i18np.Error) {
+func (r *repo) List(ctx context.Context, config list.Config) (*list.Result[*user.ListEntity], *i18np.Error) {
 	transformer := func(e *entity.MongoUser) *user.User {
 		return e.ToUser()
 	}
@@ -185,12 +185,16 @@ func (r *repo) List(ctx context.Context, config list.Config) (*list.Result[*user
 	if _err != nil {
 		return nil, _err
 	}
-	return &list.Result[*user.User]{
+	li := make([]*user.ListEntity, len(l))
+	for i, u := range l {
+		li[i] = u.ToListEntity()
+	}
+	return &list.Result[*user.ListEntity]{
 		IsNext:        filtered > config.Offset+config.Limit,
 		IsPrev:        config.Offset > 0,
 		FilteredTotal: filtered,
 		Total:         total,
 		Page:          config.Offset/config.Limit + 1,
-		List:          l,
+		List:          li,
 	}, nil
 }

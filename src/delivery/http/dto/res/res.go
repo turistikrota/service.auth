@@ -12,7 +12,7 @@ type Response interface {
 	VerifyRequired() *VerifyRequiredResponse
 	CurrentUser(u *jwt.UserClaim) *CurrentUserResponse
 	CheckEmail(result *query.CheckEmailResult) *CheckEmailResponse
-	UserList(res *query.UserListResult) *list.Result[*user.User]
+	UserList(res *query.UserListResult) *list.Result[*user.ListEntity]
 }
 
 type response struct{}

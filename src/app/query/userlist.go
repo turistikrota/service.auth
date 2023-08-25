@@ -18,14 +18,14 @@ type UserListQuery struct {
 }
 
 type UserListResult struct {
-	List *list.Result[*user.User]
+	List *list.Result[*user.ListEntity]
 }
 
 type UserListHandler decorator.QueryHandler[UserListQuery, *UserListResult]
 
 type userListHandler struct {
 	repo  user.Repository
-	cache cache.Client[*list.Result[*user.User]]
+	cache cache.Client[*list.Result[*user.ListEntity]]
 }
 
 type UserListHandlerConfig struct {
@@ -38,14 +38,14 @@ func NewUserListHandler(config UserListHandlerConfig) UserListHandler {
 	return decorator.ApplyQueryDecorators[UserListQuery, *UserListResult](
 		userListHandler{
 			repo:  config.Repo,
-			cache: cache.New[*list.Result[*user.User]](config.CacheSrv),
+			cache: cache.New[*list.Result[*user.ListEntity]](config.CacheSrv),
 		},
 		config.CqrsBase,
 	)
 }
 
 func (h userListHandler) Handle(ctx context.Context, query UserListQuery) (*UserListResult, *i18np.Error) {
-	cacheHandler := func() (*list.Result[*user.User], *i18np.Error) {
+	cacheHandler := func() (*list.Result[*user.ListEntity], *i18np.Error) {
 		return h.repo.List(ctx, list.Config{
 			Offset: query.Offset,
 			Limit:  query.Limit,
@@ -60,8 +60,8 @@ func (h userListHandler) Handle(ctx context.Context, query UserListQuery) (*User
 	}, nil
 }
 
-func (h userListHandler) createCacheEntity() *list.Result[*user.User] {
-	return &list.Result[*user.User]{}
+func (h userListHandler) createCacheEntity() *list.Result[*user.ListEntity] {
+	return &list.Result[*user.ListEntity]{}
 }
 
 func (h userListHandler) generateCacheKey(query UserListQuery) string {

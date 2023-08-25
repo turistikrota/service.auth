@@ -6,6 +6,6 @@ import (
 	"github.com/turistikrota/service.auth/src/domain/user"
 )
 
-func (r *response) UserList(res *query.UserListResult) *list.Result[*user.User] {
+func (r *response) UserList(res *query.UserListResult) *list.Result[*user.ListEntity] {
 	return res.List
 }
