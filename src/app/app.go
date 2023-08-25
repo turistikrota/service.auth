@@ -38,4 +38,5 @@ type Commands struct {
 
 type Queries struct {
 	CheckEmail query.CheckEmailHandler
+	UserList   query.UserListHandler
 }

@@ -9,6 +9,7 @@ type successMessages struct {
 	ReSendVerification string
 	CurrentUser        string
 	EmailAvailable     string
+	UserList           string
 }
 
 type errorMessages struct {
@@ -20,6 +21,7 @@ type errorMessages struct {
 	LoginVerify           string
 	TurnstileBadRequest   string
 	TurnstileUnauthorized string
+	AdminRoute            string
 }
 
 type messages struct {
@@ -37,6 +39,7 @@ var Messages = messages{
 		ReSendVerification: "success_resend_verification",
 		CurrentUser:        "success_current_user",
 		EmailAvailable:     "success_email_available",
+		UserList:           "success_user_list",
 	},
 	Error: errorMessages{
 		Login:                 "error_login",
@@ -47,5 +50,6 @@ var Messages = messages{
 		LoginVerify:           "error_login_verify",
 		TurnstileBadRequest:   "error_turnstile_bad_request",
 		TurnstileUnauthorized: "error_turnstile_unauthorized",
+		AdminRoute:            "error_admin_route",
 	},
 }

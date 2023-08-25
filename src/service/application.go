@@ -178,6 +178,11 @@ func NewApplication(c Config) app.Application {
 				CqrsBase: base,
 				CacheSrv: c.CacheSrv,
 			}),
+			UserList: query.NewUserListHandler(query.UserListHandlerConfig{
+				Repo:     userRepo,
+				CqrsBase: base,
+				CacheSrv: c.CacheSrv,
+			}),
 		},
 	}
 }

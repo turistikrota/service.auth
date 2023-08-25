@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	httpI18n "github.com/mixarchitecture/microp/server/http/i18n"
 	"github.com/mixarchitecture/microp/server/http/result"
+	"github.com/turistikrota/service.auth/src/app/query"
 	"github.com/turistikrota/service.auth/src/delivery/http/dto"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/server/http/auth"
@@ -122,6 +123,19 @@ func (h Server) CurrentUser(ctx *fiber.Ctx) error {
 	u := current_user.Parse(ctx)
 	res := dto.Response.CurrentUser(u)
 	return result.SuccessDetail(Messages.Success.CurrentUser, res)
+}
+
+func (h Server) UserList(ctx *fiber.Ctx) error {
+	d := dto.Request.Pagination()
+	h.parseQuery(ctx, d)
+	d.Default()
+	res, err := h.app.Queries.UserList.Handle(ctx.UserContext(), query.UserListQuery{
+		Offset: int64(*d.Page-1) * *d.Limit,
+		Limit:  *d.Limit,
+	})
+	return result.IfSuccessDetail(err, ctx, h.i18n, Messages.Success.UserList, func() interface{} {
+		return dto.Response.UserList(res)
+	})
 }
 
 func (h Server) makeDevice(ctx *fiber.Ctx) *session.Device {

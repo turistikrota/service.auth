@@ -19,6 +19,7 @@ import (
 	"github.com/turistikrota/service.shared/auth/token"
 	"github.com/turistikrota/service.shared/csrf"
 	"github.com/turistikrota/service.shared/server/http/auth"
+	"github.com/turistikrota/service.shared/server/http/auth/claim_guard"
 	"github.com/turistikrota/service.shared/server/http/auth/current_user"
 	"github.com/turistikrota/service.shared/server/http/auth/device_uuid"
 	"github.com/turistikrota/service.shared/server/http/auth/refresh_token"
@@ -73,6 +74,7 @@ func (h Server) Load(router fiber.Router) fiber.Router {
 	router.Post("/re-verify", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.ReSendVerification))
 	router.Post("/:token", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Verify))
 	router.Get("/", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.CurrentUser))
+	router.Get("/user-list", h.currentUserAccess(), h.requiredAccess(), h.adminRoute(config.Roles.UserList), h.wrapWithTimeout(h.UserList))
 	return router
 }
 
@@ -169,6 +171,18 @@ func (h Server) currentUserTemp() fiber.Handler {
 		Is2FA:      true,
 		IsAccess:   false,
 		LocalKey:   two_factor.LocalKey,
+	})
+}
+
+func (h Server) adminRoute(extra ...string) fiber.Handler {
+	claims := []string{config.Roles.Admin}
+	if len(extra) > 0 {
+		claims = append(claims, extra...)
+	}
+	return claim_guard.New(claim_guard.Config{
+		Claims: claims,
+		I18n:   h.i18n,
+		MsgKey: Messages.Error.AdminRoute,
 	})
 }
 
