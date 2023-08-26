@@ -198,3 +198,39 @@ func (r *repo) List(ctx context.Context, config list.Config) (*list.Result[*user
 		List:          li,
 	}, nil
 }
+
+func (r *repo) AddRoles(ctx context.Context, uuid string, roles []string) *i18np.Error {
+	id, err := sharedMongo.TransformId(uuid)
+	if err != nil {
+		return r.userFactory.Errors.NotFound(uuid)
+	}
+	filter := bson.M{
+		"_id": id,
+	}
+	update := bson.M{
+		"$addToSet": bson.M{
+			"roles": bson.M{
+				"$each": roles,
+			},
+		},
+	}
+	return r.helper.UpdateOne(ctx, filter, update)
+}
+
+func (r *repo) RemoveRoles(ctx context.Context, uuid string, roles []string) *i18np.Error {
+	id, err := sharedMongo.TransformId(uuid)
+	if err != nil {
+		return r.userFactory.Errors.NotFound(uuid)
+	}
+	filter := bson.M{
+		"_id": id,
+	}
+	update := bson.M{
+		"$pull": bson.M{
+			"roles": bson.M{
+				"$in": roles,
+			},
+		},
+	}
+	return r.helper.UpdateOne(ctx, filter, update)
+}

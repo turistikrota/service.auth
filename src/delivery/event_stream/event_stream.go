@@ -53,4 +53,6 @@ func (s Server) Load() {
 	_ = s.engine.Subscribe(s.Topics.Owner.UserRemoved, s.ListenOwnerUserRemoved)
 	_ = s.engine.Subscribe(s.Topics.Owner.UserPermissionAdded, s.ListenOwnerUserPermissionAdded)
 	_ = s.engine.Subscribe(s.Topics.Owner.UserPermissionRemoved, s.ListenOwnerUserPermissionRemoved)
+	_ = s.engine.Subscribe(s.Topics.Admin.PermissionsAdded, s.ListenUserRolesAdded)
+	_ = s.engine.Subscribe(s.Topics.Admin.PermissionsRemoved, s.ListenUserRolesRemoved)
 }

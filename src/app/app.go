@@ -34,6 +34,8 @@ type Commands struct {
 	OwnerDelete               command.OwnerDeleteHandler
 	OwnerRecover              command.OwnerRecoverHandler
 	OwnerVerify               command.OwnerVerifyHandler
+	UserRolesAdd              command.UserRolesAddHandler
+	UserRolesRemove           command.UserRolesRemoveHandler
 }
 
 type Queries struct {

@@ -171,6 +171,14 @@ func NewApplication(c Config) app.Application {
 				Repo:     ownerRepo,
 				CqrsBase: base,
 			}),
+			UserRolesAdd: command.NewUserRolesAddHandler(command.UserRolesAddHandlerConfig{
+				Repo:     userRepo,
+				CqrsBase: base,
+			}),
+			UserRolesRemove: command.NewUserRolesRemoveHandler(command.UserRolesRemoveHandlerConfig{
+				Repo:     userRepo,
+				CqrsBase: base,
+			}),
 		},
 		Queries: app.Queries{
 			CheckEmail: query.NewCheckEmailHandler(query.CheckEmailHandlerConfig{

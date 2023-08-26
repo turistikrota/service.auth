@@ -85,6 +85,7 @@ type Topics struct {
 	Verify  VerifyTopics
 	Account AccountTopics
 	Owner   OwnerTopics
+	Admin   AdminTopics
 }
 
 type Urls struct {
@@ -131,6 +132,11 @@ type OwnerTopics struct {
 	RecoverByAdmin        string `env:"STREAMING_TOPIC_OWNER_RECOVER_BY_ADMIN"`
 	Disabled              string `env:"STREAMING_TOPIC_OWNER_DISABLED"`
 	Enabled               string `env:"STREAMING_TOPIC_OWNER_ENABLED"`
+}
+
+type AdminTopics struct {
+	PermissionsAdded   string `env:"STREAMING_TOPIC_ADMIN_PERMISSIONS_ADDED"`
+	PermissionsRemoved string `env:"STREAMING_TOPIC_ADMIN_PERMISSIONS_REMOVED"`
 }
 
 type VerifyTopics struct {

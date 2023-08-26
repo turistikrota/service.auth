@@ -155,3 +155,21 @@ func (s Server) ListenOwnerUserPermissionRemoved(data []byte) {
 	}
 	_, _ = s.app.Commands.OwnerRemoveUserPermission.Handle(s.ctx, d.ToRemoveCommand())
 }
+
+func (s Server) ListenUserRolesAdded(data []byte) {
+	d := s.dto.UserRolesEvent()
+	err := json.Unmarshal(data, &d)
+	if err != nil {
+		return
+	}
+	_, _ = s.app.Commands.UserRolesAdd.Handle(s.ctx, d.ToAddCommand())
+}
+
+func (s Server) ListenUserRolesRemoved(data []byte) {
+	d := s.dto.UserRolesEvent()
+	err := json.Unmarshal(data, &d)
+	if err != nil {
+		return
+	}
+	_, _ = s.app.Commands.UserRolesRemove.Handle(s.ctx, d.ToRemoveCommand())
+}
