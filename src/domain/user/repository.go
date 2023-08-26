@@ -18,4 +18,6 @@ type Repository interface {
 	Verify(ctx context.Context, token string) *i18np.Error
 	UpdateByUUID(ctx context.Context, user *User) (*User, *i18np.Error)
 	List(ctx context.Context, config list.Config) (*list.Result[*ListEntity], *i18np.Error)
+	AddRoles(ctx context.Context, uuid string, roles []string) *i18np.Error
+	RemoveRoles(ctx context.Context, uuid string, roles []string) *i18np.Error
 }
