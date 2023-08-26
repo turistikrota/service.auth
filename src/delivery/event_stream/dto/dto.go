@@ -12,6 +12,7 @@ type Dto interface {
 	OwnerUserAdded() *OwnerUserAdded
 	OwnerUserRemoved() *OwnerUserRemoved
 	OwnerPermissionEvent() *OwnerPermissionEvent
+	UserRolesEvent() *UserRolesEvent
 }
 
 type dto struct{}
@@ -62,4 +63,8 @@ func (d *dto) OwnerUserRemoved() *OwnerUserRemoved {
 
 func (d *dto) OwnerPermissionEvent() *OwnerPermissionEvent {
 	return &OwnerPermissionEvent{}
+}
+
+func (d *dto) UserRolesEvent() *UserRolesEvent {
+	return &UserRolesEvent{}
 }
