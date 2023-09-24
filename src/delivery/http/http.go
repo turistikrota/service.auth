@@ -2,6 +2,7 @@ package http
 
 import (
 	"context"
+	"strings"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -234,5 +235,14 @@ func (h Server) cors() fiber.Handler {
 		AllowMethods:     h.config.HttpHeaders.AllowedMethods,
 		AllowHeaders:     h.config.HttpHeaders.AllowedHeaders,
 		AllowCredentials: h.config.HttpHeaders.AllowCredentials,
+		AllowOriginsFunc: func(origin string) bool {
+			origins := strings.Split(h.config.HttpHeaders.AllowedOrigins, ",")
+			for _, o := range origins {
+				if strings.Contains(origin, o) {
+					return true
+				}
+			}
+			return false
+		},
 	})
 }
