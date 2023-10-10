@@ -56,7 +56,8 @@ func main() {
 		Project:     config.TokenSrv.Project,
 	})
 	turnstileSrv := turnstile.New(turnstile.Config{
-		Secret: config.Turnstile.Secret,
+		Secret:       config.Turnstile.Secret,
+		BackupSecret: config.Turnstile.MobileSecret,
 	})
 	app := service.NewApplication(service.Config{
 		App:         config,

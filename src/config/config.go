@@ -13,8 +13,9 @@ type MongoAuth struct {
 }
 
 type Turnstile struct {
-	Secret string `env:"CF_TURNSTILE_SECRET_KEY"`
-	Skip   bool   `env:"TURNSTILE_SKIP_AUTH"`
+	Secret       string `env:"CF_TURNSTILE_SECRET_KEY"`
+	MobileSecret string `env:"CF_TURNSTILE_MOBILE_SECRET_KEY"`
+	Skip         bool   `env:"TURNSTILE_SKIP_AUTH"`
 }
 
 type RSA struct {
