@@ -20,4 +20,6 @@ type Repository interface {
 	List(ctx context.Context, config list.Config) (*list.Result[*ListEntity], *i18np.Error)
 	AddRoles(ctx context.Context, uuid string, roles []string) *i18np.Error
 	RemoveRoles(ctx context.Context, uuid string, roles []string) *i18np.Error
+	Delete(ctx context.Context, uuid string) *i18np.Error
+	Recover(ctx context.Context, uuid string) *i18np.Error
 }

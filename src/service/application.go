@@ -98,6 +98,10 @@ func NewApplication(c Config) app.Application {
 				Repo:     userRepo,
 				CqrsBase: base,
 			}),
+			UserDelete: command.NewUserDeleteHandler(command.UserDeleteHandlerConfig{
+				Repo:     userRepo,
+				CqrsBase: base,
+			}),
 			Verify: command.NewVerifyHandler(command.VerifyHandlerConfig{
 				Repo:     userRepo,
 				Factory:  userFactory,

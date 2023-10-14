@@ -2,6 +2,7 @@ package command
 
 import (
 	"context"
+	"time"
 
 	"github.com/mixarchitecture/i18np"
 	"github.com/mixarchitecture/microp/decorator"
@@ -93,6 +94,11 @@ func (h loginHandler) Handle(ctx context.Context, cmd LoginCommand) (*LoginResul
 		_ = h.publisher.Publish(h.authTopics.LoginFailed, user)
 		return nil, h.errors.InvalidPassword()
 	}
+	if user.IsDeleted {
+		if time.Now().Sub(user.DeletedAt) < 30*time.Hour*24 {
+			return nil, h.errors.Deleted()
+		}
+	}
 	accounts, owner, error := h.getUserRelations(ctx, user.UUID)
 	if error != nil {
 		return nil, error
@@ -110,7 +116,7 @@ func (h loginHandler) Handle(ctx context.Context, cmd LoginCommand) (*LoginResul
 			Command: cmd,
 		}, ses)
 	}
-	return h.login(user, cmd, ses)
+	return h.login(ctx, user, cmd, ses)
 }
 
 type Login2FAConfig struct {
@@ -144,7 +150,7 @@ func (h loginHandler) start2FA(config *Login2FAConfig, ses *session.SessionUser)
 	}, nil
 }
 
-func (h loginHandler) login(user *user.User, cmd LoginCommand, ses *session.SessionUser) (*LoginResult, *i18np.Error) {
+func (h loginHandler) login(ctx context.Context, user *user.User, cmd LoginCommand, ses *session.SessionUser) (*LoginResult, *i18np.Error) {
 	tokens, error := h.sessionSrv.New(session.NewCommand{
 		UserUUID:   user.UUID,
 		DeviceUUID: cmd.DeviceUUID,
@@ -153,6 +159,12 @@ func (h loginHandler) login(user *user.User, cmd LoginCommand, ses *session.Sess
 	})
 	if error != nil {
 		return nil, h.errors.Failed("token")
+	}
+	if user.IsDeleted && time.Since(user.DeletedAt) > 30*time.Hour*24 {
+		error = h.userRepo.Recover(ctx, user.UUID)
+		if error != nil {
+			return nil, error
+		}
 	}
 	_ = h.publisher.Publish(h.authTopics.LoggedIn, user)
 	return &LoginResult{

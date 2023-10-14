@@ -2,6 +2,7 @@ package command
 
 import (
 	"context"
+	"time"
 
 	"github.com/mixarchitecture/i18np"
 	"github.com/mixarchitecture/microp/decorator"
@@ -90,6 +91,12 @@ func (h loginVerifiedHandler) Handle(ctx context.Context, cmd LoginVerifiedComma
 	})
 	if error != nil {
 		return nil, h.errors.Failed("token")
+	}
+	if u.IsDeleted && time.Since(u.DeletedAt) > 30*time.Hour*24 {
+		error = h.repo.Recover(ctx, u.UUID)
+		if error != nil {
+			return nil, error
+		}
 	}
 	_ = h.publisher.Publish(h.authTopics.LoggedIn, u)
 	return &LoginVerifiedResult{

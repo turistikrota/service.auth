@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	httpI18n "github.com/mixarchitecture/microp/server/http/i18n"
 	"github.com/mixarchitecture/microp/server/http/result"
+	"github.com/turistikrota/service.auth/src/app/command"
 	"github.com/turistikrota/service.auth/src/app/query"
 	"github.com/turistikrota/service.auth/src/delivery/http/dto"
 	"github.com/turistikrota/service.shared/auth/session"
@@ -77,6 +78,21 @@ func (h Server) Logout(ctx *fiber.Ctx) error {
 	d.UserUUID = u.UUID
 	d.DeviceUUID = device_uuid.Parse(ctx)
 	_, err := h.app.Commands.Logout.Handle(ctx.UserContext(), d.ToCommand())
+	l, a := httpI18n.GetLanguagesInContext(h.i18n, ctx)
+	if err != nil {
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	refresh_token.Remove(ctx, h.config.HttpHeaders.Domain)
+	current_user.RemoveCookie(ctx, auth.Cookies.AccessToken, h.config.HttpHeaders.Domain)
+	h.removeSelectedAccountInCookie(ctx)
+	return result.Success(Messages.Success.Logout)
+}
+
+func (h Server) UserDelete(ctx *fiber.Ctx) error {
+	userId := current_user.Parse(ctx).UUID
+	_, err := h.app.Commands.UserDelete.Handle(ctx.UserContext(), command.UserDeleteCommand{
+		UserID: userId,
+	})
 	l, a := httpI18n.GetLanguagesInContext(h.i18n, ctx)
 	if err != nil {
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
