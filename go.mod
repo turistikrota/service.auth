@@ -36,6 +36,7 @@ require (
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
+	github.com/mileusna/useragent v1.3.4 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/nats-io/nats-server/v2 v2.9.21 // indirect
 	github.com/nats-io/nats.go v1.28.0 // indirect

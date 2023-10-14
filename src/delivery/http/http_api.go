@@ -2,6 +2,7 @@ package http
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/mileusna/useragent"
 	httpI18n "github.com/mixarchitecture/microp/server/http/i18n"
 	"github.com/mixarchitecture/microp/server/http/result"
 	"github.com/turistikrota/service.auth/src/app/command"
@@ -186,24 +187,19 @@ func (h Server) UserList(ctx *fiber.Ctx) error {
 }
 
 func (h Server) makeDevice(ctx *fiber.Ctx) *session.Device {
+	ua := useragent.Parse(ctx.Get("User-Agent"))
+	t := "desktop"
+	if ua.Mobile {
+		t = "mobile"
+	} else if ua.Tablet {
+		t = "tablet"
+	} else if ua.Bot {
+		t = "bot"
+	}
 	return &session.Device{
-		Name: h.getCtxKey(ctx, "User-Agent", "Device-Name"),
-		Type: h.getCtxKey(ctx, "Device-Type"),
-		OS:   h.getCtxKey(ctx, "Device-OS"),
+		Name: ua.Name,
+		Type: t,
+		OS:   ua.OS,
 		IP:   ctx.IP(),
 	}
-}
-
-func (h Server) getCtxKey(ctx *fiber.Ctx, keys ...string) string {
-	k := ""
-	for _, key := range keys {
-		k = ctx.Get(key)
-		if k != "" {
-			break
-		}
-	}
-	if k == "" {
-		k = "unknown"
-	}
-	return k
 }
