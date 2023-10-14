@@ -13,6 +13,7 @@ type successMessages struct {
 	SessionDestroy       string
 	SessionDestroyOthers string
 	SessionDestroyAll    string
+	SessionList          string
 }
 
 type errorMessages struct {
@@ -46,6 +47,7 @@ var Messages = messages{
 		SessionDestroy:       "success_session_destroy",
 		SessionDestroyOthers: "success_session_destroy_others",
 		SessionDestroyAll:    "success_session_destroy_all",
+		SessionList:          "success_session_list",
 	},
 	Error: errorMessages{
 		Login:                 "error_login",

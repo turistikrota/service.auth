@@ -143,10 +143,20 @@ func (h Server) SessionDestroy(ctx *fiber.Ctx) error {
 }
 
 func (h Server) SessionDestroyOthers(ctx *fiber.Ctx) error {
-	d := dto.Request.Device()
-	h.parseParams(ctx, d)
-	_, err := h.app.Commands.SessionDestroyOthers.Handle(ctx.UserContext(), d.ToDestroyOthersCommand(current_user.Parse(ctx).UUID))
+	_, err := h.app.Commands.SessionDestroyOthers.Handle(ctx.UserContext(), command.SessionDestroyOthersCommand{
+		UserUUID:   current_user.Parse(ctx).UUID,
+		DeviceUUID: device_uuid.Parse(ctx),
+	})
 	return result.IfSuccessParams(err, ctx, h.i18n, Messages.Success.SessionDestroyOthers)
+}
+
+func (h Server) SessionList(ctx *fiber.Ctx) error {
+	res, err := h.app.Queries.SessionList.Handle(ctx.UserContext(), query.SessionListQuery{
+		UserUUID: current_user.Parse(ctx).UUID,
+	})
+	return result.IfSuccessDetail(err, ctx, h.i18n, Messages.Success.SessionList, func() interface{} {
+		return dto.Response.SessionList(res)
+	})
 }
 
 func (h Server) SessionDestroyAll(ctx *fiber.Ctx) error {
