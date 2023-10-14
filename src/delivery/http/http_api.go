@@ -196,10 +196,14 @@ func (h Server) makeDevice(ctx *fiber.Ctx) *session.Device {
 	} else if ua.Bot {
 		t = "bot"
 	}
+	ip := ctx.Get("CF-Connecting-IP")
+	if ip == "" {
+		ip = ctx.IP()
+	}
 	return &session.Device{
 		Name: ua.Name,
 		Type: t,
 		OS:   ua.OS,
-		IP:   ctx.IP(),
+		IP:   ip,
 	}
 }
