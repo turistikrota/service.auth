@@ -19,6 +19,7 @@ type Errors interface {
 	TokenExpired(p interface{}) *i18np.Error
 	AlreadyVerified() *i18np.Error
 	NotVerified(p interface{}) *i18np.Error
+	Deleted() *i18np.Error
 	TokenNotExpired() *i18np.Error
 }
 
@@ -65,6 +66,10 @@ func (e *userErrors) AlreadyVerified() *i18np.Error {
 
 func (e *userErrors) NotVerified(p interface{}) *i18np.Error {
 	return i18np.NewErrorDetails(I18nMessages.NotVerified, p)
+}
+
+func (e *userErrors) Deleted() *i18np.Error {
+	return i18np.NewError(I18nMessages.Deleted)
 }
 
 func (e *userErrors) TokenNotExpired() *i18np.Error {

@@ -40,6 +40,7 @@ error_user_already_exists = "User already exists."
 error_user_invalid_password = "Invalid password."
 error_user_refresh_token_not_available = "Refresh token is not available."
 error_user_two_factor_started = "Two factor authentication is started."
+error_user_deleted = "You cannot log in because your account was deleted more than 30 days ago. Please create a new account."
 
 # Http Module
 success_login = "Login successfully."

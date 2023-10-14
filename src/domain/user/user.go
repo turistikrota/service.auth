@@ -14,10 +14,12 @@ type User struct {
 	Password         []byte    `json:"password,omitempty"`
 	TwoFactorEnabled bool      `json:"two_factor_enabled"`
 	IsActive         bool      `json:"is_active"`
+	IsDeleted        bool      `json:"is_deleted"`
 	IsVerified       bool      `json:"is_verified"`
 	VerifyToken      string    `json:"email_verify_token"`
 	CreatedAt        time.Time `json:"created_at"`
 	UpdatedAt        time.Time `json:"updated_at"`
+	DeletedAt        time.Time `json:"deleted_at"`
 }
 
 type ListEntity struct {

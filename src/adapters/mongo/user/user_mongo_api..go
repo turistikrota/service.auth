@@ -234,3 +234,37 @@ func (r *repo) RemoveRoles(ctx context.Context, uuid string, roles []string) *i1
 	}
 	return r.helper.UpdateOne(ctx, filter, update)
 }
+
+func (r *repo) Delete(ctx context.Context, uuid string) *i18np.Error {
+	id, err := sharedMongo.TransformId(uuid)
+	if err != nil {
+		return r.userFactory.Errors.NotFound(uuid)
+	}
+	filter := bson.M{
+		"_id": id,
+	}
+	update := bson.M{
+		"$set": bson.M{
+			"is_deleted": true,
+			"deleted_at": time.Now(),
+		},
+	}
+	return r.helper.UpdateOne(ctx, filter, update)
+}
+
+func (r *repo) Recover(ctx context.Context, uuid string) *i18np.Error {
+	id, err := sharedMongo.TransformId(uuid)
+	if err != nil {
+		return r.userFactory.Errors.NotFound(uuid)
+	}
+	filter := bson.M{
+		"_id": id,
+	}
+	update := bson.M{
+		"$set": bson.M{
+			"is_deleted": false,
+			"deleted_at": time.Time{},
+		},
+	}
+	return r.helper.UpdateOne(ctx, filter, update)
+}

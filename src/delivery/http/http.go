@@ -75,6 +75,7 @@ func (h Server) Load(router fiber.Router) fiber.Router {
 	router.Post("/re-verify", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.ReSendVerification))
 	router.Post("/:token", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Verify))
 	router.Get("/", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.CurrentUser))
+	router.Delete("/", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.wrapWithTimeout(h.UserDelete))
 	router.Get("/user-list", h.currentUserAccess(), h.requiredAccess(), h.adminRoute(config.Roles.UserList), h.wrapWithTimeout(h.UserList))
 	return router
 }

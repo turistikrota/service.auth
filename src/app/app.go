@@ -36,6 +36,7 @@ type Commands struct {
 	OwnerVerify               command.OwnerVerifyHandler
 	UserRolesAdd              command.UserRolesAddHandler
 	UserRolesRemove           command.UserRolesRemoveHandler
+	UserDelete                command.UserDeleteHandler
 }
 
 type Queries struct {
