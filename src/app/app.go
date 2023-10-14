@@ -37,9 +37,13 @@ type Commands struct {
 	UserRolesAdd              command.UserRolesAddHandler
 	UserRolesRemove           command.UserRolesRemoveHandler
 	UserDelete                command.UserDeleteHandler
+	SessionDestroy            command.SessionDestroyHandler
+	SessionDestroyOthers      command.SessionDestroyOthersHandler
+	SessionDestroyAll         command.SessionDestroyAllHandler
 }
 
 type Queries struct {
-	CheckEmail query.CheckEmailHandler
-	UserList   query.UserListHandler
+	CheckEmail  query.CheckEmailHandler
+	UserList    query.UserListHandler
+	SessionList query.SessionListHandler
 }

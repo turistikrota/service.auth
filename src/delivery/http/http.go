@@ -77,6 +77,13 @@ func (h Server) Load(router fiber.Router) fiber.Router {
 	router.Get("/", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.CurrentUser))
 	router.Delete("/", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.wrapWithTimeout(h.UserDelete))
 	router.Get("/user-list", h.currentUserAccess(), h.requiredAccess(), h.adminRoute(config.Roles.UserList), h.wrapWithTimeout(h.UserList))
+
+	session := router.Group("/session", h.currentUserAccess(), h.requiredAccess())
+	session.Get("/", h.wrapWithTimeout(h.SessionList))
+	session.Delete("/others", h.wrapWithTimeout(h.SessionDestroyOthers))
+	session.Delete("/all", h.wrapWithTimeout(h.SessionDestroyAll))
+	session.Delete("/:device_uuid", h.wrapWithTimeout(h.SessionDestroy))
+
 	return router
 }
 

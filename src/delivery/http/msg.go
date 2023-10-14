@@ -1,15 +1,19 @@
 package http
 
 type successMessages struct {
-	Login              string
-	Logout             string
-	Register           string
-	Extend             string
-	Verify             string
-	ReSendVerification string
-	CurrentUser        string
-	EmailAvailable     string
-	UserList           string
+	Login                string
+	Logout               string
+	Register             string
+	Extend               string
+	Verify               string
+	ReSendVerification   string
+	CurrentUser          string
+	EmailAvailable       string
+	UserList             string
+	SessionDestroy       string
+	SessionDestroyOthers string
+	SessionDestroyAll    string
+	SessionList          string
 }
 
 type errorMessages struct {
@@ -31,15 +35,19 @@ type messages struct {
 
 var Messages = messages{
 	Success: successMessages{
-		Login:              "success_login",
-		Logout:             "success_logout",
-		Register:           "success_register",
-		Extend:             "success_extend",
-		Verify:             "success_verify",
-		ReSendVerification: "success_resend_verification",
-		CurrentUser:        "success_current_user",
-		EmailAvailable:     "success_email_available",
-		UserList:           "success_user_list",
+		Login:                "success_login",
+		Logout:               "success_logout",
+		Register:             "success_register",
+		Extend:               "success_extend",
+		Verify:               "success_verify",
+		ReSendVerification:   "success_resend_verification",
+		CurrentUser:          "success_current_user",
+		EmailAvailable:       "success_email_available",
+		UserList:             "success_user_list",
+		SessionDestroy:       "success_session_destroy",
+		SessionDestroyOthers: "success_session_destroy_others",
+		SessionDestroyAll:    "success_session_destroy_all",
+		SessionList:          "success_session_list",
 	},
 	Error: errorMessages{
 		Login:                 "error_login",

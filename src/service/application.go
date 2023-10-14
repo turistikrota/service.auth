@@ -183,6 +183,18 @@ func NewApplication(c Config) app.Application {
 				Repo:     userRepo,
 				CqrsBase: base,
 			}),
+			SessionDestroy: command.NewSessionDestroyHandler(command.SessionDestroyHandlerConfig{
+				SessionSrv: c.SessionSrv,
+				CqrsBase:   base,
+			}),
+			SessionDestroyOthers: command.NewSessionDestroyOthersHandler(command.SessionDestroyOthersHandlerConfig{
+				SessionSrv: c.SessionSrv,
+				CqrsBase:   base,
+			}),
+			SessionDestroyAll: command.NewSessionDestroyAllHandler(command.SessionDestroyAllHandlerConfig{
+				SessionSrv: c.SessionSrv,
+				CqrsBase:   base,
+			}),
 		},
 		Queries: app.Queries{
 			CheckEmail: query.NewCheckEmailHandler(query.CheckEmailHandlerConfig{
@@ -194,6 +206,10 @@ func NewApplication(c Config) app.Application {
 				Repo:     userRepo,
 				CqrsBase: base,
 				CacheSrv: c.CacheSrv,
+			}),
+			SessionList: query.NewSessionListHandler(query.SessionListHandlerConfig{
+				SessionSrv: c.SessionSrv,
+				CqrsBase:   base,
 			}),
 		},
 	}
