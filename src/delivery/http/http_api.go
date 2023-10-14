@@ -135,6 +135,27 @@ func (h Server) ReSendVerification(ctx *fiber.Ctx) error {
 	return result.IfSuccess(err, ctx, h.i18n, Messages.Success.ReSendVerification)
 }
 
+func (h Server) SessionDestroy(ctx *fiber.Ctx) error {
+	d := dto.Request.Device()
+	h.parseParams(ctx, d)
+	_, err := h.app.Commands.SessionDestroy.Handle(ctx.UserContext(), d.ToDestroyCommand(current_user.Parse(ctx).UUID))
+	return result.IfSuccessParams(err, ctx, h.i18n, Messages.Success.SessionDestroy)
+}
+
+func (h Server) SessionDestroyOthers(ctx *fiber.Ctx) error {
+	d := dto.Request.Device()
+	h.parseParams(ctx, d)
+	_, err := h.app.Commands.SessionDestroyOthers.Handle(ctx.UserContext(), d.ToDestroyOthersCommand(current_user.Parse(ctx).UUID))
+	return result.IfSuccessParams(err, ctx, h.i18n, Messages.Success.SessionDestroyOthers)
+}
+
+func (h Server) SessionDestroyAll(ctx *fiber.Ctx) error {
+	_, err := h.app.Commands.SessionDestroyAll.Handle(ctx.UserContext(), command.SessionDestroyAllCommand{
+		UserUUID: current_user.Parse(ctx).UUID,
+	})
+	return result.IfSuccessParams(err, ctx, h.i18n, Messages.Success.SessionDestroyAll)
+}
+
 func (h Server) CurrentUser(ctx *fiber.Ctx) error {
 	u := current_user.Parse(ctx)
 	res := dto.Response.CurrentUser(u)
