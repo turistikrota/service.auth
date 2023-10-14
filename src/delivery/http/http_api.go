@@ -156,7 +156,7 @@ func (h Server) SessionList(ctx *fiber.Ctx) error {
 		UserUUID: current_user.Parse(ctx).UUID,
 	})
 	return result.IfSuccessDetail(err, ctx, h.i18n, Messages.Success.SessionList, func() interface{} {
-		return dto.Response.SessionList(res)
+		return dto.Response.SessionList(res, device_uuid.Parse(ctx))
 	})
 }
 
