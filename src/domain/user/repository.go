@@ -22,4 +22,5 @@ type Repository interface {
 	RemoveRoles(ctx context.Context, uuid string, roles []string) *i18np.Error
 	Delete(ctx context.Context, uuid string) *i18np.Error
 	Recover(ctx context.Context, uuid string) *i18np.Error
+	SetPassword(ctx context.Context, uuid string, password []byte) *i18np.Error
 }

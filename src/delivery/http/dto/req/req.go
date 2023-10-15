@@ -12,6 +12,7 @@ type Request interface {
 	Pagination() *PaginationRequest
 	Device() *DeviceRequest
 	Fcm() *FcmRequest
+	ChangePassword() *ChangePasswordRequest
 }
 
 type request struct{}

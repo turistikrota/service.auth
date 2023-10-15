@@ -66,6 +66,7 @@ success_session_destroy_others = "Diğer oturumlar başarıyla sonlandırıldı.
 success_session_destroy_all = "Tüm oturumlar başarıyla sonlandırıldı."
 success_session_list = "Oturumlar başarıyla listelendi."
 success_fcm_set = "FCM başarıyla ayarlandı."
+success_change_password = "Şifre başarıyla değiştirildi."
 error_login = "Giriş başarısız oldu."
 error_logout = "Çıkış başarısız oldu."
 error_register = "Kayıt başarısız oldu."

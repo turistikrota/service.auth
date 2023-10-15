@@ -193,6 +193,13 @@ func (h Server) SetFcmToken(ctx *fiber.Ctx) error {
 	return result.IfSuccess(err, ctx, h.i18n, Messages.Success.FcmSet)
 }
 
+func (h Server) ChangePassword(ctx *fiber.Ctx) error {
+	d := dto.Request.ChangePassword()
+	h.parseBody(ctx, d)
+	_, err := h.app.Commands.ChangePassword.Handle(ctx.UserContext(), d.ToCommand(current_user.Parse(ctx).UUID))
+	return result.IfSuccess(err, ctx, h.i18n, Messages.Success.ChangePassword)
+}
+
 func (h Server) makeDevice(ctx *fiber.Ctx) *session.Device {
 	ua := useragent.Parse(ctx.Get("User-Agent"))
 	t := "desktop"
