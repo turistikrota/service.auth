@@ -49,7 +49,11 @@ func (h changePasswordHandler) Handle(ctx context.Context, cmd ChangePasswordCom
 	if err := cipher.Compare(user.Password, cmd.OldPassword); err != nil {
 		return nil, h.errors.InvalidPassword()
 	}
-	err = h.userRepo.SetPassword(ctx, cmd.UserUUID, []byte(cmd.NewPassword))
+	pw, error := cipher.Hash(cmd.NewPassword)
+	if error != nil {
+		return nil, h.errors.Failed("hash")
+	}
+	err = h.userRepo.SetPassword(ctx, cmd.UserUUID, pw)
 	if err != nil {
 		return nil, err
 	}
