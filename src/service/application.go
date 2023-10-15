@@ -99,7 +99,13 @@ func NewApplication(c Config) app.Application {
 				CqrsBase: base,
 			}),
 			UserDelete: command.NewUserDeleteHandler(command.UserDeleteHandlerConfig{
-				Repo:     userRepo,
+				Repo:       userRepo,
+				CqrsBase:   base,
+				SessionSrv: c.SessionSrv,
+			}),
+			ChangePassword: command.NewChangePasswordHandler(command.ChangePasswordHandlerConfig{
+				UserRepo: userRepo,
+				Errors:   userFactory.Errors,
 				CqrsBase: base,
 			}),
 			Verify: command.NewVerifyHandler(command.VerifyHandlerConfig{

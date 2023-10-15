@@ -268,3 +268,19 @@ func (r *repo) Recover(ctx context.Context, uuid string) *i18np.Error {
 	}
 	return r.helper.UpdateOne(ctx, filter, update)
 }
+
+func (r *repo) SetPassword(ctx context.Context, uuid string, password []byte) *i18np.Error {
+	id, err := sharedMongo.TransformId(uuid)
+	if err != nil {
+		return r.userFactory.Errors.NotFound(uuid)
+	}
+	filter := bson.M{
+		"_id": id,
+	}
+	update := bson.M{
+		"$set": bson.M{
+			"password": password,
+		},
+	}
+	return r.helper.UpdateOne(ctx, filter, update)
+}

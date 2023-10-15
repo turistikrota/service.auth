@@ -15,6 +15,7 @@ type successMessages struct {
 	SessionDestroyAll    string
 	SessionList          string
 	FcmSet               string
+	ChangePassword       string
 }
 
 type errorMessages struct {
@@ -50,6 +51,7 @@ var Messages = messages{
 		SessionDestroyAll:    "success_session_destroy_all",
 		SessionList:          "success_session_list",
 		FcmSet:               "success_fcm_set",
+		ChangePassword:       "success_change_password",
 	},
 	Error: errorMessages{
 		Login:                 "error_login",

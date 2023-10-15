@@ -41,6 +41,7 @@ type Commands struct {
 	SessionDestroyOthers      command.SessionDestroyOthersHandler
 	SessionDestroyAll         command.SessionDestroyAllHandler
 	FcmSet                    command.FcmSetHandler
+	ChangePassword            command.ChangePasswordHandler
 }
 
 type Queries struct {
