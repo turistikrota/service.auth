@@ -11,6 +11,7 @@ type Request interface {
 	CheckEmail() *CheckEmailRequest
 	Pagination() *PaginationRequest
 	Device() *DeviceRequest
+	Fcm() *FcmRequest
 }
 
 type request struct{}

@@ -186,6 +186,13 @@ func (h Server) UserList(ctx *fiber.Ctx) error {
 	})
 }
 
+func (h Server) SetFcmToken(ctx *fiber.Ctx) error {
+	d := dto.Request.Fcm()
+	h.parseBody(ctx, d)
+	_, err := h.app.Commands.FcmSet.Handle(ctx.UserContext(), d.ToCommand(current_user.Parse(ctx).UUID, device_uuid.Parse(ctx)))
+	return result.IfSuccess(err, ctx, h.i18n, Messages.Success.FcmSet)
+}
+
 func (h Server) makeDevice(ctx *fiber.Ctx) *session.Device {
 	ua := useragent.Parse(ctx.Get("User-Agent"))
 	t := "desktop"

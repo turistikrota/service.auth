@@ -40,6 +40,7 @@ type Commands struct {
 	SessionDestroy            command.SessionDestroyHandler
 	SessionDestroyOthers      command.SessionDestroyOthersHandler
 	SessionDestroyAll         command.SessionDestroyAllHandler
+	FcmSet                    command.FcmSetHandler
 }
 
 type Queries struct {

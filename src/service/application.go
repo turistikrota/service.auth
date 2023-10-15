@@ -195,6 +195,10 @@ func NewApplication(c Config) app.Application {
 				SessionSrv: c.SessionSrv,
 				CqrsBase:   base,
 			}),
+			FcmSet: command.NewFcmSetHandler(command.FcmSetHandlerConfig{
+				SessionSrv: c.SessionSrv,
+				CqrsBase:   base,
+			}),
 		},
 		Queries: app.Queries{
 			CheckEmail: query.NewCheckEmailHandler(query.CheckEmailHandlerConfig{
