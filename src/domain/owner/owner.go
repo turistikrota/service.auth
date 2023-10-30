@@ -15,7 +15,6 @@ type Entity struct {
 type User struct {
 	UUID   string    `json:"uuid"`
 	Name   string    `json:"name"`
-	Code   string    `json:"code"`
 	Roles  []string  `json:"roles"`
 	JoinAt time.Time `json:"joinAt"`
 }

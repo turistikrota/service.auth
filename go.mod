@@ -11,7 +11,7 @@ require (
 	github.com/mixarchitecture/mredis v1.0.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/ssibrahimbas/turnstile v0.0.3
-	github.com/turistikrota/service.shared v0.0.27-0.20231015124451-40d25d8fac07
+	github.com/turistikrota/service.shared v0.0.27-0.20231030135306-866034e740e7
 	go.mongodb.org/mongo-driver v1.12.1
 )
 
