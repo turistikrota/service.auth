@@ -30,6 +30,7 @@ func (e *MongoAccount) ToEntity() *account.Entity {
 func (e *MongoAccount) ToClaim() jwt.UserClaimAccount {
 	return jwt.UserClaimAccount{
 		Name: e.UserName,
+		ID:   e.UserUUID,
 	}
 }
 

@@ -25,7 +25,6 @@ func (r *repo) AddUser(ctx context.Context, nickName string, user *owner.User) *
 		entity.Fields.NickName: nickName,
 		"$or": []bson.M{
 			{entity.UserField(entity.UserFields.Name): bson.M{"$ne": user.Name}},
-			{entity.UserField(entity.UserFields.Code): bson.M{"$ne": user.Code}},
 		},
 	}
 	setter := bson.M{
@@ -33,7 +32,6 @@ func (r *repo) AddUser(ctx context.Context, nickName string, user *owner.User) *
 			entity.Fields.Users: bson.M{
 				entity.UserFields.UUID:   user.UUID,
 				entity.UserFields.Name:   user.Name,
-				entity.UserFields.Code:   user.Code,
 				entity.UserFields.Roles:  user.Roles,
 				entity.UserFields.JoinAt: user.JoinAt,
 			},
@@ -46,13 +44,11 @@ func (r *repo) RemoveUser(ctx context.Context, nickName string, user owner.UserD
 	filter := bson.M{
 		entity.Fields.NickName:                   nickName,
 		entity.UserField(entity.UserFields.Name): user.Name,
-		entity.UserField(entity.UserFields.Code): user.Code,
 	}
 	setter := bson.M{
 		"$pull": bson.M{
 			entity.Fields.Users: bson.M{
 				entity.UserFields.Name: user.Name,
-				entity.UserFields.Code: user.Code,
 			},
 		},
 	}
@@ -63,7 +59,6 @@ func (r *repo) RemoveUserPermission(ctx context.Context, nickName string, user o
 	filter := bson.M{
 		entity.Fields.NickName:                   nickName,
 		entity.UserField(entity.UserFields.Name): user.Name,
-		entity.UserField(entity.UserFields.Code): user.Code,
 	}
 	setter := bson.M{
 		"$pull": bson.M{
@@ -77,7 +72,6 @@ func (r *repo) AddUserPermission(ctx context.Context, nickName string, user owne
 	filter := bson.M{
 		entity.Fields.NickName:                   nickName,
 		entity.UserField(entity.UserFields.Name): user.Name,
-		entity.UserField(entity.UserFields.Code): user.Code,
 	}
 	setter := bson.M{
 		"$push": bson.M{
