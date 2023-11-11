@@ -38,7 +38,7 @@ func (h *accountCreateHandler) Handle(ctx context.Context, cmd AccountCreateComm
 	_ = h.repo.Create(ctx, &account.Entity{
 		UserUUID:   cmd.UserUUID,
 		UserName:   cmd.AccountName,
-		IsActive:   false,
+		IsActive:   true,
 		IsDeleted:  false,
 		IsVerified: false,
 		BirthDate:  nil,
