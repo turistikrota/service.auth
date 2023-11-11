@@ -7,9 +7,12 @@ import (
 	"github.com/mixarchitecture/microp/decorator"
 	"github.com/mixarchitecture/microp/events"
 	"github.com/turistikrota/service.auth/src/config"
+	"github.com/turistikrota/service.auth/src/domain/account"
+	"github.com/turistikrota/service.auth/src/domain/owner"
 	"github.com/turistikrota/service.auth/src/domain/user"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
+	"github.com/turistikrota/service.shared/jwt"
 )
 
 type RefreshTokenCommand struct {
@@ -28,33 +31,39 @@ type RefreshTokenResult struct {
 type RefreshTokenHandler decorator.CommandHandler[RefreshTokenCommand, *RefreshTokenResult]
 
 type refreshTokenHandler struct {
-	userRepo   user.Repository
-	authTopics config.AuthTopics
-	publisher  events.Publisher
-	tokenSrv   token.Service
-	sessionSrv session.Service
-	errors     user.Errors
+	userRepo    user.Repository
+	accountRepo account.Repository
+	ownerRepo   owner.Repository
+	authTopics  config.AuthTopics
+	publisher   events.Publisher
+	tokenSrv    token.Service
+	sessionSrv  session.Service
+	errors      user.Errors
 }
 
 type RefreshTokenHandlerConfig struct {
-	UserRepo   user.Repository
-	AuthTopics config.AuthTopics
-	Publisher  events.Publisher
-	TokenSrv   token.Service
-	SessionSrv session.Service
-	Errors     user.Errors
-	CqrsBase   decorator.Base
+	UserRepo    user.Repository
+	AccountRepo account.Repository
+	OwnerRepo   owner.Repository
+	AuthTopics  config.AuthTopics
+	Publisher   events.Publisher
+	TokenSrv    token.Service
+	SessionSrv  session.Service
+	Errors      user.Errors
+	CqrsBase    decorator.Base
 }
 
 func NewRefreshTokenHandler(config RefreshTokenHandlerConfig) RefreshTokenHandler {
 	return decorator.ApplyCommandDecorators[RefreshTokenCommand, *RefreshTokenResult](
 		refreshTokenHandler{
-			userRepo:   config.UserRepo,
-			authTopics: config.AuthTopics,
-			publisher:  config.Publisher,
-			tokenSrv:   config.TokenSrv,
-			sessionSrv: config.SessionSrv,
-			errors:     config.Errors,
+			userRepo:    config.UserRepo,
+			accountRepo: config.AccountRepo,
+			ownerRepo:   config.OwnerRepo,
+			authTopics:  config.AuthTopics,
+			publisher:   config.Publisher,
+			tokenSrv:    config.TokenSrv,
+			sessionSrv:  config.SessionSrv,
+			errors:      config.Errors,
 		},
 		config.CqrsBase,
 	)
@@ -74,12 +83,23 @@ func (h refreshTokenHandler) Handle(ctx context.Context, cmd RefreshTokenCommand
 	if err != nil {
 		return nil, h.errors.Failed(err.Error())
 	}
+	accounts, owner, error := h.getUserRelations(ctx, user.UUID)
+	if error != nil {
+		return nil, error
+	}
+	ses := &session.SessionUser{
+		UUID:     user.UUID,
+		Email:    user.Email,
+		Roles:    user.Roles,
+		Accounts: accounts,
+		Owners:   owner,
+	}
 	tokens, err := h.sessionSrv.Refresh(session.RefreshCommand{
 		UserUUID:     cmd.UserUUID,
 		DeviceUUID:   cmd.DeviceUUID,
 		RefreshToken: cmd.RefreshToken,
 		AccessToken:  cmd.AccessToken,
-		User:         user.ToSession(),
+		User:         ses,
 		IpAddress:    cmd.IpAddress,
 	})
 	if err != nil {
@@ -89,4 +109,16 @@ func (h refreshTokenHandler) Handle(ctx context.Context, cmd RefreshTokenCommand
 		AccessToken:  tokens.AccessToken,
 		RefreshToken: tokens.RefreshToken,
 	}, nil
+}
+
+func (h refreshTokenHandler) getUserRelations(ctx context.Context, userUUID string) ([]jwt.UserClaimAccount, []jwt.UserClaimOwner, *i18np.Error) {
+	accounts, err := h.accountRepo.ListAsClaims(ctx, userUUID)
+	if err != nil {
+		return nil, nil, err
+	}
+	owners, err := h.ownerRepo.GetAllAsClaim(ctx, userUUID)
+	if err != nil {
+		return nil, nil, err
+	}
+	return accounts, owners, nil
 }
