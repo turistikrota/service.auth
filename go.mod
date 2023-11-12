@@ -7,11 +7,11 @@ require (
 	github.com/google/uuid v1.3.1
 	github.com/mixarchitecture/cache v1.0.0
 	github.com/mixarchitecture/i18np v0.0.0-20230822003812-2969b27e32d7
-	github.com/mixarchitecture/microp v0.0.1
+	github.com/mixarchitecture/microp v0.0.3
 	github.com/mixarchitecture/mredis v1.0.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/ssibrahimbas/turnstile v0.0.3
-	github.com/turistikrota/service.shared v0.0.27-0.20231030135306-866034e740e7
+	github.com/turistikrota/service.shared v0.0.27-0.20231112004547-3aabb73e412e
 	go.mongodb.org/mongo-driver v1.12.1
 )
 
