@@ -67,6 +67,8 @@ github.com/mixarchitecture/i18np v0.0.0-20230822003812-2969b27e32d7 h1:gTc+fukVM
 github.com/mixarchitecture/i18np v0.0.0-20230822003812-2969b27e32d7/go.mod h1:ukxDPcupA+YjV/Z24ZTuJpkvvLkknmMDzcBMcNrZc4I=
 github.com/mixarchitecture/microp v0.0.1 h1:0I4le5PzgV4IDaPc1bTWLXBOBxy24SUlrxygMtqGQ2I=
 github.com/mixarchitecture/microp v0.0.1/go.mod h1:jyt9vlJD4SueessQcOcSNHUNOVCw2e66pyrsy9iQFaA=
+github.com/mixarchitecture/microp v0.0.3 h1:dHUJsKZxAayqVXGMwrICkDEuhih+swAbQmZvs8NOv98=
+github.com/mixarchitecture/microp v0.0.3/go.mod h1:jyt9vlJD4SueessQcOcSNHUNOVCw2e66pyrsy9iQFaA=
 github.com/mixarchitecture/mredis v1.0.1 h1:BGAwqIpdjkgdbffi856Fw3eNYYdJxrIQNZEdIDVAKHM=
 github.com/mixarchitecture/mredis v1.0.1/go.mod h1:h6uPMmdurkbfACh/ZmZCBF903qNS/FbwdOEMX1yTj74=
 github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe/go.mod h1:wL8QJuTMNUDYhXwkmfOly8iTdp5TEcJFWZD2D7SIkUc=
@@ -118,6 +120,14 @@ github.com/turistikrota/service.shared v0.0.27-0.20231015124451-40d25d8fac07 h1:
 github.com/turistikrota/service.shared v0.0.27-0.20231015124451-40d25d8fac07/go.mod h1:+AKJTOLUCmCQcf7QiV03eEUX8YbiqNlgQa9AwhryYPg=
 github.com/turistikrota/service.shared v0.0.27-0.20231030135306-866034e740e7 h1:pplzKZMJmKeCgMQ94V7hqxD+50P7phNVEipj+NZO8pU=
 github.com/turistikrota/service.shared v0.0.27-0.20231030135306-866034e740e7/go.mod h1:+AKJTOLUCmCQcf7QiV03eEUX8YbiqNlgQa9AwhryYPg=
+github.com/turistikrota/service.shared v0.0.27-0.20231112002903-f27cca25b32f h1:JPgKTM8DBopEzK3TGwJfRvklbE3hOjCEuzUATFbupwc=
+github.com/turistikrota/service.shared v0.0.27-0.20231112002903-f27cca25b32f/go.mod h1:+AKJTOLUCmCQcf7QiV03eEUX8YbiqNlgQa9AwhryYPg=
+github.com/turistikrota/service.shared v0.0.27-0.20231112003250-7f579b3c7d2d h1:XbI7mD9eLtKe3UWjqtKn47g+isfpgzW5eQjq95DMQPY=
+github.com/turistikrota/service.shared v0.0.27-0.20231112003250-7f579b3c7d2d/go.mod h1:+AKJTOLUCmCQcf7QiV03eEUX8YbiqNlgQa9AwhryYPg=
+github.com/turistikrota/service.shared v0.0.27-0.20231112004201-e7a7568a3fda h1:lI0HJwER4cp2f0I7RiN6WTKwHo8Ip2YNJM8Ph3ayHmQ=
+github.com/turistikrota/service.shared v0.0.27-0.20231112004201-e7a7568a3fda/go.mod h1:+AKJTOLUCmCQcf7QiV03eEUX8YbiqNlgQa9AwhryYPg=
+github.com/turistikrota/service.shared v0.0.27-0.20231112004547-3aabb73e412e h1:gNgEVBHwk/mDZFOzuYWoWy4xVwAwPNwGO4PpdmrDda4=
+github.com/turistikrota/service.shared v0.0.27-0.20231112004547-3aabb73e412e/go.mod h1:+AKJTOLUCmCQcf7QiV03eEUX8YbiqNlgQa9AwhryYPg=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
 github.com/valyala/fasthttp v1.48.0 h1:oJWvHb9BIZToTQS3MuQ2R3bJZiNSa2KiNdeI8A+79Tc=
