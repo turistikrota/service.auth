@@ -192,8 +192,6 @@ func (h Server) adminRoute(extra ...string) fiber.Handler {
 	}
 	return claim_guard.New(claim_guard.Config{
 		Claims: claims,
-		I18n:   h.i18n,
-		MsgKey: Messages.Error.AdminRoute,
 	})
 }
 

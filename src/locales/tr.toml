@@ -85,8 +85,8 @@ update_query_not_found = "Güncellenecek veri bulunamadı."
 update_query_failed = "Veri güncellenirken bir hata oluştu."
 
 
-owner_failed = "Sahip başarısız oldu."
-Owner_not_found = "Sahip bulunamadı."
+business_failed = "Sahip başarısız oldu."
+Business_not_found = "Sahip bulunamadı."
 
 # Account Module Settings
 error_account_failed = "Hesap oluşturulamadı."

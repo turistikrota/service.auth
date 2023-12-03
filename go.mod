@@ -5,13 +5,14 @@ go 1.20
 require (
 	github.com/gofiber/fiber/v2 v2.48.0
 	github.com/google/uuid v1.3.1
+	github.com/mileusna/useragent v1.3.4
 	github.com/mixarchitecture/cache v1.0.0
 	github.com/mixarchitecture/i18np v0.0.0-20230822003812-2969b27e32d7
 	github.com/mixarchitecture/microp v0.0.3
 	github.com/mixarchitecture/mredis v1.0.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/ssibrahimbas/turnstile v0.0.3
-	github.com/turistikrota/service.shared v0.0.27-0.20231112004547-3aabb73e412e
+	github.com/turistikrota/service.shared v0.0.27-0.20231125173841-fa3f8a0bb62e
 	go.mongodb.org/mongo-driver v1.12.1
 )
 
@@ -36,7 +37,6 @@ require (
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
-	github.com/mileusna/useragent v1.3.4 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/nats-io/nats-server/v2 v2.9.21 // indirect
 	github.com/nats-io/nats.go v1.28.0 // indirect

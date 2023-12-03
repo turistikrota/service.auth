@@ -1,4 +1,4 @@
-package owner
+package business
 
 type Factory struct {
 	Errors Errors
@@ -6,7 +6,7 @@ type Factory struct {
 
 func NewFactory() Factory {
 	return Factory{
-		Errors: newOwnerErrors(),
+		Errors: newBusinessErrors(),
 	}
 }
 

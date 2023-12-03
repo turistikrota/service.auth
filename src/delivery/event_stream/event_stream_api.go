@@ -66,94 +66,94 @@ func (s Server) ListenAccountDisabled(data []byte) {
 	_, _ = s.app.Commands.AccountDisable.Handle(s.ctx, d.ToCommand())
 }
 
-func (s Server) ListenOwnerCreated(data []byte) {
-	d := s.dto.OwnerCreated()
+func (s Server) ListenBusinessCreated(data []byte) {
+	d := s.dto.BusinessCreated()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
 		return
 	}
-	_, _ = s.app.Commands.OwnerCreate.Handle(s.ctx, d.ToCommand())
+	_, _ = s.app.Commands.BusinessCreate.Handle(s.ctx, d.ToCommand())
 }
 
-func (s Server) ListenOwnerEnabled(data []byte) {
-	d := s.dto.OwnerUpdated()
+func (s Server) ListenBusinessEnabled(data []byte) {
+	d := s.dto.BusinessUpdated()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
 		return
 	}
-	_, _ = s.app.Commands.OwnerEnable.Handle(s.ctx, d.ToEnableCommand())
+	_, _ = s.app.Commands.BusinessEnable.Handle(s.ctx, d.ToEnableCommand())
 }
 
-func (s Server) ListenOwnerDisabled(data []byte) {
-	d := s.dto.OwnerUpdated()
+func (s Server) ListenBusinessDisabled(data []byte) {
+	d := s.dto.BusinessUpdated()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
 		return
 	}
-	_, _ = s.app.Commands.OwnerDisable.Handle(s.ctx, d.ToDisableCommand())
+	_, _ = s.app.Commands.BusinessDisable.Handle(s.ctx, d.ToDisableCommand())
 }
 
-func (s Server) ListenOwnerDeleted(data []byte) {
-	d := s.dto.OwnerUpdated()
+func (s Server) ListenBusinessDeleted(data []byte) {
+	d := s.dto.BusinessUpdated()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
 		return
 	}
-	_, _ = s.app.Commands.OwnerDelete.Handle(s.ctx, d.ToDeleteCommand())
+	_, _ = s.app.Commands.BusinessDelete.Handle(s.ctx, d.ToDeleteCommand())
 }
 
-func (s Server) ListenOwnerRecovered(data []byte) {
-	d := s.dto.OwnerUpdated()
+func (s Server) ListenBusinessRecovered(data []byte) {
+	d := s.dto.BusinessUpdated()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
 		return
 	}
-	_, _ = s.app.Commands.OwnerRecover.Handle(s.ctx, d.ToRecoverCommand())
+	_, _ = s.app.Commands.BusinessRecover.Handle(s.ctx, d.ToRecoverCommand())
 }
 
-func (s Server) ListenOwnerVerified(data []byte) {
-	d := s.dto.OwnerUpdated()
+func (s Server) ListenBusinessVerified(data []byte) {
+	d := s.dto.BusinessUpdated()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
 		return
 	}
-	_, _ = s.app.Commands.OwnerVerify.Handle(s.ctx, d.ToVerifyCommand())
+	_, _ = s.app.Commands.BusinessVerify.Handle(s.ctx, d.ToVerifyCommand())
 }
 
-func (s Server) ListenOwnerUserAdded(data []byte) {
-	d := s.dto.OwnerUserAdded()
+func (s Server) ListenBusinessUserAdded(data []byte) {
+	d := s.dto.BusinessUserAdded()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
 		return
 	}
-	_, _ = s.app.Commands.OwnerAddUser.Handle(s.ctx, d.ToCommand())
+	_, _ = s.app.Commands.BusinessAddUser.Handle(s.ctx, d.ToCommand())
 }
 
-func (s Server) ListenOwnerUserRemoved(data []byte) {
-	d := s.dto.OwnerUserRemoved()
+func (s Server) ListenBusinessUserRemoved(data []byte) {
+	d := s.dto.BusinessUserRemoved()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
 		return
 	}
-	_, _ = s.app.Commands.OwnerRemoveUser.Handle(s.ctx, d.ToCommand())
+	_, _ = s.app.Commands.BusinessRemoveUser.Handle(s.ctx, d.ToCommand())
 }
 
-func (s Server) ListenOwnerUserPermissionAdded(data []byte) {
-	d := s.dto.OwnerPermissionEvent()
+func (s Server) ListenBusinessUserPermissionAdded(data []byte) {
+	d := s.dto.BusinessPermissionEvent()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
 		return
 	}
-	_, _ = s.app.Commands.OwnerAddUserPermission.Handle(s.ctx, d.ToAddCommand())
+	_, _ = s.app.Commands.BusinessAddUserPermission.Handle(s.ctx, d.ToAddCommand())
 }
 
-func (s Server) ListenOwnerUserPermissionRemoved(data []byte) {
-	d := s.dto.OwnerPermissionEvent()
+func (s Server) ListenBusinessUserPermissionRemoved(data []byte) {
+	d := s.dto.BusinessPermissionEvent()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
 		return
 	}
-	_, _ = s.app.Commands.OwnerRemoveUserPermission.Handle(s.ctx, d.ToRemoveCommand())
+	_, _ = s.app.Commands.BusinessRemoveUserPermission.Handle(s.ctx, d.ToRemoveCommand())
 }
 
 func (s Server) ListenUserRolesAdded(data []byte) {

@@ -11,7 +11,7 @@ import (
 	"github.com/turistikrota/service.auth/src/app/query"
 	"github.com/turistikrota/service.auth/src/config"
 	"github.com/turistikrota/service.auth/src/domain/account"
-	"github.com/turistikrota/service.auth/src/domain/owner"
+	"github.com/turistikrota/service.auth/src/domain/business"
 	"github.com/turistikrota/service.auth/src/domain/user"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
@@ -41,8 +41,8 @@ func NewApplication(c Config) app.Application {
 	accountFactory := account.NewFactory()
 	accountRepo := adapters.Mongo.NewAccount(accountFactory, c.Mongo.GetCollection(c.App.DB.Account.Collection))
 
-	ownerFactory := owner.NewFactory()
-	ownerRepo := adapters.Mongo.NewOwner(ownerFactory, c.Mongo.GetCollection(c.App.DB.Owner.Collection))
+	businessFactory := business.NewFactory()
+	businessRepo := adapters.Mongo.NewBusiness(businessFactory, c.Mongo.GetCollection(c.App.DB.Business.Collection))
 
 	base := decorator.NewBase()
 
@@ -51,7 +51,7 @@ func NewApplication(c Config) app.Application {
 			Login: command.NewLoginHandler(command.LoginHandlerConfig{
 				UserRepo:     userRepo,
 				AccountRepo:  accountRepo,
-				OwnerRepo:    ownerRepo,
+				BusinessRepo: businessRepo,
 				AuthTopics:   c.App.Topics.Auth,
 				VerifyTopics: c.App.Topics.Verify,
 				Publisher:    c.EventEngine,
@@ -61,15 +61,15 @@ func NewApplication(c Config) app.Application {
 				CqrsBase:     base,
 			}),
 			LoginVerified: command.NewLoginVerifiedHandler(command.LoginVerifiedHandlerConfig{
-				AuthTopics:  c.App.Topics.Auth,
-				AccountRepo: accountRepo,
-				OwnerRepo:   ownerRepo,
-				Publisher:   c.EventEngine,
-				TokenSrv:    c.TokenSrv,
-				SessionSrv:  c.SessionSrv,
-				Errors:      userFactory.Errors,
-				Repo:        userRepo,
-				CqrsBase:    base,
+				AuthTopics:   c.App.Topics.Auth,
+				AccountRepo:  accountRepo,
+				BusinessRepo: businessRepo,
+				Publisher:    c.EventEngine,
+				TokenSrv:     c.TokenSrv,
+				SessionSrv:   c.SessionSrv,
+				Errors:       userFactory.Errors,
+				Repo:         userRepo,
+				CqrsBase:     base,
 			}),
 			Register: command.NewRegisterHandler(command.RegisterHandlerConfig{
 				Repo:     userRepo,
@@ -78,15 +78,15 @@ func NewApplication(c Config) app.Application {
 				CqrsBase: base,
 			}),
 			RefreshToken: command.NewRefreshTokenHandler(command.RefreshTokenHandlerConfig{
-				AuthTopics:  c.App.Topics.Auth,
-				AccountRepo: accountRepo,
-				OwnerRepo:   ownerRepo,
-				Publisher:   c.EventEngine,
-				TokenSrv:    c.TokenSrv,
-				SessionSrv:  c.SessionSrv,
-				Errors:      userFactory.Errors,
-				UserRepo:    userRepo,
-				CqrsBase:    base,
+				AuthTopics:   c.App.Topics.Auth,
+				AccountRepo:  accountRepo,
+				BusinessRepo: businessRepo,
+				Publisher:    c.EventEngine,
+				TokenSrv:     c.TokenSrv,
+				SessionSrv:   c.SessionSrv,
+				Errors:       userFactory.Errors,
+				UserRepo:     userRepo,
+				CqrsBase:     base,
 			}),
 			Logout: command.NewLogoutHandler(command.LogoutHandlerConfig{
 				AuthTopics: c.App.Topics.Auth,
@@ -142,45 +142,45 @@ func NewApplication(c Config) app.Application {
 				Repo:     accountRepo,
 				CqrsBase: base,
 			}),
-			OwnerCreate: command.NewOwnerCreateHandler(command.OwnerCreateHandlerConfig{
-				Repo:     ownerRepo,
-				Factory:  ownerFactory,
+			BusinessCreate: command.NewBusinessCreateHandler(command.BusinessCreateHandlerConfig{
+				Repo:     businessRepo,
+				Factory:  businessFactory,
 				CqrsBase: base,
 			}),
-			OwnerAddUser: command.NewOwnerAddUserHandler(command.OwnerAddUserHandlerConfig{
-				Repo:     ownerRepo,
+			BusinessAddUser: command.NewBusinessAddUserHandler(command.BusinessAddUserHandlerConfig{
+				Repo:     businessRepo,
 				CqrsBase: base,
 			}),
-			OwnerVerify: command.NewOwnerVerifyHandler(command.OwnerVerifyHandlerConfig{
-				Repo:     ownerRepo,
+			BusinessVerify: command.NewBusinessVerifyHandler(command.BusinessVerifyHandlerConfig{
+				Repo:     businessRepo,
 				CqrsBase: base,
 			}),
-			OwnerRemoveUser: command.NewOwnerRemoveUserHandler(command.OwnerRemoveUserHandlerConfig{
-				Repo:     ownerRepo,
+			BusinessRemoveUser: command.NewBusinessRemoveUserHandler(command.BusinessRemoveUserHandlerConfig{
+				Repo:     businessRepo,
 				CqrsBase: base,
 			}),
-			OwnerAddUserPermission: command.NewOwnerAddUserPermissionHandler(command.OwnerAddUserPermissionHandlerConfig{
-				Repo:     ownerRepo,
+			BusinessAddUserPermission: command.NewBusinessAddUserPermissionHandler(command.BusinessAddUserPermissionHandlerConfig{
+				Repo:     businessRepo,
 				CqrsBase: base,
 			}),
-			OwnerRemoveUserPermission: command.NewOwnerRemoveUserPermissionHandler(command.OwnerRemoveUserPermissionHandlerConfig{
-				Repo:     ownerRepo,
+			BusinessRemoveUserPermission: command.NewBusinessRemoveUserPermissionHandler(command.BusinessRemoveUserPermissionHandlerConfig{
+				Repo:     businessRepo,
 				CqrsBase: base,
 			}),
-			OwnerEnable: command.NewOwnerEnableHandler(command.OwnerEnableHandlerConfig{
-				Repo:     ownerRepo,
+			BusinessEnable: command.NewBusinessEnableHandler(command.BusinessEnableHandlerConfig{
+				Repo:     businessRepo,
 				CqrsBase: base,
 			}),
-			OwnerDisable: command.NewOwnerDisableHandler(command.OwnerDisableHandlerConfig{
-				Repo:     ownerRepo,
+			BusinessDisable: command.NewBusinessDisableHandler(command.BusinessDisableHandlerConfig{
+				Repo:     businessRepo,
 				CqrsBase: base,
 			}),
-			OwnerDelete: command.NewOwnerDeleteHandler(command.OwnerDeleteHandlerConfig{
-				Repo:     ownerRepo,
+			BusinessDelete: command.NewBusinessDeleteHandler(command.BusinessDeleteHandlerConfig{
+				Repo:     businessRepo,
 				CqrsBase: base,
 			}),
-			OwnerRecover: command.NewOwnerRecoverHandler(command.OwnerRecoverHandlerConfig{
-				Repo:     ownerRepo,
+			BusinessRecover: command.NewBusinessRecoverHandler(command.BusinessRecoverHandlerConfig{
+				Repo:     businessRepo,
 				CqrsBase: base,
 			}),
 			UserRolesAdd: command.NewUserRolesAddHandler(command.UserRolesAddHandlerConfig{

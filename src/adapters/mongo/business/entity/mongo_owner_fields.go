@@ -1,13 +1,13 @@
 package entity
 
 type fields struct {
-	UUID       string
-	NickName   string
-	OwnerType  string
-	Users      string
-	IsEnabled  string
-	IsVerified string
-	IsDeleted  string
+	UUID         string
+	NickName     string
+	BusinessType string
+	Users        string
+	IsEnabled    string
+	IsVerified   string
+	IsDeleted    string
 }
 
 type userFields struct {
@@ -18,13 +18,13 @@ type userFields struct {
 }
 
 var Fields = fields{
-	UUID:       "uuid",
-	NickName:   "nick_name",
-	OwnerType:  "owner_type",
-	Users:      "users",
-	IsEnabled:  "is_enabled",
-	IsVerified: "is_verified",
-	IsDeleted:  "is_deleted",
+	UUID:         "uuid",
+	NickName:     "nick_name",
+	BusinessType: "business_type",
+	Users:        "users",
+	IsEnabled:    "is_enabled",
+	IsVerified:   "is_verified",
+	IsDeleted:    "is_deleted",
 }
 
 var UserFields = userFields{

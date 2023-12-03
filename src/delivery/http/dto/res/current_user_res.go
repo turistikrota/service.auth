@@ -13,20 +13,20 @@ type (
 )
 
 type CurrentUserResponse struct {
-	UUID     string               `json:"uuid"`
-	Email    string               `json:"email"`
-	Roles    []string             `json:"roles"`
-	Accounts []CurrentUserAccount `json:"accounts"`
-	Owners   []jwt.UserClaimOwner `json:"owners"`
+	UUID       string                  `json:"uuid"`
+	Email      string                  `json:"email"`
+	Roles      []string                `json:"roles"`
+	Accounts   []CurrentUserAccount    `json:"accounts"`
+	Businesses []jwt.UserClaimBusiness `json:"businesses"`
 }
 
 func (r *response) CurrentUser(u *jwt.UserClaim) *CurrentUserResponse {
 	return &CurrentUserResponse{
-		UUID:     u.UUID,
-		Email:    u.Email,
-		Roles:    u.Roles,
-		Accounts: r.CurrentUserAccount(u),
-		Owners:   u.Owners,
+		UUID:       u.UUID,
+		Email:      u.Email,
+		Roles:      u.Roles,
+		Accounts:   r.CurrentUserAccount(u),
+		Businesses: u.Businesses,
 	}
 }
 

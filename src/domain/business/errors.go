@@ -1,4 +1,4 @@
-package owner
+package business
 
 import "github.com/mixarchitecture/i18np"
 
@@ -9,16 +9,16 @@ type Errors interface {
 
 type errors struct{}
 
-func newOwnerErrors() Errors {
+func newBusinessErrors() Errors {
 	return &errors{}
 }
 
 func (e *errors) NotFound() *i18np.Error {
-	return i18np.NewError(I18nMessages.OwnerNotFound)
+	return i18np.NewError(I18nMessages.BusinessNotFound)
 }
 
 func (e *errors) Failed(action string) *i18np.Error {
-	return i18np.NewError(I18nMessages.OwnerFailed, i18np.P{
+	return i18np.NewError(I18nMessages.BusinessFailed, i18np.P{
 		"Action": action,
 	})
 }

@@ -2,10 +2,10 @@ package dto
 
 import (
 	"github.com/turistikrota/service.auth/src/app/command"
-	"github.com/turistikrota/service.auth/src/domain/owner"
+	"github.com/turistikrota/service.auth/src/domain/business"
 )
 
-type OwnerPermissionEvent struct {
+type BusinessPermissionEvent struct {
 	NickName   string          `json:"nickName"`
 	User       UserDetailEvent `json:"user"`
 	Permission string          `json:"permission"`
@@ -17,11 +17,11 @@ type UserDetailEvent struct {
 	Code string `json:"code"`
 }
 
-func (e *OwnerPermissionEvent) ToAddCommand() command.OwnerAddUserPermissionCommand {
-	return command.OwnerAddUserPermissionCommand{
+func (e *BusinessPermissionEvent) ToAddCommand() command.BusinessAddUserPermissionCommand {
+	return command.BusinessAddUserPermissionCommand{
 		NickName:   e.NickName,
 		Permission: e.Permission,
-		User: owner.UserDetail{
+		User: business.UserDetail{
 			UUID: e.User.UUID,
 			Name: e.User.Name,
 			Code: e.User.Code,
@@ -29,11 +29,11 @@ func (e *OwnerPermissionEvent) ToAddCommand() command.OwnerAddUserPermissionComm
 	}
 }
 
-func (e *OwnerPermissionEvent) ToRemoveCommand() command.OwnerRemoveUserPermissionCommand {
-	return command.OwnerRemoveUserPermissionCommand{
+func (e *BusinessPermissionEvent) ToRemoveCommand() command.BusinessRemoveUserPermissionCommand {
+	return command.BusinessRemoveUserPermissionCommand{
 		NickName:   e.NickName,
 		Permission: e.Permission,
-		User: owner.UserDetail{
+		User: business.UserDetail{
 			UUID: e.User.UUID,
 			Name: e.User.Name,
 			Code: e.User.Code,

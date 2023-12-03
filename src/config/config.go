@@ -27,8 +27,8 @@ type MongoAccount struct {
 	Collection string `env:"MONGO_ACCOUNT_COLLECTION" envDefault:"empty"`
 }
 
-type MongoOwner struct {
-	Collection string `env:"MONGO_OWNER_COLLECTION" envDefault:"empty"`
+type MongoBusiness struct {
+	Collection string `env:"MONGO_BUSINESS_COLLECTION" envDefault:"empty"`
 }
 
 type I18n struct {
@@ -81,12 +81,12 @@ type HttpHeaders struct {
 }
 
 type Topics struct {
-	Auth    AuthTopics
-	Notify  NotifyTopics
-	Verify  VerifyTopics
-	Account AccountTopics
-	Owner   OwnerTopics
-	Admin   AdminTopics
+	Auth     AuthTopics
+	Notify   NotifyTopics
+	Verify   VerifyTopics
+	Account  AccountTopics
+	Business BusinessTopics
+	Admin    AdminTopics
 }
 
 type Urls struct {
@@ -122,17 +122,18 @@ type AccountTopics struct {
 	Enabled  string `env:"STREAMING_TOPIC_ACCOUNT_ENABLED"`
 }
 
-type OwnerTopics struct {
-	Created               string `env:"STREAMING_TOPIC_OWNER_CREATED"`
-	UserRemoved           string `env:"STREAMING_TOPIC_OWNER_USER_REMOVED"`
-	UserAdded             string `env:"STREAMING_TOPIC_OWNER_USER_ADDED"`
-	UserPermissionRemoved string `env:"STREAMING_TOPIC_OWNER_USER_PERMISSION_REMOVED"`
-	UserPermissionAdded   string `env:"STREAMING_TOPIC_OWNER_USER_PERMISSION_ADDED"`
-	VerifiedByAdmin       string `env:"STREAMING_TOPIC_OWNER_VERIFIED_BY_ADMIN"`
-	DeletedByAdmin        string `env:"STREAMING_TOPIC_OWNER_DELETED_BY_ADMIN"`
-	RecoverByAdmin        string `env:"STREAMING_TOPIC_OWNER_RECOVER_BY_ADMIN"`
-	Disabled              string `env:"STREAMING_TOPIC_OWNER_DISABLED"`
-	Enabled               string `env:"STREAMING_TOPIC_OWNER_ENABLED"`
+type BusinessTopics struct {
+	Created               string `env:"STREAMING_TOPIC_BUSINESS_CREATED"`
+	UserRemoved           string `env:"STREAMING_TOPIC_BUSINESS_USER_REMOVED"`
+	UserAdded             string `env:"STREAMING_TOPIC_BUSINESS_USER_ADDED"`
+	UserPermissionRemoved string `env:"STREAMING_TOPIC_BUSINESS_USER_PERMISSION_REMOVED"`
+	UserPermissionAdded   string `env:"STREAMING_TOPIC_BUSINESS_USER_PERMISSION_ADDED"`
+	VerifiedByAdmin       string `env:"STREAMING_TOPIC_BUSINESS_VERIFIED_BY_ADMIN"`
+	DeletedByAdmin        string `env:"STREAMING_TOPIC_BUSINESS_DELETED_BY_ADMIN"`
+	RecoverByAdmin        string `env:"STREAMING_TOPIC_BUSINESS_RECOVER_BY_ADMIN"`
+	RejectedByAdmin       string `env:"STREAMING_TOPIC_BUSINESS_REJECTED_BY_ADMIN"`
+	Disabled              string `env:"STREAMING_TOPIC_BUSINESS_DISABLED"`
+	Enabled               string `env:"STREAMING_TOPIC_BUSINESS_ENABLED"`
 }
 
 type AdminTopics struct {
@@ -161,9 +162,9 @@ type TokenSrv struct {
 type App struct {
 	Protocol string `env:"PROTOCOL" envDefault:"http"`
 	DB       struct {
-		Auth    MongoAuth
-		Account MongoAccount
-		Owner   MongoOwner
+		Auth     MongoAuth
+		Account  MongoAccount
+		Business MongoBusiness
 	}
 	Redis       Redis
 	Server      Server

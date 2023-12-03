@@ -1,26 +1,26 @@
-package owner
+package business
 
 import (
 	"context"
 
 	"github.com/mixarchitecture/i18np"
-	"github.com/turistikrota/service.auth/src/adapters/mongo/owner/entity"
-	"github.com/turistikrota/service.auth/src/domain/owner"
+	"github.com/turistikrota/service.auth/src/adapters/mongo/business/entity"
+	"github.com/turistikrota/service.auth/src/domain/business"
 	"github.com/turistikrota/service.shared/jwt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func (r *repo) Create(ctx context.Context, owner *owner.Entity) *i18np.Error {
-	n := &entity.MongoOwner{}
-	_, err := r.collection.InsertOne(ctx, n.FromOwner(owner))
+func (r *repo) Create(ctx context.Context, business *business.Entity) *i18np.Error {
+	n := &entity.MongoBusiness{}
+	_, err := r.collection.InsertOne(ctx, n.FromBusiness(business))
 	if err != nil {
 		return r.factory.Errors.Failed("create")
 	}
 	return nil
 }
 
-func (r *repo) AddUser(ctx context.Context, nickName string, user *owner.User) *i18np.Error {
+func (r *repo) AddUser(ctx context.Context, nickName string, user *business.User) *i18np.Error {
 	filter := bson.M{
 		entity.Fields.NickName: nickName,
 		"$or": []bson.M{
@@ -40,7 +40,7 @@ func (r *repo) AddUser(ctx context.Context, nickName string, user *owner.User) *
 	return r.helper.UpdateOne(ctx, filter, setter)
 }
 
-func (r *repo) RemoveUser(ctx context.Context, nickName string, user owner.UserDetail) *i18np.Error {
+func (r *repo) RemoveUser(ctx context.Context, nickName string, user business.UserDetail) *i18np.Error {
 	filter := bson.M{
 		entity.Fields.NickName:                   nickName,
 		entity.UserField(entity.UserFields.Name): user.Name,
@@ -55,7 +55,7 @@ func (r *repo) RemoveUser(ctx context.Context, nickName string, user owner.UserD
 	return r.helper.UpdateOne(ctx, filter, setter)
 }
 
-func (r *repo) RemoveUserPermission(ctx context.Context, nickName string, user owner.UserDetail, permission string) *i18np.Error {
+func (r *repo) RemoveUserPermission(ctx context.Context, nickName string, user business.UserDetail, permission string) *i18np.Error {
 	filter := bson.M{
 		entity.Fields.NickName:                   nickName,
 		entity.UserField(entity.UserFields.Name): user.Name,
@@ -68,7 +68,7 @@ func (r *repo) RemoveUserPermission(ctx context.Context, nickName string, user o
 	return r.helper.UpdateOne(ctx, filter, setter)
 }
 
-func (r *repo) AddUserPermission(ctx context.Context, nickName string, user owner.UserDetail, permission string) *i18np.Error {
+func (r *repo) AddUserPermission(ctx context.Context, nickName string, user business.UserDetail, permission string) *i18np.Error {
 	filter := bson.M{
 		entity.Fields.NickName:                   nickName,
 		entity.UserField(entity.UserFields.Name): user.Name,
@@ -145,7 +145,7 @@ func (r *repo) Verify(ctx context.Context, nickName string) *i18np.Error {
 	return r.helper.UpdateOne(ctx, filter, setter)
 }
 
-func (r *repo) GetAllAsClaim(ctx context.Context, userUUID string) ([]jwt.UserClaimOwner, *i18np.Error) {
+func (r *repo) GetAllAsClaim(ctx context.Context, userUUID string) ([]jwt.UserClaimBusiness, *i18np.Error) {
 	filter := bson.M{
 		entity.UserField(entity.UserFields.UUID): userUUID,
 	}
@@ -158,13 +158,13 @@ func (r *repo) GetAllAsClaim(ctx context.Context, userUUID string) ([]jwt.UserCl
 		return nil, r.factory.Errors.Failed("get")
 	}
 	defer cursor.Close(ctx)
-	owners := make([]jwt.UserClaimOwner, 0)
+	businesses := make([]jwt.UserClaimBusiness, 0)
 	for cursor.Next(ctx) {
-		var owner entity.MongoOwner
-		if err := cursor.Decode(&owner); err != nil {
+		var business entity.MongoBusiness
+		if err := cursor.Decode(&business); err != nil {
 			return nil, r.factory.Errors.Failed("get")
 		}
-		owners = append(owners, owner.ToClaim(userUUID))
+		businesses = append(businesses, business.ToClaim(userUUID))
 	}
-	return owners, nil
+	return businesses, nil
 }

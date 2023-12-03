@@ -1,4 +1,4 @@
-package owner
+package business
 
 import (
 	"context"
@@ -24,5 +24,5 @@ type Repository interface {
 	Delete(ctx context.Context, nickName string) *i18np.Error
 	Recover(ctx context.Context, nickName string) *i18np.Error
 	Verify(ctx context.Context, nickName string) *i18np.Error
-	GetAllAsClaim(ctx context.Context, userUUID string) ([]jwt.UserClaimOwner, *i18np.Error)
+	GetAllAsClaim(ctx context.Context, userUUID string) ([]jwt.UserClaimBusiness, *i18np.Error)
 }

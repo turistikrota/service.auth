@@ -9,7 +9,7 @@ import (
 	"github.com/mixarchitecture/microp/events"
 	"github.com/turistikrota/service.auth/src/config"
 	"github.com/turistikrota/service.auth/src/domain/account"
-	"github.com/turistikrota/service.auth/src/domain/owner"
+	"github.com/turistikrota/service.auth/src/domain/business"
 	"github.com/turistikrota/service.auth/src/domain/user"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
@@ -30,39 +30,39 @@ type LoginVerifiedResult struct {
 type LoginVerifiedHandler decorator.CommandHandler[LoginVerifiedCommand, *LoginVerifiedResult]
 
 type loginVerifiedHandler struct {
-	repo        user.Repository
-	accountRepo account.Repository
-	ownerRepo   owner.Repository
-	authTopics  config.AuthTopics
-	publisher   events.Publisher
-	errors      user.Errors
-	tokenSrv    token.Service
-	sessionSrv  session.Service
+	repo         user.Repository
+	accountRepo  account.Repository
+	businessRepo business.Repository
+	authTopics   config.AuthTopics
+	publisher    events.Publisher
+	errors       user.Errors
+	tokenSrv     token.Service
+	sessionSrv   session.Service
 }
 
 type LoginVerifiedHandlerConfig struct {
-	Repo        user.Repository
-	AccountRepo account.Repository
-	OwnerRepo   owner.Repository
-	AuthTopics  config.AuthTopics
-	Publisher   events.Publisher
-	TokenSrv    token.Service
-	SessionSrv  session.Service
-	Errors      user.Errors
-	CqrsBase    decorator.Base
+	Repo         user.Repository
+	AccountRepo  account.Repository
+	BusinessRepo business.Repository
+	AuthTopics   config.AuthTopics
+	Publisher    events.Publisher
+	TokenSrv     token.Service
+	SessionSrv   session.Service
+	Errors       user.Errors
+	CqrsBase     decorator.Base
 }
 
 func NewLoginVerifiedHandler(config LoginVerifiedHandlerConfig) LoginVerifiedHandler {
 	return decorator.ApplyCommandDecorators[LoginVerifiedCommand, *LoginVerifiedResult](
 		loginVerifiedHandler{
-			repo:        config.Repo,
-			accountRepo: config.AccountRepo,
-			ownerRepo:   config.OwnerRepo,
-			authTopics:  config.AuthTopics,
-			publisher:   config.Publisher,
-			errors:      config.Errors,
-			tokenSrv:    config.TokenSrv,
-			sessionSrv:  config.SessionSrv,
+			repo:         config.Repo,
+			accountRepo:  config.AccountRepo,
+			businessRepo: config.BusinessRepo,
+			authTopics:   config.AuthTopics,
+			publisher:    config.Publisher,
+			errors:       config.Errors,
+			tokenSrv:     config.TokenSrv,
+			sessionSrv:   config.SessionSrv,
 		},
 		config.CqrsBase,
 	)
@@ -73,7 +73,7 @@ func (h loginVerifiedHandler) Handle(ctx context.Context, cmd LoginVerifiedComma
 	if err != nil {
 		return nil, h.errors.Failed(cmd.UserUUID)
 	}
-	accounts, owner, error := h.getUserRelations(ctx, u.UUID)
+	accounts, bus, error := h.getUserRelations(ctx, u.UUID)
 	if error != nil {
 		return nil, error
 	}
@@ -82,11 +82,11 @@ func (h loginVerifiedHandler) Handle(ctx context.Context, cmd LoginVerifiedComma
 		DeviceUUID: cmd.DeviceUUID,
 		Device:     cmd.Device,
 		User: &session.SessionUser{
-			UUID:     u.UUID,
-			Email:    u.Email,
-			Roles:    u.Roles,
-			Accounts: accounts,
-			Owners:   owner,
+			UUID:       u.UUID,
+			Email:      u.Email,
+			Roles:      u.Roles,
+			Accounts:   accounts,
+			Businesses: bus,
 		},
 	})
 	if error != nil {
@@ -105,14 +105,14 @@ func (h loginVerifiedHandler) Handle(ctx context.Context, cmd LoginVerifiedComma
 	}, nil
 }
 
-func (h loginVerifiedHandler) getUserRelations(ctx context.Context, userUUID string) ([]jwt.UserClaimAccount, []jwt.UserClaimOwner, *i18np.Error) {
+func (h loginVerifiedHandler) getUserRelations(ctx context.Context, userUUID string) ([]jwt.UserClaimAccount, []jwt.UserClaimBusiness, *i18np.Error) {
 	accounts, err := h.accountRepo.ListAsClaims(ctx, userUUID)
 	if err != nil {
 		return nil, nil, err
 	}
-	owners, err := h.ownerRepo.GetAllAsClaim(ctx, userUUID)
+	businesses, err := h.businessRepo.GetAllAsClaim(ctx, userUUID)
 	if err != nil {
 		return nil, nil, err
 	}
-	return accounts, owners, nil
+	return accounts, businesses, nil
 }

@@ -83,8 +83,8 @@ get_query_failed = "Get query failed."
 update_query_not_found = "Update query not found."
 update_query_failed = "Update query failed."
 
-owner_failed = "Owner failed."
-owner_not_found = "Owner not found."
+business_failed = "Business failed."
+business_not_found = "Business not found."
 
 # Account Module Messages
 error_account_failed = "Failed to account. {{.Action}}"

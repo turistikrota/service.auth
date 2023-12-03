@@ -2,18 +2,18 @@ package dto
 
 import (
 	"github.com/turistikrota/service.auth/src/app/command"
-	"github.com/turistikrota/service.auth/src/domain/owner"
+	"github.com/turistikrota/service.auth/src/domain/business"
 )
 
-type OwnerUserRemoved struct {
+type BusinessUserRemoved struct {
 	NickName string          `json:"nickName"`
 	User     UserDetailEvent `json:"user"`
 }
 
-func (e *OwnerUserRemoved) ToCommand() command.OwnerRemoveUserCommand {
-	return command.OwnerRemoveUserCommand{
+func (e *BusinessUserRemoved) ToCommand() command.BusinessRemoveUserCommand {
+	return command.BusinessRemoveUserCommand{
 		NickName: e.NickName,
-		User: owner.UserDetail{
+		User: business.UserDetail{
 			UUID: e.User.UUID,
 			Name: e.User.Name,
 			Code: e.User.Code,

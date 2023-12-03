@@ -2,17 +2,17 @@ package mongo
 
 import (
 	mongo_account "github.com/turistikrota/service.auth/src/adapters/mongo/account"
-	mongo_owner "github.com/turistikrota/service.auth/src/adapters/mongo/owner"
+	mongo_business "github.com/turistikrota/service.auth/src/adapters/mongo/business"
 	mongo_user "github.com/turistikrota/service.auth/src/adapters/mongo/user"
 	"github.com/turistikrota/service.auth/src/domain/account"
-	"github.com/turistikrota/service.auth/src/domain/owner"
+	"github.com/turistikrota/service.auth/src/domain/business"
 	"github.com/turistikrota/service.auth/src/domain/user"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type Mongo interface {
 	NewUser(userFactory user.Factory, collection *mongo.Collection) user.Repository
-	NewOwner(factory owner.Factory, collection *mongo.Collection) owner.Repository
+	NewBusiness(factory business.Factory, collection *mongo.Collection) business.Repository
 	NewAccount(factory account.Factory, collection *mongo.Collection) account.Repository
 }
 
@@ -26,8 +26,8 @@ func (m *mongodb) NewUser(userFactory user.Factory, collection *mongo.Collection
 	return mongo_user.New(userFactory, collection)
 }
 
-func (m *mongodb) NewOwner(factory owner.Factory, collection *mongo.Collection) owner.Repository {
-	return mongo_owner.New(factory, collection)
+func (m *mongodb) NewBusiness(factory business.Factory, collection *mongo.Collection) business.Repository {
+	return mongo_business.New(factory, collection)
 }
 
 func (m *mongodb) NewAccount(factory account.Factory, collection *mongo.Collection) account.Repository {

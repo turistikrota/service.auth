@@ -7,11 +7,11 @@ type Dto interface {
 	AccountEnabled() *AccountEnabled
 	AccountDeleted() *AccountDeleted
 	AccountUpdated() *AccountUpdated
-	OwnerUpdated() *OwnerUpdated
-	OwnerCreated() *OwnerCreated
-	OwnerUserAdded() *OwnerUserAdded
-	OwnerUserRemoved() *OwnerUserRemoved
-	OwnerPermissionEvent() *OwnerPermissionEvent
+	BusinessUpdated() *BusinessUpdated
+	BusinessCreated() *BusinessCreated
+	BusinessUserAdded() *BusinessUserAdded
+	BusinessUserRemoved() *BusinessUserRemoved
+	BusinessPermissionEvent() *BusinessPermissionEvent
 	UserRolesEvent() *UserRolesEvent
 }
 
@@ -45,24 +45,24 @@ func (d *dto) AccountUpdated() *AccountUpdated {
 	return &AccountUpdated{}
 }
 
-func (d *dto) OwnerUpdated() *OwnerUpdated {
-	return &OwnerUpdated{}
+func (d *dto) BusinessUpdated() *BusinessUpdated {
+	return &BusinessUpdated{}
 }
 
-func (d *dto) OwnerCreated() *OwnerCreated {
-	return &OwnerCreated{}
+func (d *dto) BusinessCreated() *BusinessCreated {
+	return &BusinessCreated{}
 }
 
-func (d *dto) OwnerUserAdded() *OwnerUserAdded {
-	return &OwnerUserAdded{}
+func (d *dto) BusinessUserAdded() *BusinessUserAdded {
+	return &BusinessUserAdded{}
 }
 
-func (d *dto) OwnerUserRemoved() *OwnerUserRemoved {
-	return &OwnerUserRemoved{}
+func (d *dto) BusinessUserRemoved() *BusinessUserRemoved {
+	return &BusinessUserRemoved{}
 }
 
-func (d *dto) OwnerPermissionEvent() *OwnerPermissionEvent {
-	return &OwnerPermissionEvent{}
+func (d *dto) BusinessPermissionEvent() *BusinessPermissionEvent {
+	return &BusinessPermissionEvent{}
 }
 
 func (d *dto) UserRolesEvent() *UserRolesEvent {
