@@ -17,6 +17,7 @@ type Repository interface {
 	Update(ctx context.Context, u UserUnique, account *Entity) *i18np.Error
 	Disable(ctx context.Context, u UserUnique) *i18np.Error
 	Enable(ctx context.Context, u UserUnique) *i18np.Error
+	Restore(ctx context.Context, u UserUnique) *i18np.Error
 	Delete(ctx context.Context, u UserUnique) *i18np.Error
 	ListAsClaims(ctx context.Context, userUUID string) ([]jwt.UserClaimAccount, *i18np.Error)
 }

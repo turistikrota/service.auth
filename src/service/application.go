@@ -138,6 +138,10 @@ func NewApplication(c Config) app.Application {
 				Repo:     accountRepo,
 				CqrsBase: base,
 			}),
+			AccountRestore: command.NewAccountRestoreHandler(command.AccountRestoreHandlerConfig{
+				Repo:     accountRepo,
+				CqrsBase: base,
+			}),
 			AccountEnable: command.NewAccountEnableHandler(command.AccountEnableHandlerConfig{
 				Repo:     accountRepo,
 				CqrsBase: base,

@@ -22,6 +22,7 @@ type Commands struct {
 	AccountCreate                command.AccountCreateHandler
 	AccountUpdate                command.AccountUpdateHandler
 	AccountDelete                command.AccountDeleteHandler
+	AccountRestore               command.AccountRestoreHandler
 	AccountEnable                command.AccountEnableHandler
 	AccountDisable               command.AccountDisableHandler
 	BusinessCreate               command.BusinessCreateHandler

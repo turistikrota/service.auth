@@ -2,12 +2,9 @@ package event_stream
 
 import (
 	"encoding/json"
-
-	"github.com/sirupsen/logrus"
 )
 
 func (s Server) ListenUserUpdated(data []byte) {
-	logrus.Info("User updated event received")
 	d := s.dto.UserUpdated()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
@@ -17,7 +14,6 @@ func (s Server) ListenUserUpdated(data []byte) {
 }
 
 func (s Server) ListenAccountCreated(data []byte) {
-	logrus.Info("Account created event received")
 	d := s.dto.AccountCreated()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
@@ -27,7 +23,6 @@ func (s Server) ListenAccountCreated(data []byte) {
 }
 
 func (s Server) ListenAccountUpdated(data []byte) {
-	logrus.Info("Account updated event received")
 	d := s.dto.AccountUpdated()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
@@ -37,7 +32,6 @@ func (s Server) ListenAccountUpdated(data []byte) {
 }
 
 func (s Server) ListenAccountDeleted(data []byte) {
-	logrus.Info("Account deleted event received")
 	d := s.dto.AccountDeleted()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
@@ -46,8 +40,16 @@ func (s Server) ListenAccountDeleted(data []byte) {
 	_, _ = s.app.Commands.AccountDelete.Handle(s.ctx, d.ToCommand())
 }
 
+func (s Server) ListenAccountRestored(data []byte) {
+	d := s.dto.AccountRestored()
+	err := json.Unmarshal(data, &d)
+	if err != nil {
+		return
+	}
+	_, _ = s.app.Commands.AccountRestore.Handle(s.ctx, d.ToCommand())
+}
+
 func (s Server) ListenAccountEnabled(data []byte) {
-	logrus.Info("Account enabled event received")
 	d := s.dto.AccountEnabled()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
@@ -57,7 +59,6 @@ func (s Server) ListenAccountEnabled(data []byte) {
 }
 
 func (s Server) ListenAccountDisabled(data []byte) {
-	logrus.Info("Account disabled event received")
 	d := s.dto.AccountDisabled()
 	err := json.Unmarshal(data, &d)
 	if err != nil {
