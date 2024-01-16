@@ -84,6 +84,19 @@ func (r *repo) Delete(ctx context.Context, u account.UserUnique) *i18np.Error {
 	return r.updateOne(ctx, filter, setter)
 }
 
+func (r *repo) Restore(ctx context.Context, u account.UserUnique) *i18np.Error {
+	filter := bson.M{
+		entity.Fields.UserUUID: u.UserUUID,
+		entity.Fields.UserName: u.Name,
+	}
+	setter := bson.M{
+		"$set": bson.M{
+			entity.Fields.IsDeleted: false,
+		},
+	}
+	return r.updateOne(ctx, filter, setter)
+}
+
 func (r *repo) ListAsClaims(ctx context.Context, userUUID string) ([]jwt.UserClaimAccount, *i18np.Error) {
 	filter := bson.M{
 		entity.Fields.UserUUID: userUUID,

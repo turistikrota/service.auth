@@ -41,6 +41,7 @@ func (s Server) Load() {
 	_ = s.engine.Subscribe(s.Topics.Account.Created, s.ListenAccountCreated)
 	_ = s.engine.Subscribe(s.Topics.Account.Updated, s.ListenAccountUpdated)
 	_ = s.engine.Subscribe(s.Topics.Account.Deleted, s.ListenAccountDeleted)
+	_ = s.engine.Subscribe(s.Topics.Account.Restored, s.ListenAccountRestored)
 	_ = s.engine.Subscribe(s.Topics.Account.Enabled, s.ListenAccountEnabled)
 	_ = s.engine.Subscribe(s.Topics.Account.Disabled, s.ListenAccountDisabled)
 	_ = s.engine.Subscribe(s.Topics.Business.Created, s.ListenBusinessCreated)

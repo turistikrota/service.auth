@@ -120,6 +120,7 @@ type AccountTopics struct {
 	Updated  string `env:"STREAMING_TOPIC_ACCOUNT_UPDATED"`
 	Disabled string `env:"STREAMING_TOPIC_ACCOUNT_DISABLED"`
 	Enabled  string `env:"STREAMING_TOPIC_ACCOUNT_ENABLED"`
+	Restored string `env:"STREAMING_TOPIC_ACCOUNT_RESTORED"`
 }
 
 type BusinessTopics struct {

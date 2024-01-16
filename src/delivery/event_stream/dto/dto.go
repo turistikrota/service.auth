@@ -4,6 +4,7 @@ type Dto interface {
 	UserUpdated() *UserUpdated
 	AccountCreated() *AccountCreated
 	AccountDisabled() *AccountDisabled
+	AccountRestored() *AccountRestored
 	AccountEnabled() *AccountEnabled
 	AccountDeleted() *AccountDeleted
 	AccountUpdated() *AccountUpdated
@@ -23,6 +24,10 @@ func New() Dto {
 
 func (d *dto) UserUpdated() *UserUpdated {
 	return &UserUpdated{}
+}
+
+func (d *dto) AccountRestored() *AccountRestored {
+	return &AccountRestored{}
 }
 
 func (d *dto) AccountCreated() *AccountCreated {
