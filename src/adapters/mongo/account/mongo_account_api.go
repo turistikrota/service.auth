@@ -103,7 +103,6 @@ func (r *repo) ListAsClaims(ctx context.Context, userUUID string) ([]jwt.UserCla
 		entity.Fields.IsDeleted: bson.M{
 			"$ne": true,
 		},
-		entity.Fields.IsActive: true,
 	}
 	cur, err := r.collection.Find(ctx, filter)
 	if err != nil {
