@@ -55,11 +55,11 @@ func (r *repo) GetByUUID(ctx context.Context, uuid string) (*Entity, *i18np.Erro
 	filter := bson.M{
 		fields.UUID: id,
 	}
-	res, notFound, err := r.helper.GetFilter(ctx, filter)
+	res, exist, err := r.helper.GetFilter(ctx, filter)
 	if err != nil {
 		return nil, r.factory.Errors.Failed("get")
 	}
-	if notFound {
+	if !exist {
 		return nil, r.factory.Errors.NotFound(uuid)
 	}
 	return *res, nil
@@ -69,11 +69,11 @@ func (r *repo) GetByEmail(ctx context.Context, email string) (*Entity, *i18np.Er
 	filter := bson.M{
 		fields.Email: email,
 	}
-	res, notFound, err := r.helper.GetFilter(ctx, filter)
+	res, exist, err := r.helper.GetFilter(ctx, filter)
 	if err != nil {
 		return nil, r.factory.Errors.Failed("get")
 	}
-	if notFound {
+	if !exist {
 		return nil, r.factory.Errors.NotFound(email)
 	}
 	return *res, nil
@@ -83,11 +83,11 @@ func (r *repo) GetByToken(ctx context.Context, token string) (*Entity, *i18np.Er
 	filter := bson.M{
 		fields.VerifyToken: token,
 	}
-	res, notFound, err := r.helper.GetFilter(ctx, filter)
+	res, exist, err := r.helper.GetFilter(ctx, filter)
 	if err != nil {
 		return nil, r.factory.Errors.Failed("get")
 	}
-	if notFound {
+	if !exist {
 		return nil, r.factory.Errors.NotFound(token)
 	}
 	return *res, nil
@@ -97,11 +97,11 @@ func (r *repo) CheckEmail(ctx context.Context, email string) (bool, *i18np.Error
 	filter := bson.M{
 		fields.Email: email,
 	}
-	_, notFound, err := r.helper.GetFilter(ctx, filter)
+	_, exist, err := r.helper.GetFilter(ctx, filter)
 	if err != nil {
 		return false, r.factory.Errors.Failed("get")
 	}
-	return !notFound, nil
+	return !exist, nil
 }
 
 func (r *repo) Create(ctx context.Context, e *Entity) (*Entity, *i18np.Error) {
