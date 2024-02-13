@@ -1,6 +1,6 @@
 module github.com/turistikrota/service.auth
 
-go 1.21.5
+go 1.20
 
 require (
 	github.com/cilloparch/cillop v0.1.0
