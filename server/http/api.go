@@ -67,6 +67,38 @@ func (h srv) Logout(ctx *fiber.Ctx) error {
 	return result.SuccessDetail(Messages.Success.Ok, res)
 }
 
+func (h srv) UserDelete(ctx *fiber.Ctx) error {
+	cmd := command.UserDeleteCmd{}
+	cmd.UserUUID = current_user.Parse(ctx).UUID
+	cmd.DeviceUUID = device_uuid.Parse(ctx)
+	res, err := h.app.Commands.UserDelete(ctx.UserContext(), cmd)
+	if err != nil {
+		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	refresh_token.Remove(ctx, h.config.HttpHeaders.Domain)
+	current_user.RemoveCookie(ctx, auth.Cookies.AccessToken, h.config.HttpHeaders.Domain)
+	h.removeSelectedAccountInCookie(ctx)
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
+func (h srv) RefreshToken(ctx *fiber.Ctx) error {
+	cmd := command.RefreshTokenCmd{}
+	cmd.UserUUID = current_user.Parse(ctx).UUID
+	cmd.DeviceUUID = device_uuid.Parse(ctx)
+	cmd.IpAddress = ctx.IP()
+	cmd.RefreshToken = refresh_token.Parse(ctx)
+	cmd.AccessToken = current_user.GetAccessTokenFromCookie(ctx)
+	res, err := h.app.Commands.RefreshToken(ctx.UserContext(), cmd)
+	if err != nil {
+		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	refresh_token.Set(ctx, h.config.HttpHeaders.Domain, res.RefreshToken)
+	current_user.SetCookie(ctx, auth.Cookies.AccessToken, h.config.HttpHeaders.Domain, res.AccessToken)
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
 func (h srv) makeDevice(ctx *fiber.Ctx) *session.Device {
 	ua := useragent.Parse(ctx.Get("User-Agent"))
 	t := "desktop"

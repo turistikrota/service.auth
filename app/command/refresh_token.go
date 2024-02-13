@@ -20,8 +20,8 @@ type RefreshTokenCmd struct {
 }
 
 type RefreshTokenRes struct {
-	AccessToken  string
-	RefreshToken string
+	AccessToken  string `json:"token"`
+	RefreshToken string `json:"-"`
 }
 
 type RefreshTokenHandler cqrs.HandlerFunc[RefreshTokenCmd, *RefreshTokenRes]
