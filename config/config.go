@@ -28,14 +28,6 @@ type RSA struct {
 	PublicKeyFile  string `env:"RSA_PUBLIC_KEY"`
 }
 
-type MongoAccount struct {
-	Collection string `env:"MONGO_ACCOUNT_COLLECTION" envDefault:"empty"`
-}
-
-type MongoBusiness struct {
-	Collection string `env:"MONGO_BUSINESS_COLLECTION" envDefault:"empty"`
-}
-
 type I18n struct {
 	Fallback string   `env:"I18N_FALLBACK_LANGUAGE" envDefault:"en"`
 	Dir      string   `env:"I18N_DIR" envDefault:"./src/locales"`
@@ -56,21 +48,6 @@ type CacheRedis struct {
 	Db   int    `env:"REDIS_CACHE_DB"`
 }
 
-type CsrfRedis struct {
-	Host string `env:"REDIS_CSRF_HOST"`
-	Port int    `env:"REDIS_CSRF_PORT"`
-	Pw   string `env:"REDIS_CSRF_PASSWORD"`
-	Db   int    `env:"REDIS_CSRF_DB"`
-}
-
-type CsrfBaseEnv struct {
-	SameSite   string `env:"CSRF_SAME_SITE"`
-	HttpOnly   bool   `env:"CSRF_HTTP_ONLY"`
-	Secure     bool   `env:"CSRF_SECURE"`
-	Domain     string `env:"CSRF_DOMAIN"`
-	Expiration int    `env:"CSRF_EXPIRATION"`
-}
-
 type Http struct {
 	Host  string `env:"SERVER_HOST" envDefault:"localhost"`
 	Port  int    `env:"SERVER_PORT" envDefault:"3000"`
@@ -86,9 +63,7 @@ type HttpHeaders struct {
 }
 
 type Topics struct {
-	Auth   AuthTopics
 	Notify NotifyTopics
-	Verify VerifyTopics
 	Admin  AdminTopics
 }
 
@@ -97,36 +72,13 @@ type Urls struct {
 	VerifyMail string `env:"URL_VERIFY_MAIL" envDefault:"http://localhost:3000/auth/verify"`
 }
 
-type AuthTopics struct {
-	// publishers
-	Base          string `env:"STREAMING_TOPIC_AUTH_BASE"`
-	Registered    string `env:"STREAMING_TOPIC_AUTH_REGISTERED"`
-	LoggedIn      string `env:"STREAMING_TOPIC_AUTH_LOGGED_IN"`
-	LoginFailed   string `env:"STREAMING_TOPIC_AUTH_LOGIN_FAILED"`
-	TokenExtended string `env:"STREAMING_TOPIC_AUTH_TOKEN_EXTENDED"`
-	UserVerified  string `env:"STREAMING_TOPIC_AUTH_USER_VERIFIED"`
-
-	// listeners
-	LoginVerified string `env:"STREAMING_TOPIC_AUTH_LOGIN_VERIFIED"`
-	UserUpdated   string `env:"STREAMING_TOPIC_AUTH_USER_UPDATED"`
-}
-
 type NotifyTopics struct {
-	SendEmailToActor string `env:"STREAMING_TOPIC_NOTIFY_SEND_EMAIL_TO_ACTOR"`
-	SendSmsToActor   string `env:"STREAMING_TOPIC_NOTIFY_SEND_SMS_TO_ACTOR"`
 	SendSpecialEmail string `env:"STREAMING_TOPIC_NOTIFY_SEND_SPECIAL_EMAIL"`
-	SendSpecialSms   string `env:"STREAMING_TOPIC_NOTIFY_SEND_SPECIAL_SMS"`
-	SendNotification string `env:"STREAMING_TOPIC_NOTIFY_SEND_NOTIFICATION"`
-	SendPush         string `env:"STREAMING_TOPIC_NOTIFY_SEND_PUSH"`
 }
 
 type AdminTopics struct {
 	PermissionsAdded   string `env:"STREAMING_TOPIC_ADMIN_PERMISSIONS_ADDED"`
 	PermissionsRemoved string `env:"STREAMING_TOPIC_ADMIN_PERMISSIONS_REMOVED"`
-}
-
-type VerifyTopics struct {
-	Start2FA string `env:"STREAMING_TOPIC_START_2FA"`
 }
 
 type Nats struct {
@@ -144,11 +96,8 @@ type TokenSrv struct {
 }
 
 type App struct {
-	Protocol string `env:"PROTOCOL" envDefault:"http"`
-	DB       struct {
-		Auth     MongoAuth
-		Account  MongoAccount
-		Business MongoBusiness
+	DB struct {
+		Auth MongoAuth
 	}
 	Rpc         Rpc
 	Redis       Redis
@@ -162,9 +111,5 @@ type App struct {
 	TokenSrv    TokenSrv
 	Urls        Urls
 	Turnstile   Turnstile
-	CSRF        struct {
-		BaseEnv CsrfBaseEnv
-		Redis   CsrfRedis
-	}
-	RSA RSA
+	RSA         RSA
 }
