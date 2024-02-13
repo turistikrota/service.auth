@@ -7,6 +7,7 @@ import (
 	"github.com/turistikrota/service.auth/app/command"
 	"github.com/turistikrota/service.auth/config"
 	"github.com/turistikrota/service.auth/domains/user"
+	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/db/mongo"
 )
 
@@ -15,6 +16,7 @@ type Config struct {
 	EventEngine events.Engine
 	Mongo       *mongo.DB
 	Validator   *validation.Validator
+	SessionSrv  session.Service
 }
 
 func NewApplication(config Config) app.Application {
@@ -27,6 +29,7 @@ func NewApplication(config Config) app.Application {
 	return app.Application{
 		Commands: app.Commands{
 			ChangePassword: command.NewChangePasswordHandler(userRepo, userFactory),
+			SetFcmToken:    command.NewSetFcmTokenHandler(config.SessionSrv),
 		},
 		Queries: app.Queries{},
 	}

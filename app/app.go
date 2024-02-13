@@ -9,6 +9,7 @@ type Application struct {
 
 type Commands struct {
 	ChangePassword command.ChangePasswordHandler
+	SetFcmToken    command.SetFcmTokenHandler
 }
 
 type Queries struct{}
