@@ -39,6 +39,8 @@ func NewApplication(config Config) app.Application {
 			SessionDestroyOthers:   command.NewSessionDestroyOthersHandler(config.SessionSrv),
 			SessionDestroy:         command.NewSessionDestroyHandler(config.SessionSrv),
 			UserDelete:             command.NewUserDeleteHandler(config.SessionSrv, userRepo),
+			UserRolesAdd:           command.NewUserRolesAddHandler(userRepo),
+			UserRolesRemove:        command.NewUserRolesRemoveHandler(userRepo),
 		},
 		Queries: app.Queries{},
 	}
