@@ -17,6 +17,7 @@ type Commands struct {
 	Register               command.RegisterHandler
 	SessionDestroyAll      command.SessionDestroyAllHandler
 	SessionDestroyOthers   command.SessionDestroyOthersHandler
+	SessionDestroy         command.SessionDestroyHandler
 }
 
 type Queries struct{}
