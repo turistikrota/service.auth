@@ -35,6 +35,7 @@ func NewApplication(config Config) app.Application {
 			ReSendVerificationCode: command.NewReSendVerificationCodeHandler(userRepo, userFactory, userEvents),
 			RefreshToken:           command.NewRefreshTokenHandler(config.SessionSrv, userRepo, userFactory, config.App.Rpc),
 			Register:               command.NewRegisterHandler(userRepo, userFactory, userEvents),
+			SessionDestroyAll:      command.NewSessionDestroyAllHandler(config.SessionSrv),
 		},
 		Queries: app.Queries{},
 	}

@@ -15,6 +15,7 @@ type Commands struct {
 	ReSendVerificationCode command.ReSendVerificationCodeHandler
 	RefreshToken           command.RefreshTokenHandler
 	Register               command.RegisterHandler
+	SessionDestroyAll      command.SessionDestroyAllHandler
 }
 
 type Queries struct{}
