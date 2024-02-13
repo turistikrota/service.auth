@@ -11,6 +11,7 @@ type Commands struct {
 	ChangePassword command.ChangePasswordHandler
 	SetFcmToken    command.SetFcmTokenHandler
 	Login          command.LoginHandler
+	Logout         command.LogoutHandler
 }
 
 type Queries struct{}
