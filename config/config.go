@@ -16,6 +16,13 @@ type Turnstile struct {
 	Skip         bool   `env:"TURNSTILE_SKIP_AUTH"`
 }
 
+type Rpc struct {
+	AccountHost     string `env:"RPC_ACCOUNT_HOST" envDefault:"localhost:3001"`
+	AccountUsesSsl  bool   `env:"RPC_ACCOUNT_USES_SSL" envDefault:"localhost:3001"`
+	BusinessHost    string `env:"RPC_BUSINESS_HOST" envDefault:"localhost:3002"`
+	BusinessUsesSsl bool   `env:"RPC_BUSINESS_USES_SSL" envDefault:"localhost:3002"`
+}
+
 type RSA struct {
 	PrivateKeyFile string `env:"RSA_PRIVATE_KEY"`
 	PublicKeyFile  string `env:"RSA_PUBLIC_KEY"`
@@ -165,6 +172,7 @@ type App struct {
 		Account  MongoAccount
 		Business MongoBusiness
 	}
+	Rpc         Rpc
 	Redis       Redis
 	Http        Http
 	HttpHeaders HttpHeaders
