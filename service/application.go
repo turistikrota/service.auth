@@ -33,6 +33,7 @@ func NewApplication(config Config) app.Application {
 			Login:                  command.NewLoginHandler(userRepo, userFactory, config.SessionSrv, config.App.Rpc),
 			Logout:                 command.NewLogoutHandler(config.SessionSrv),
 			ReSendVerificationCode: command.NewReSendVerificationCodeHandler(userRepo, userFactory, userEvents),
+			RefreshToken:           command.NewRefreshTokenHandler(config.SessionSrv, userRepo, userFactory, config.App.Rpc),
 		},
 		Queries: app.Queries{},
 	}

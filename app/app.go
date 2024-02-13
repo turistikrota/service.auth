@@ -13,6 +13,7 @@ type Commands struct {
 	Login                  command.LoginHandler
 	Logout                 command.LogoutHandler
 	ReSendVerificationCode command.ReSendVerificationCodeHandler
+	RefreshToken           command.RefreshTokenHandler
 }
 
 type Queries struct{}
