@@ -11,8 +11,9 @@ import (
 )
 
 type RegisterCmd struct {
-	Email    string
-	Password string
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required,password"`
+	Privacy  *bool  `json:"privacy" validate:"required,eq=true"`
 	Lang     string `json:"-"`
 }
 

@@ -5,6 +5,7 @@ import (
 	"github.com/cilloparch/cillop/events/nats"
 	"github.com/cilloparch/cillop/i18np"
 	"github.com/cilloparch/cillop/validation"
+	"github.com/ssibrahimbas/turnstile"
 	"github.com/turistikrota/service.auth/config"
 	event_stream "github.com/turistikrota/service.auth/server/event-stream"
 	"github.com/turistikrota/service.auth/server/http"
@@ -53,14 +54,19 @@ func main() {
 		SessionSrv:  session.Service,
 		Mongo:       mongo,
 	})
+	turnstileSrv := turnstile.New(turnstile.Config{
+		Secret:       cnf.Turnstile.Secret,
+		BackupSecret: cnf.Turnstile.MobileSecret,
+	})
 	http := http.New(http.Config{
-		Env:         cnf,
-		App:         app,
-		I18n:        i18n,
-		Validator:   *valid,
-		HttpHeaders: cnf.HttpHeaders,
-		TokenSrv:    tknSrv,
-		SessionSrv:  session.Service,
+		Env:          cnf,
+		App:          app,
+		I18n:         i18n,
+		Validator:    *valid,
+		HttpHeaders:  cnf.HttpHeaders,
+		TokenSrv:     tknSrv,
+		SessionSrv:   session.Service,
+		TurnstileSrv: turnstileSrv,
 	})
 	eventStream := event_stream.New(event_stream.Config{
 		App:    app,
