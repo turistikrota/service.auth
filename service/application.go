@@ -46,6 +46,7 @@ func NewApplication(config Config) app.Application {
 		Queries: app.Queries{
 			CheckEmail:  query.NewCheckEmailHandler(userRepo),
 			SessionList: query.NewSessionListHandler(config.SessionSrv),
+			UserList:    query.NewUserListHandler(userRepo),
 		},
 	}
 }
