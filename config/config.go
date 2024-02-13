@@ -114,9 +114,12 @@ type AuthTopics struct {
 }
 
 type NotifyTopics struct {
-	SendSMS      string `env:"STREAMING_TOPIC_NOTIFY_SMS"`
-	SendMail     string `env:"STREAMING_TOPIC_NOTIFY_EMAIL"`
-	SendTelegram string `env:"STREAMING_TOPIC_NOTIFY_TELEGRAM"`
+	SendEmailToActor string `env:"STREAMING_TOPIC_NOTIFY_SEND_EMAIL_TO_ACTOR"`
+	SendSmsToActor   string `env:"STREAMING_TOPIC_NOTIFY_SEND_SMS_TO_ACTOR"`
+	SendSpecialEmail string `env:"STREAMING_TOPIC_NOTIFY_SEND_SPECIAL_EMAIL"`
+	SendSpecialSms   string `env:"STREAMING_TOPIC_NOTIFY_SEND_SPECIAL_SMS"`
+	SendNotification string `env:"STREAMING_TOPIC_NOTIFY_SEND_NOTIFICATION"`
+	SendPush         string `env:"STREAMING_TOPIC_NOTIFY_SEND_PUSH"`
 }
 
 type AccountTopics struct {

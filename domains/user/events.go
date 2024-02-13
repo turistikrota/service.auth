@@ -6,7 +6,7 @@ import (
 	"github.com/cilloparch/cillop/events"
 	"github.com/cilloparch/cillop/i18np"
 	"github.com/turistikrota/service.auth/config"
-	"github.com/turistikrota/service.shared/helper"
+	"github.com/turistikrota/service.auth/domains/notify"
 )
 
 type Events interface {
@@ -56,8 +56,15 @@ func (e userEvents) UserVerified(event UserVerifiedEvent) {
 func (e userEvents) SendVerification(event SendVerificationEvent) {
 	subject := e.i18n.Translate(I18nMessages.AuthRegisteredMailSubject, event.Lang)
 	template := fmt.Sprintf("auth/registered.%s", event.Lang)
-	_ = e.publisher.Publish(e.topics.Notify.SendMail, helper.Notify.BuildEmail(event.Email, subject, i18np.P{
-		"Email": event.Email,
-		"Token": event.Token,
-	}, event.Email, template))
+	_ = e.publisher.Publish(e.topics.Notify.SendSpecialEmail, notify.SendSpecialEmailCmd{
+		Email:    event.Email,
+		Template: template,
+		Subject:  subject,
+		TemplateParams: i18np.P{
+			"Email": event.Email,
+			"Token": event.Token,
+		},
+		Locale:    event.Lang,
+		Translate: false,
+	})
 }

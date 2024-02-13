@@ -28,10 +28,11 @@ func NewApplication(config Config) app.Application {
 	})
 	return app.Application{
 		Commands: app.Commands{
-			ChangePassword: command.NewChangePasswordHandler(userRepo, userFactory),
-			SetFcmToken:    command.NewSetFcmTokenHandler(config.SessionSrv),
-			Login:          command.NewLoginHandler(userRepo, userFactory, config.SessionSrv, config.App.Rpc),
-			Logout:         command.NewLogoutHandler(config.SessionSrv),
+			ChangePassword:         command.NewChangePasswordHandler(userRepo, userFactory),
+			SetFcmToken:            command.NewSetFcmTokenHandler(config.SessionSrv),
+			Login:                  command.NewLoginHandler(userRepo, userFactory, config.SessionSrv, config.App.Rpc),
+			Logout:                 command.NewLogoutHandler(config.SessionSrv),
+			ReSendVerificationCode: command.NewReSendVerificationCodeHandler(userRepo, userFactory, userEvents),
 		},
 		Queries: app.Queries{},
 	}

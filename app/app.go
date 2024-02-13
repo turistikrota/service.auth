@@ -8,10 +8,11 @@ type Application struct {
 }
 
 type Commands struct {
-	ChangePassword command.ChangePasswordHandler
-	SetFcmToken    command.SetFcmTokenHandler
-	Login          command.LoginHandler
-	Logout         command.LogoutHandler
+	ChangePassword         command.ChangePasswordHandler
+	SetFcmToken            command.SetFcmTokenHandler
+	Login                  command.LoginHandler
+	Logout                 command.LogoutHandler
+	ReSendVerificationCode command.ReSendVerificationCodeHandler
 }
 
 type Queries struct{}
