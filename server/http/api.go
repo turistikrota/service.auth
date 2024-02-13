@@ -7,6 +7,8 @@ import (
 	"github.com/mileusna/useragent"
 	"github.com/turistikrota/service.auth/app/command"
 	"github.com/turistikrota/service.auth/app/query"
+	"github.com/turistikrota/service.auth/domains/user"
+	"github.com/turistikrota/service.auth/pkg/utils"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/server/http/auth"
 	"github.com/turistikrota/service.shared/server/http/auth/current_user"
@@ -139,6 +141,59 @@ func (h srv) SessionDestroyOthers(ctx *fiber.Ctx) error {
 	cmd.UserUUID = current_user.Parse(ctx).UUID
 	cmd.DeviceUUID = device_uuid.Parse(ctx)
 	res, err := h.app.Commands.SessionDestroyOthers(ctx.UserContext(), cmd)
+	if err != nil {
+		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
+func (h srv) GetCurrentUser(ctx *fiber.Ctx) error {
+	u := current_user.Parse(ctx)
+	return result.SuccessDetail(Messages.Success.Ok, map[string]interface{}{
+		"uuid":       u.UUID,
+		"email":      u.Email,
+		"roles":      u.Roles,
+		"accounts":   u.Accounts,
+		"businesses": u.Businesses,
+	})
+}
+
+func (h srv) UserList(ctx *fiber.Ctx) error {
+	pagi := utils.Pagination{}
+	h.parseQuery(ctx, &pagi)
+	filters := user.FilterEntity{}
+	h.parseQuery(ctx, &filters)
+	query := query.UserListQuery{
+		Pagination:   &pagi,
+		FilterEntity: &filters,
+	}
+	res, err := h.app.Queries.UserList(ctx.UserContext(), query)
+	if err != nil {
+		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	return result.SuccessDetail(Messages.Success.Ok, res.List)
+}
+
+func (h srv) SetFcmToken(ctx *fiber.Ctx) error {
+	cmd := command.SetFcmTokenCmd{}
+	h.parseBody(ctx, &cmd)
+	cmd.UserUUID = current_user.Parse(ctx).UUID
+	cmd.DeviceUUID = device_uuid.Parse(ctx)
+	res, err := h.app.Commands.SetFcmToken(ctx.UserContext(), cmd)
+	if err != nil {
+		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
+func (h srv) ChangePassword(ctx *fiber.Ctx) error {
+	cmd := command.ChangePasswordCmd{}
+	h.parseBody(ctx, &cmd)
+	cmd.UserUUID = current_user.Parse(ctx).UUID
+	res, err := h.app.Commands.ChangePassword(ctx.UserContext(), cmd)
 	if err != nil {
 		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
