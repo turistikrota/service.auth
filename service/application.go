@@ -34,6 +34,7 @@ func NewApplication(config Config) app.Application {
 			Logout:                 command.NewLogoutHandler(config.SessionSrv),
 			ReSendVerificationCode: command.NewReSendVerificationCodeHandler(userRepo, userFactory, userEvents),
 			RefreshToken:           command.NewRefreshTokenHandler(config.SessionSrv, userRepo, userFactory, config.App.Rpc),
+			Register:               command.NewRegisterHandler(userRepo, userFactory, userEvents),
 		},
 		Queries: app.Queries{},
 	}

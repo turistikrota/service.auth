@@ -14,6 +14,7 @@ type Commands struct {
 	Logout                 command.LogoutHandler
 	ReSendVerificationCode command.ReSendVerificationCodeHandler
 	RefreshToken           command.RefreshTokenHandler
+	Register               command.RegisterHandler
 }
 
 type Queries struct{}
