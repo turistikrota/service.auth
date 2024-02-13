@@ -18,6 +18,7 @@ type Commands struct {
 	SessionDestroyAll      command.SessionDestroyAllHandler
 	SessionDestroyOthers   command.SessionDestroyOthersHandler
 	SessionDestroy         command.SessionDestroyHandler
+	UserDelete             command.UserDeleteHandler
 }
 
 type Queries struct{}
