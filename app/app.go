@@ -1,6 +1,9 @@
 package app
 
-import "github.com/turistikrota/service.auth/app/command"
+import (
+	"github.com/turistikrota/service.auth/app/command"
+	"github.com/turistikrota/service.auth/app/query"
+)
 
 type Application struct {
 	Commands Commands
@@ -23,4 +26,6 @@ type Commands struct {
 	UserRolesRemove        command.UserRolesRemoveHandler
 }
 
-type Queries struct{}
+type Queries struct {
+	CheckEmail query.CheckEmailHandler
+}

@@ -5,6 +5,7 @@ import (
 	"github.com/cilloparch/cillop/validation"
 	"github.com/turistikrota/service.auth/app"
 	"github.com/turistikrota/service.auth/app/command"
+	"github.com/turistikrota/service.auth/app/query"
 	"github.com/turistikrota/service.auth/config"
 	"github.com/turistikrota/service.auth/domains/user"
 	"github.com/turistikrota/service.shared/auth/session"
@@ -42,6 +43,8 @@ func NewApplication(config Config) app.Application {
 			UserRolesAdd:           command.NewUserRolesAddHandler(userRepo),
 			UserRolesRemove:        command.NewUserRolesRemoveHandler(userRepo),
 		},
-		Queries: app.Queries{},
+		Queries: app.Queries{
+			CheckEmail: query.NewCheckEmailHandler(userRepo),
+		},
 	}
 }
