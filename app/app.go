@@ -16,6 +16,7 @@ type Commands struct {
 	RefreshToken           command.RefreshTokenHandler
 	Register               command.RegisterHandler
 	SessionDestroyAll      command.SessionDestroyAllHandler
+	SessionDestroyOthers   command.SessionDestroyOthersHandler
 }
 
 type Queries struct{}
