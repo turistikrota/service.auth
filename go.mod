@@ -6,6 +6,8 @@ require (
 	github.com/cilloparch/cillop v0.1.0
 	github.com/gofiber/fiber/v2 v2.48.0
 	github.com/google/uuid v1.3.1
+	github.com/mileusna/useragent v1.3.4
+	github.com/ssibrahimbas/turnstile v0.0.3
 	github.com/turistikrota/service.shared v0.1.4
 	go.mongodb.org/mongo-driver v1.12.1
 	google.golang.org/grpc v1.57.0
@@ -39,7 +41,6 @@ require (
 	github.com/redis/go-redis/v9 v9.0.2 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
-	github.com/ssibrahimbas/turnstile v0.0.3 // indirect
 	github.com/tinylib/msgp v1.1.8 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.48.0 // indirect
