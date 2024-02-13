@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/cilloparch/cillop/events"
+	"github.com/cilloparch/cillop/i18np"
 	"github.com/cilloparch/cillop/validation"
 	"github.com/turistikrota/service.auth/app"
 	"github.com/turistikrota/service.auth/app/command"
@@ -18,6 +19,7 @@ type Config struct {
 	Mongo       *mongo.DB
 	Validator   *validation.Validator
 	SessionSrv  session.Service
+	I18n        *i18np.I18n
 }
 
 func NewApplication(config Config) app.Application {
@@ -26,6 +28,8 @@ func NewApplication(config Config) app.Application {
 	userEvents := user.NewEvents(user.EventConfig{
 		Topics:    config.App.Topics,
 		Publisher: config.EventEngine,
+		Urls:      config.App.Urls,
+		I18n:      config.I18n,
 	})
 	return app.Application{
 		Commands: app.Commands{

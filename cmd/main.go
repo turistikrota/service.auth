@@ -53,6 +53,7 @@ func main() {
 		Validator:   valid,
 		SessionSrv:  session.Service,
 		Mongo:       mongo,
+		I18n:        i18n,
 	})
 	turnstileSrv := turnstile.New(turnstile.Config{
 		Secret:       cnf.Turnstile.Secret,
