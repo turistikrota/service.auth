@@ -42,6 +42,7 @@ func NewApplication(config Config) app.Application {
 			UserDelete:             command.NewUserDeleteHandler(config.SessionSrv, userRepo),
 			UserRolesAdd:           command.NewUserRolesAddHandler(userRepo),
 			UserRolesRemove:        command.NewUserRolesRemoveHandler(userRepo),
+			Verify:                 command.NewVerifyHandler(userRepo, userFactory),
 		},
 		Queries: app.Queries{
 			CheckEmail:  query.NewCheckEmailHandler(userRepo),

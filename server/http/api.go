@@ -136,6 +136,17 @@ func (h srv) SessionDestroyAll(ctx *fiber.Ctx) error {
 	return result.SuccessDetail(Messages.Success.Ok, res)
 }
 
+func (h srv) Verify(ctx *fiber.Ctx) error {
+	cmd := command.VerifyCmd{}
+	h.parseParams(ctx, &cmd)
+	res, err := h.app.Commands.Verify(ctx.UserContext(), cmd)
+	if err != nil {
+		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
 func (h srv) SessionDestroyOthers(ctx *fiber.Ctx) error {
 	cmd := command.SessionDestroyOthersCmd{}
 	cmd.UserUUID = current_user.Parse(ctx).UUID
@@ -174,6 +185,19 @@ func (h srv) UserList(ctx *fiber.Ctx) error {
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	return result.SuccessDetail(Messages.Success.Ok, res.List)
+}
+
+func (h srv) SessionList(ctx *fiber.Ctx) error {
+	query := query.SessionListQuery{
+		UserUUID:   current_user.Parse(ctx).UUID,
+		DeviceUUID: device_uuid.Parse(ctx),
+	}
+	res, err := h.app.Queries.SessionList(ctx.UserContext(), query)
+	if err != nil {
+		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	return result.SuccessDetail(Messages.Success.Ok, res.Sessions)
 }
 
 func (h srv) SetFcmToken(ctx *fiber.Ctx) error {

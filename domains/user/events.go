@@ -10,15 +10,10 @@ import (
 )
 
 type Events interface {
-	UserVerified(event UserVerifiedEvent)
 	SendVerification(event SendVerificationEvent)
 }
 
 type (
-	UserVerifiedEvent struct {
-		UserUUID string `json:"userUUID"`
-		User     Entity `json:"user"`
-	}
 	SendVerificationEvent struct {
 		Email string `json:"email"`
 		Token string `json:"token"`
@@ -47,10 +42,6 @@ func NewEvents(cnf EventConfig) Events {
 		urls:      cnf.Urls,
 		i18n:      cnf.I18n,
 	}
-}
-
-func (e userEvents) UserVerified(event UserVerifiedEvent) {
-	_ = e.publisher.Publish(e.topics.Auth.Registered, event.User)
 }
 
 func (e userEvents) SendVerification(event SendVerificationEvent) {

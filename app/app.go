@@ -24,6 +24,7 @@ type Commands struct {
 	UserDelete             command.UserDeleteHandler
 	UserRolesAdd           command.UserRolesAddHandler
 	UserRolesRemove        command.UserRolesRemoveHandler
+	Verify                 command.VerifyHandler
 }
 
 type Queries struct {

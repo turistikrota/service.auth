@@ -18,17 +18,14 @@ import (
 	"github.com/turistikrota/service.auth/config"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
-	"github.com/turistikrota/service.shared/csrf"
 	httpServer "github.com/turistikrota/service.shared/server/http"
 	"github.com/turistikrota/service.shared/server/http/auth"
 	"github.com/turistikrota/service.shared/server/http/auth/claim_guard"
-	"github.com/turistikrota/service.shared/server/http/auth/current_account"
 	"github.com/turistikrota/service.shared/server/http/auth/current_user"
 	"github.com/turistikrota/service.shared/server/http/auth/device_uuid"
 	"github.com/turistikrota/service.shared/server/http/auth/refresh_token"
 	"github.com/turistikrota/service.shared/server/http/auth/required_access"
 	turnstile_middleware "github.com/turistikrota/service.shared/server/http/auth/turnstile"
-	"github.com/turistikrota/service.shared/server/http/auth/two_factor"
 )
 
 type srv struct {
@@ -76,13 +73,27 @@ func (h srv) Listen() error {
 		CreateHandler: func(router fiber.Router) fiber.Router {
 			router.Use(h.cors(), h.deviceUUID())
 
+			router.Post("/register", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Register))
+			router.Post("/login", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Login))
+			router.Post("/checkEmail", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.CheckEmail))
+			router.Post("/logout", h.rateLimit(10), h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.Logout))
+			router.Put("/refresh", h.rateLimit(20), h.currentUserRefresh(), h.requiredRefreshToken(), h.wrapWithTimeout(h.RefreshToken))
+			router.Post("/re-verify", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.ReSendVerificationCode))
+			router.Post("/:token", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Verify))
+			router.Get("/", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.GetCurrentUser))
+			router.Delete("/", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.wrapWithTimeout(h.UserDelete))
+			router.Get("/user-list", h.currentUserAccess(), h.requiredAccess(), h.adminRoute(config.Roles.User.List), h.wrapWithTimeout(h.UserList))
+			router.Patch("/fcm", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.SetFcmToken))
+			router.Patch("/password", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.wrapWithTimeout(h.ChangePassword))
+
+			session := router.Group("/session", h.currentUserAccess(), h.requiredAccess())
+			session.Get("/", h.wrapWithTimeout(h.SessionList))
+			session.Delete("/others", h.wrapWithTimeout(h.SessionDestroyOthers))
+			session.Delete("/all", h.wrapWithTimeout(h.SessionDestroyAll))
+			session.Delete("/:device_uuid", h.wrapWithTimeout(h.SessionDestroy))
 			return router
 		},
 	})
-}
-
-func (h srv) currentAccountAccess() fiber.Handler {
-	return current_account.New(current_account.Config{})
 }
 
 func (h srv) parseBody(c *fiber.Ctx, d interface{}) {
@@ -112,10 +123,10 @@ func (h srv) currentUserAccess() fiber.Handler {
 	})
 }
 
-func (h srv) rateLimit() fiber.Handler {
+func (h srv) rateLimit(limit int) fiber.Handler {
 	return limiter.New(limiter.Config{
-		Max:        50,
-		Expiration: 1 * time.Minute,
+		Max:        limit,
+		Expiration: 3 * time.Minute,
 	})
 }
 
@@ -141,24 +152,6 @@ func (h srv) adminRoute(extra ...string) fiber.Handler {
 		Claims: claims,
 		I18n:   *h.i18n,
 		MsgKey: Messages.Error.AdminRoute,
-	})
-}
-
-func (h srv) csrf() fiber.Handler {
-	return csrf.New(csrf.Config{
-		Base: csrf.Base{
-			SameSite:   h.config.CSRF.BaseEnv.SameSite,
-			Domain:     h.config.CSRF.BaseEnv.Domain,
-			Secure:     h.config.CSRF.BaseEnv.Secure,
-			HttpOnly:   h.config.CSRF.BaseEnv.HttpOnly,
-			Expiration: h.config.CSRF.BaseEnv.Expiration,
-		},
-		Redis: csrf.EnvRedis{
-			Host: h.config.CSRF.Redis.Host,
-			Port: h.config.CSRF.Redis.Port,
-			Pw:   h.config.CSRF.Redis.Pw,
-			Db:   h.config.CSRF.Redis.Db,
-		},
 	})
 }
 
@@ -194,22 +187,6 @@ func (h srv) currentUserRefresh() fiber.Handler {
 		IsRefresh:  true,
 		IsAccess:   false,
 		LocalKey:   refresh_token.LocalKey,
-	})
-}
-
-func (h srv) currentUserTemp() fiber.Handler {
-	return current_user.New(current_user.Config{
-		TokenSrv:   h.tknSrv,
-		SessionSrv: h.sessionSrv,
-		MsgKey:     "errors_auth_current_user",
-		HeaderKey:  httpServer.Headers.TwoFactorToken,
-		CookieKey:  auth.Cookies.TwoFactorToken,
-		UseCookie:  true,
-		UseBearer:  true,
-		IsRefresh:  false,
-		Is2FA:      true,
-		IsAccess:   false,
-		LocalKey:   two_factor.LocalKey,
 	})
 }
 
