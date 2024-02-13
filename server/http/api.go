@@ -99,6 +99,53 @@ func (h srv) RefreshToken(ctx *fiber.Ctx) error {
 	return result.SuccessDetail(Messages.Success.Ok, res)
 }
 
+func (h srv) ReSendVerificationCode(ctx *fiber.Ctx) error {
+	cmd := command.ReSendVerificationCodeCmd{}
+	h.parseBody(ctx, &cmd)
+	l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+	cmd.Lang = l
+	res, err := h.app.Commands.ReSendVerificationCode(ctx.UserContext(), cmd)
+	if err != nil {
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
+func (h srv) SessionDestroy(ctx *fiber.Ctx) error {
+	cmd := command.SessionDestroyCmd{}
+	h.parseParams(ctx, &cmd)
+	cmd.UserUUID = current_user.Parse(ctx).UUID
+	res, err := h.app.Commands.SessionDestroy(ctx.UserContext(), cmd)
+	if err != nil {
+		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
+func (h srv) SessionDestroyAll(ctx *fiber.Ctx) error {
+	cmd := command.SessionDestroyAllCmd{}
+	cmd.UserUUID = current_user.Parse(ctx).UUID
+	res, err := h.app.Commands.SessionDestroyAll(ctx.UserContext(), cmd)
+	if err != nil {
+		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
+func (h srv) SessionDestroyOthers(ctx *fiber.Ctx) error {
+	cmd := command.SessionDestroyOthersCmd{}
+	cmd.UserUUID = current_user.Parse(ctx).UUID
+	cmd.DeviceUUID = device_uuid.Parse(ctx)
+	res, err := h.app.Commands.SessionDestroyOthers(ctx.UserContext(), cmd)
+	if err != nil {
+		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
 func (h srv) makeDevice(ctx *fiber.Ctx) *session.Device {
 	ua := useragent.Parse(ctx.Get("User-Agent"))
 	t := "desktop"
