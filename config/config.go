@@ -86,12 +86,10 @@ type HttpHeaders struct {
 }
 
 type Topics struct {
-	Auth     AuthTopics
-	Notify   NotifyTopics
-	Verify   VerifyTopics
-	Account  AccountTopics
-	Business BusinessTopics
-	Admin    AdminTopics
+	Auth   AuthTopics
+	Notify NotifyTopics
+	Verify VerifyTopics
+	Admin  AdminTopics
 }
 
 type Urls struct {
@@ -120,29 +118,6 @@ type NotifyTopics struct {
 	SendSpecialSms   string `env:"STREAMING_TOPIC_NOTIFY_SEND_SPECIAL_SMS"`
 	SendNotification string `env:"STREAMING_TOPIC_NOTIFY_SEND_NOTIFICATION"`
 	SendPush         string `env:"STREAMING_TOPIC_NOTIFY_SEND_PUSH"`
-}
-
-type AccountTopics struct {
-	Deleted  string `env:"STREAMING_TOPIC_ACCOUNT_DELETED"`
-	Created  string `env:"STREAMING_TOPIC_ACCOUNT_CREATED"`
-	Updated  string `env:"STREAMING_TOPIC_ACCOUNT_UPDATED"`
-	Disabled string `env:"STREAMING_TOPIC_ACCOUNT_DISABLED"`
-	Enabled  string `env:"STREAMING_TOPIC_ACCOUNT_ENABLED"`
-	Restored string `env:"STREAMING_TOPIC_ACCOUNT_RESTORED"`
-}
-
-type BusinessTopics struct {
-	Created               string `env:"STREAMING_TOPIC_BUSINESS_CREATED"`
-	UserRemoved           string `env:"STREAMING_TOPIC_BUSINESS_USER_REMOVED"`
-	UserAdded             string `env:"STREAMING_TOPIC_BUSINESS_USER_ADDED"`
-	UserPermissionRemoved string `env:"STREAMING_TOPIC_BUSINESS_USER_PERMISSION_REMOVED"`
-	UserPermissionAdded   string `env:"STREAMING_TOPIC_BUSINESS_USER_PERMISSION_ADDED"`
-	VerifiedByAdmin       string `env:"STREAMING_TOPIC_BUSINESS_VERIFIED_BY_ADMIN"`
-	DeletedByAdmin        string `env:"STREAMING_TOPIC_BUSINESS_DELETED_BY_ADMIN"`
-	RecoverByAdmin        string `env:"STREAMING_TOPIC_BUSINESS_RECOVER_BY_ADMIN"`
-	RejectedByAdmin       string `env:"STREAMING_TOPIC_BUSINESS_REJECTED_BY_ADMIN"`
-	Disabled              string `env:"STREAMING_TOPIC_BUSINESS_DISABLED"`
-	Enabled               string `env:"STREAMING_TOPIC_BUSINESS_ENABLED"`
 }
 
 type AdminTopics struct {

@@ -28,5 +28,7 @@ func New(config Config) server.Server {
 }
 
 func (s srv) Listen() error {
+	_ = s.engine.Subscribe(s.topics.Admin.PermissionsAdded, s.OnUserRoleAdd)
+	_ = s.engine.Subscribe(s.topics.Admin.PermissionsRemoved, s.OnUserRoleRemove)
 	return nil
 }
