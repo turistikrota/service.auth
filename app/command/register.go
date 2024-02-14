@@ -23,11 +23,11 @@ type RegisterHandler cqrs.HandlerFunc[RegisterCmd, *RegisterRes]
 
 func NewRegisterHandler(repo user.Repo, factory user.Factory, events user.Events) RegisterHandler {
 	return func(ctx context.Context, cmd RegisterCmd) (*RegisterRes, *i18np.Error) {
-		notFound, _err := repo.CheckEmail(ctx, cmd.Email)
+		exists, _err := repo.CheckEmail(ctx, cmd.Email)
 		if _err != nil {
 			return nil, _err
 		}
-		if !notFound {
+		if exists {
 			return nil, factory.Errors.AlreadyExists("email")
 		}
 		pw, error := cipher.Hash(cmd.Password)
