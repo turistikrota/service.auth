@@ -8,7 +8,7 @@ require (
 	github.com/google/uuid v1.3.1
 	github.com/mileusna/useragent v1.3.4
 	github.com/ssibrahimbas/turnstile v0.0.3
-	github.com/turistikrota/service.shared v0.1.6
+	github.com/turistikrota/service.shared v0.1.7
 	go.mongodb.org/mongo-driver v1.12.1
 	google.golang.org/grpc v1.57.0
 	google.golang.org/protobuf v1.31.0

@@ -20,6 +20,7 @@ FROM scratch
 
 ENV PORT 8080
 
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /main .
 COPY --from=builder /locales ./locales
 EXPOSE $PORT
