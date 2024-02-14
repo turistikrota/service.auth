@@ -1,6 +1,8 @@
 package http
 
 import (
+	"fmt"
+
 	"github.com/cilloparch/cillop/middlewares/i18n"
 	"github.com/cilloparch/cillop/result"
 	"github.com/gofiber/fiber/v2"
@@ -29,6 +31,7 @@ func (h srv) Register(ctx *fiber.Ctx) error {
 }
 
 func (h srv) CheckEmail(ctx *fiber.Ctx) error {
+	fmt.Println("CheckEmail")
 	query := query.CheckEmailQuery{}
 	h.parseBody(ctx, &query)
 	res, err := h.app.Queries.CheckEmail(ctx.UserContext(), query)

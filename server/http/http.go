@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"strings"
 	"time"
 
@@ -51,6 +52,7 @@ type Config struct {
 }
 
 func New(config Config) server.Server {
+	fmt.Println("http server", config)
 	return srv{
 		config:       config.Env,
 		app:          config.App,
@@ -75,7 +77,7 @@ func (h srv) Listen() error {
 
 			router.Post("/register", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Register))
 			router.Post("/login", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Login))
-			router.Post("/checkEmail", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.CheckEmail))
+			router.Post("/checkEmail", h.logger(0), h.rateLimit(10), h.logger(1), h.turnstile(), h.logger(2), h.wrapWithTimeout(h.CheckEmail))
 			router.Post("/logout", h.rateLimit(10), h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.Logout))
 			router.Put("/refresh", h.rateLimit(20), h.currentUserRefresh(), h.requiredRefreshToken(), h.wrapWithTimeout(h.RefreshToken))
 			router.Post("/re-verify", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.ReSendVerificationCode))
@@ -94,6 +96,13 @@ func (h srv) Listen() error {
 			return router
 		},
 	})
+}
+
+func (h srv) logger(log int) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		fmt.Println("log", log)
+		return ctx.Next()
+	}
 }
 
 func (h srv) parseBody(c *fiber.Ctx, d interface{}) {
