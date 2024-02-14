@@ -43,7 +43,7 @@ func NewRefreshTokenHandler(sessionSrv session.Service, repo user.Repo, factory 
 		}
 		accounts, business, error := claims.Fetch(ctx, rpc, user.UUID)
 		if error != nil {
-			return nil, factory.Errors.Failed(error.Error())
+			return nil, factory.Errors.AnErrorOccurred()
 		}
 		ses := &session.SessionUser{
 			UUID:       user.UUID,

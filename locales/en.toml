@@ -72,6 +72,7 @@ error_user_already_verified = "User already verified."
 error_user_not_verified = "User not verified."
 error_user_token_not_expired = "Verification token is not expired."
 error_admin_route = "Admin route is required."
+error_user_an_error_occurred = "An error occurred."
 
 auth_registered_mail_subject = "Welcome to Turistikrota!"
 

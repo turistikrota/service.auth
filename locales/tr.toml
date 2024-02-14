@@ -48,6 +48,7 @@ error_user_not_verified = "Kullanıcı doğrulanmadı."
 error_user_token_not_expired = "Token süresi dolmadı."
 error_user_invalid_uuid = "Geçersiz UUID."
 error_user_deleted = "Hesabınız 30 günden fazla süre önce silindiği için giriş yapamazsınız. Lütfen yeni bir hesap oluşturun."
+error_user_an_error_occurred = "Bir hata oluştu."
 
 auth_registered_mail_subject = "Turistikrota'ya Hoşgeldiniz!"
 

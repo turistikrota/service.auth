@@ -43,7 +43,7 @@ func NewLoginHandler(userRepo user.Repo, userFactory user.Factory, sessionSrv se
 		}
 		accounts, businesses, error := claims.Fetch(ctx, rpc, user.UUID)
 		if error != nil {
-			return nil, userFactory.Errors.Failed(error.Error())
+			return nil, userFactory.Errors.AnErrorOccurred()
 		}
 		ses := &session.SessionUser{
 			UUID:       user.UUID,

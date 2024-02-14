@@ -15,6 +15,7 @@ type messages struct {
 	NotVerified               string
 	TokenNotExpired           string
 	AuthRegisteredMailSubject string
+	AnErrorOccurred           string
 }
 
 var I18nMessages = messages{
@@ -32,4 +33,5 @@ var I18nMessages = messages{
 	NotVerified:               "error_user_not_verified",
 	TokenNotExpired:           "error_user_token_not_expired",
 	AuthRegisteredMailSubject: "auth_registered_mail_subject",
+	AnErrorOccurred:           "error_user_an_error_occurred",
 }

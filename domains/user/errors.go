@@ -12,6 +12,7 @@ type Errors interface {
 	AlreadyExists(email string) *i18np.Error
 	Failed(operation string) *i18np.Error
 	InvalidPassword() *i18np.Error
+	AnErrorOccurred() *i18np.Error
 	InvalidUUID() *i18np.Error
 	RefreshTokenNotAvailable() *i18np.Error
 	TwoFactorStarted(token string) *i18np.Error
@@ -38,6 +39,10 @@ func (e *userErrors) AlreadyExists(email string) *i18np.Error {
 
 func (e *userErrors) Failed(operation string) *i18np.Error {
 	return i18np.NewError(I18nMessages.Failed, i18np.P{"Operation": operation})
+}
+
+func (e *userErrors) AnErrorOccurred() *i18np.Error {
+	return i18np.NewError(I18nMessages.AnErrorOccurred)
 }
 
 func (e *userErrors) InvalidPassword() *i18np.Error {
