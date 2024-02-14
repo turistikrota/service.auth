@@ -100,3 +100,6 @@ user_expired = "User expired."
 http_error_required_auth = "Authentication is required."
 http_error_current_user_access = "You do not have access to this user."
 http_error_admin_route = "Admin route is required."
+
+http_error_turnstile_bad_request = "Bad request. Please robot check."
+http_error_turnstile_unauthorized = "Robot check failed."
