@@ -193,6 +193,7 @@ func (h srv) currentUserRefresh() fiber.Handler {
 func (h srv) requiredRefreshToken() fiber.Handler {
 	return refresh_token.New(refresh_token.Config{
 		MsgKey: "errors_auth_refresh_token",
+		I18n:   *h.i18n,
 	})
 }
 

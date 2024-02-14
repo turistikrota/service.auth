@@ -49,7 +49,8 @@ func (h srv) Login(ctx *fiber.Ctx) error {
 	if err != nil {
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
-	refresh_token.Set(ctx, h.config.HttpHeaders.Domain, res.RefreshToken)
+	//refresh_token.Set(ctx, h.config.HttpHeaders.Domain, res.RefreshToken)
+	current_user.SetCookie(ctx, auth.Cookies.RefreshToken, h.config.HttpHeaders.Domain, res.RefreshToken)
 	current_user.SetCookie(ctx, auth.Cookies.AccessToken, h.config.HttpHeaders.Domain, res.AccessToken)
 	return result.SuccessDetail(Messages.Success.Ok, res)
 }
@@ -63,7 +64,8 @@ func (h srv) Logout(ctx *fiber.Ctx) error {
 		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
-	refresh_token.Remove(ctx, h.config.HttpHeaders.Domain)
+	//refresh_token.Remove(ctx, h.config.HttpHeaders.Domain)
+	current_user.RemoveCookie(ctx, auth.Cookies.RefreshToken, h.config.HttpHeaders.Domain)
 	current_user.RemoveCookie(ctx, auth.Cookies.AccessToken, h.config.HttpHeaders.Domain)
 	h.removeSelectedAccountInCookie(ctx)
 	return result.SuccessDetail(Messages.Success.Ok, res)
@@ -78,7 +80,8 @@ func (h srv) UserDelete(ctx *fiber.Ctx) error {
 		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
-	refresh_token.Remove(ctx, h.config.HttpHeaders.Domain)
+	//refresh_token.Remove(ctx, h.config.HttpHeaders.Domain)
+	current_user.RemoveCookie(ctx, auth.Cookies.RefreshToken, h.config.HttpHeaders.Domain)
 	current_user.RemoveCookie(ctx, auth.Cookies.AccessToken, h.config.HttpHeaders.Domain)
 	h.removeSelectedAccountInCookie(ctx)
 	return result.SuccessDetail(Messages.Success.Ok, res)
@@ -96,7 +99,8 @@ func (h srv) RefreshToken(ctx *fiber.Ctx) error {
 		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
-	refresh_token.Set(ctx, h.config.HttpHeaders.Domain, res.RefreshToken)
+	//refresh_token.Set(ctx, h.config.HttpHeaders.Domain, res.RefreshToken)
+	current_user.SetCookie(ctx, auth.Cookies.RefreshToken, h.config.HttpHeaders.Domain, res.RefreshToken)
 	current_user.SetCookie(ctx, auth.Cookies.AccessToken, h.config.HttpHeaders.Domain, res.AccessToken)
 	return result.SuccessDetail(Messages.Success.Ok, res)
 }
