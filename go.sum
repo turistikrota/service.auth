@@ -7,6 +7,8 @@ github.com/cespare/xxhash/v2 v2.2.0 h1:DC2CZ1Ep5Y4k3ZQ899DldepgrayRUGE6BBZ/cd9Cj
 github.com/cespare/xxhash/v2 v2.2.0/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
 github.com/cilloparch/cillop v0.1.0 h1:wZjDjqlwaTFRYhDuooxaAERO6BPEbsqpF5YWiqMPbPk=
 github.com/cilloparch/cillop v0.1.0/go.mod h1:v4nfj7WcBGIqiRt3ffyncw9KVFaT03zFMSCv1bdtmug=
+github.com/cilloparch/cillop v0.1.1 h1:aiB0wRtpYsCIQIHRQI6/ePmBDXu1tEwxdS4ZYa24acc=
+github.com/cilloparch/cillop v0.1.1/go.mod h1:v4nfj7WcBGIqiRt3ffyncw9KVFaT03zFMSCv1bdtmug=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

@@ -65,11 +65,13 @@ func New(config Config) server.Server {
 
 func (h srv) Listen() error {
 	return http.RunServer(http.Config{
-		Host:        h.config.Http.Host,
-		Port:        h.config.Http.Port,
-		I18n:        h.i18n,
-		Debug:       true,
-		AcceptLangs: []string{},
+		Host:  h.config.Http.Host,
+		Port:  h.config.Http.Port,
+		I18n:  h.i18n,
+		Debug: true,
+		AcceptLangs: []string{
+			"tr", "en",
+		},
 		CreateHandler: func(router fiber.Router) fiber.Router {
 			router.Use(h.cors(), h.deviceUUID())
 

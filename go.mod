@@ -3,7 +3,7 @@ module github.com/turistikrota/service.auth
 go 1.20
 
 require (
-	github.com/cilloparch/cillop v0.1.0
+	github.com/cilloparch/cillop v0.1.1
 	github.com/gofiber/fiber/v2 v2.48.0
 	github.com/google/uuid v1.3.1
 	github.com/mileusna/useragent v1.3.4

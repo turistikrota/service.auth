@@ -21,7 +21,7 @@ import (
 func (h srv) Register(ctx *fiber.Ctx) error {
 	cmd := command.RegisterCmd{}
 	h.parseBody(ctx, &cmd)
-	l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+	l, a := i18n.ParseLocales(ctx)
 	cmd.Lang = l
 	res, err := h.app.Commands.Register(ctx.UserContext(), cmd)
 	if err != nil {
@@ -36,7 +36,7 @@ func (h srv) CheckEmail(ctx *fiber.Ctx) error {
 	h.parseBody(ctx, &query)
 	res, err := h.app.Queries.CheckEmail(ctx.UserContext(), query)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	return result.SuccessDetail(Messages.Success.Ok, res)
@@ -45,7 +45,7 @@ func (h srv) CheckEmail(ctx *fiber.Ctx) error {
 func (h srv) Login(ctx *fiber.Ctx) error {
 	cmd := command.LoginCmd{}
 	h.parseBody(ctx, &cmd)
-	l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+	l, a := i18n.ParseLocales(ctx)
 	cmd.Device = h.makeDevice(ctx)
 	cmd.DeviceUUID = device_uuid.Parse(ctx)
 	res, err := h.app.Commands.Login(ctx.UserContext(), cmd)
@@ -64,7 +64,7 @@ func (h srv) Logout(ctx *fiber.Ctx) error {
 	cmd.DeviceUUID = device_uuid.Parse(ctx)
 	res, err := h.app.Commands.Logout(ctx.UserContext(), cmd)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	//refresh_token.Remove(ctx, h.config.HttpHeaders.Domain)
@@ -80,7 +80,7 @@ func (h srv) UserDelete(ctx *fiber.Ctx) error {
 	cmd.DeviceUUID = device_uuid.Parse(ctx)
 	res, err := h.app.Commands.UserDelete(ctx.UserContext(), cmd)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	//refresh_token.Remove(ctx, h.config.HttpHeaders.Domain)
@@ -99,7 +99,7 @@ func (h srv) RefreshToken(ctx *fiber.Ctx) error {
 	cmd.AccessToken = current_user.GetAccessTokenFromCookie(ctx)
 	res, err := h.app.Commands.RefreshToken(ctx.UserContext(), cmd)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	//refresh_token.Set(ctx, h.config.HttpHeaders.Domain, res.RefreshToken)
@@ -111,7 +111,7 @@ func (h srv) RefreshToken(ctx *fiber.Ctx) error {
 func (h srv) ReSendVerificationCode(ctx *fiber.Ctx) error {
 	cmd := command.ReSendVerificationCodeCmd{}
 	h.parseBody(ctx, &cmd)
-	l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+	l, a := i18n.ParseLocales(ctx)
 	cmd.Lang = l
 	res, err := h.app.Commands.ReSendVerificationCode(ctx.UserContext(), cmd)
 	if err != nil {
@@ -126,7 +126,7 @@ func (h srv) SessionDestroy(ctx *fiber.Ctx) error {
 	cmd.UserUUID = current_user.Parse(ctx).UUID
 	res, err := h.app.Commands.SessionDestroy(ctx.UserContext(), cmd)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	return result.SuccessDetail(Messages.Success.Ok, res)
@@ -137,7 +137,7 @@ func (h srv) SessionDestroyAll(ctx *fiber.Ctx) error {
 	cmd.UserUUID = current_user.Parse(ctx).UUID
 	res, err := h.app.Commands.SessionDestroyAll(ctx.UserContext(), cmd)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	return result.SuccessDetail(Messages.Success.Ok, res)
@@ -148,7 +148,7 @@ func (h srv) Verify(ctx *fiber.Ctx) error {
 	h.parseParams(ctx, &cmd)
 	res, err := h.app.Commands.Verify(ctx.UserContext(), cmd)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	return result.SuccessDetail(Messages.Success.Ok, res)
@@ -160,7 +160,7 @@ func (h srv) SessionDestroyOthers(ctx *fiber.Ctx) error {
 	cmd.DeviceUUID = device_uuid.Parse(ctx)
 	res, err := h.app.Commands.SessionDestroyOthers(ctx.UserContext(), cmd)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	return result.SuccessDetail(Messages.Success.Ok, res)
@@ -188,7 +188,7 @@ func (h srv) UserList(ctx *fiber.Ctx) error {
 	}
 	res, err := h.app.Queries.UserList(ctx.UserContext(), query)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	return result.SuccessDetail(Messages.Success.Ok, res.List)
@@ -201,7 +201,7 @@ func (h srv) SessionList(ctx *fiber.Ctx) error {
 	}
 	res, err := h.app.Queries.SessionList(ctx.UserContext(), query)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	return result.SuccessDetail(Messages.Success.Ok, res.Sessions)
@@ -214,7 +214,7 @@ func (h srv) SetFcmToken(ctx *fiber.Ctx) error {
 	cmd.DeviceUUID = device_uuid.Parse(ctx)
 	res, err := h.app.Commands.SetFcmToken(ctx.UserContext(), cmd)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	return result.SuccessDetail(Messages.Success.Ok, res)
@@ -226,7 +226,7 @@ func (h srv) ChangePassword(ctx *fiber.Ctx) error {
 	cmd.UserUUID = current_user.Parse(ctx).UUID
 	res, err := h.app.Commands.ChangePassword(ctx.UserContext(), cmd)
 	if err != nil {
-		l, a := i18n.GetLanguagesInContext(*h.i18n, ctx)
+		l, a := i18n.ParseLocales(ctx)
 		return result.Error(h.i18n.TranslateFromError(*err, l, a))
 	}
 	return result.SuccessDetail(Messages.Success.Ok, res)
