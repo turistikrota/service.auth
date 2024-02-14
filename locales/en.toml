@@ -41,6 +41,7 @@ error_user_invalid_password = "Invalid password."
 error_user_refresh_token_not_available = "Refresh token is not available."
 error_user_two_factor_started = "Two factor authentication is started."
 error_user_deleted = "You cannot log in because your account was deleted more than 30 days ago. Please create a new account."
+error_user_invalid_uuid = "Invalid user id."
 
 # Http Module
 success_login = "Login successfully."
@@ -95,3 +96,7 @@ error_turnstile_bad_request = "Bad request. Please robot check."
 error_turnstile_unauthorized = "Robot check failed."
 
 user_expired = "User expired."
+
+http_error_required_auth = "Authentication is required."
+http_error_current_user_access = "You do not have access to this user."
+http_error_admin_route = "Admin route is required."

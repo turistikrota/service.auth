@@ -46,6 +46,7 @@ error_user_token_expired = "Token süresi doldu."
 error_user_already_verified = "Kullanıcı zaten doğrulanmış."
 error_user_not_verified = "Kullanıcı doğrulanmadı."
 error_user_token_not_expired = "Token süresi dolmadı."
+error_user_invalid_uuid = "Geçersiz UUID."
 error_user_deleted = "Hesabınız 30 günden fazla süre önce silindiği için giriş yapamazsınız. Lütfen yeni bir hesap oluşturun."
 
 auth_registered_mail_subject = "Turistikrota'ya Hoşgeldiniz!"
@@ -97,3 +98,7 @@ error_turnstile_bad_request = "İstek geçersiz."
 error_turnstile_unauthorized = "Robot doğrulaması başarısız oldu."
 
 user_expired = "Kullanıcı süresi doldu."
+
+http_error_required_auth = "Kimlik doğrulama gerekiyor."
+http_error_current_user_access = "Bu işlem için yetkiniz yok."
+http_error_admin_route = "Bu işlem için yönetici olmalısınız."
