@@ -101,7 +101,7 @@ func (r *repo) CheckEmail(ctx context.Context, email string) (bool, *i18np.Error
 	if err != nil {
 		return false, r.factory.Errors.Failed("get")
 	}
-	return !exist, nil
+	return exist, nil
 }
 
 func (r *repo) Create(ctx context.Context, e *Entity) (*Entity, *i18np.Error) {
