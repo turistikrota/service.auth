@@ -19,7 +19,7 @@ type SessionDestroyAllHandler cqrs.HandlerFunc[SessionDestroyAllCmd, *SessionDes
 
 func NewSessionDestroyAllHandler(sessionSrv session.Service) SessionDestroyAllHandler {
 	return func(ctx context.Context, cmd SessionDestroyAllCmd) (*SessionDestroyAllRes, *i18np.Error) {
-		err := sessionSrv.DestroyAll(cmd.UserUUID)
+		err := sessionSrv.DestroyAll(ctx, cmd.UserUUID)
 		if err != nil {
 			return nil, err
 		}

@@ -24,7 +24,7 @@ func NewUserDeleteHandler(sessionSrv session.Service, repo user.Repo) UserDelete
 		if err != nil {
 			return nil, err
 		}
-		err = sessionSrv.Destroy(session.DestroyCommand{
+		err = sessionSrv.Destroy(ctx, session.DestroyCommand{
 			UserUUID:   cmd.UserUUID,
 			DeviceUUID: cmd.DeviceUUID,
 		})

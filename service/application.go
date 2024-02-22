@@ -47,6 +47,8 @@ func NewApplication(config Config) app.Application {
 			UserRolesAdd:           command.NewUserRolesAddHandler(userRepo),
 			UserRolesRemove:        command.NewUserRolesRemoveHandler(userRepo),
 			Verify:                 command.NewVerifyHandler(userRepo, userFactory),
+			TwoFactorDisable:       command.NewTwoFactorDisableHandler(userRepo),
+			TwoFactorEnable:        command.NewTwoFactorEnableHandler(userRepo),
 		},
 		Queries: app.Queries{
 			CheckEmail:  query.NewCheckEmailHandler(userRepo),

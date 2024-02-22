@@ -41,6 +41,10 @@ type Redis struct {
 	Db   int    `env:"REDIS_DB"`
 }
 
+type VerifyRedis struct {
+	DB int `env:"REDIS_VERIFY_DB"`
+}
+
 type CacheRedis struct {
 	Host string `env:"REDIS_CACHE_HOST"`
 	Port string `env:"REDIS_CACHE_PORT"`
@@ -108,6 +112,7 @@ type App struct {
 	Nats        Nats
 	Session     Session
 	CacheRedis  CacheRedis
+	VerifyRedis VerifyRedis
 	TokenSrv    TokenSrv
 	Urls        Urls
 	Turnstile   Turnstile

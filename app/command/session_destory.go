@@ -20,7 +20,7 @@ type SessionDestroyHandler cqrs.HandlerFunc[SessionDestroyCmd, *SessionDestroyRe
 
 func NewSessionDestroyHandler(sessionSrv session.Service) SessionDestroyHandler {
 	return func(ctx context.Context, cmd SessionDestroyCmd) (*SessionDestroyRes, *i18np.Error) {
-		err := sessionSrv.Destroy(session.DestroyCommand{
+		err := sessionSrv.Destroy(ctx, session.DestroyCommand{
 			UserUUID:   cmd.UserUUID,
 			DeviceUUID: cmd.DeviceUUID,
 		})

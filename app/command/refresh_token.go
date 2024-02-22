@@ -28,7 +28,7 @@ type RefreshTokenHandler cqrs.HandlerFunc[RefreshTokenCmd, *RefreshTokenRes]
 
 func NewRefreshTokenHandler(sessionSrv session.Service, repo user.Repo, factory user.Factory, rpc config.Rpc) RefreshTokenHandler {
 	return func(ctx context.Context, cmd RefreshTokenCmd) (*RefreshTokenRes, *i18np.Error) {
-		available := sessionSrv.IsRefreshAvailable(session.IsRefreshAvailableCommand{
+		available := sessionSrv.IsRefreshAvailable(ctx, session.IsRefreshAvailableCommand{
 			UserUUID:     cmd.UserUUID,
 			DeviceUUID:   cmd.DeviceUUID,
 			AccessToken:  cmd.AccessToken,
@@ -46,13 +46,14 @@ func NewRefreshTokenHandler(sessionSrv session.Service, repo user.Repo, factory 
 			return nil, factory.Errors.AnErrorOccurred()
 		}
 		ses := &session.SessionUser{
-			UUID:       user.UUID,
-			Email:      user.Email,
-			Roles:      user.Roles,
-			Accounts:   accounts,
-			Businesses: business,
+			UUID:             user.UUID,
+			Email:            user.Email,
+			Roles:            user.Roles,
+			Accounts:         accounts,
+			Businesses:       business,
+			TwoFactorEnabled: user.TwoFactorEnabled,
 		}
-		tokens, err := sessionSrv.Refresh(session.RefreshCommand{
+		tokens, err := sessionSrv.Refresh(ctx, session.RefreshCommand{
 			UserUUID:     cmd.UserUUID,
 			DeviceUUID:   cmd.DeviceUUID,
 			RefreshToken: cmd.RefreshToken,

@@ -12,6 +12,7 @@ import (
 	"github.com/turistikrota/service.auth/service"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
+	"github.com/turistikrota/service.shared/auth/verify"
 	"github.com/turistikrota/service.shared/db/mongo"
 	"github.com/turistikrota/service.shared/db/redis"
 )
@@ -35,6 +36,12 @@ func main() {
 		Password: cnf.Redis.Pw,
 		DB:       cnf.Redis.Db,
 	})
+	verifyRedis := redis.New(&redis.Config{
+		Host:     cnf.CacheRedis.Host,
+		Port:     cnf.CacheRedis.Port,
+		Password: cnf.CacheRedis.Pw,
+		DB:       cnf.VerifyRedis.DB,
+	})
 	tknSrv := token.New(token.Config{
 		Expiration:     cnf.TokenSrv.Expiration,
 		PublicKeyFile:  cnf.RSA.PublicKeyFile,
@@ -46,6 +53,9 @@ func main() {
 		TokenSrv:    tknSrv,
 		Topic:       cnf.Session.Topic,
 		Project:     cnf.TokenSrv.Project,
+	})
+	verifySrv := verify.New(verify.Config{
+		Redis: verifyRedis,
 	})
 	app := service.NewApplication(service.Config{
 		App:         cnf,
@@ -68,6 +78,7 @@ func main() {
 		TokenSrv:     tknSrv,
 		SessionSrv:   session.Service,
 		TurnstileSrv: turnstileSrv,
+		VerifySrv:    verifySrv,
 	})
 	eventStream := event_stream.New(event_stream.Config{
 		App:    app,

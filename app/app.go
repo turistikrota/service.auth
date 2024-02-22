@@ -25,6 +25,8 @@ type Commands struct {
 	UserRolesAdd           command.UserRolesAddHandler
 	UserRolesRemove        command.UserRolesRemoveHandler
 	Verify                 command.VerifyHandler
+	TwoFactorDisable       command.TwoFactorDisableHandler
+	TwoFactorEnable        command.TwoFactorEnableHandler
 }
 
 type Queries struct {
