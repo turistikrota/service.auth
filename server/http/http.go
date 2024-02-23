@@ -27,6 +27,7 @@ import (
 	"github.com/turistikrota/service.shared/server/http/auth/refresh_token"
 	"github.com/turistikrota/service.shared/server/http/auth/required_access"
 	turnstile_middleware "github.com/turistikrota/service.shared/server/http/auth/turnstile"
+	"github.com/turistikrota/service.shared/server/http/auth/two_factor"
 	"github.com/turistikrota/service.shared/server/http/auth/verification"
 )
 
@@ -88,12 +89,12 @@ func (h srv) Listen() error {
 			router.Post("/re-verify", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.ReSendVerificationCode))
 			router.Post("/:token", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Verify))
 			router.Get("/", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.GetCurrentUser))
-			router.Delete("/", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.wrapWithTimeout(h.UserDelete))
+			router.Delete("/", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.verifyRoute(), h.wrapWithTimeout(h.UserDelete))
 			router.Get("/user-list", h.currentUserAccess(), h.requiredAccess(), h.adminRoute(config.Roles.User.List), h.wrapWithTimeout(h.UserList))
 			router.Patch("/fcm", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.SetFcmToken))
-			router.Patch("/password", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.wrapWithTimeout(h.ChangePassword))
+			router.Patch("/password", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.verifyRoute(), h.wrapWithTimeout(h.ChangePassword))
 			router.Patch("/2fa/enable", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.EnableTwoFactor))
-			router.Patch("/2fa/disable", h.currentUserAccess(), h.requiredAccess(), h.twoFactorRoute(), h.wrapWithTimeout(h.DisableTwoFactor))
+			router.Patch("/2fa/disable", h.currentUserAccess(), h.requiredAccess(), h.twoFactorRequired(), h.verifyRoute(), h.wrapWithTimeout(h.DisableTwoFactor))
 
 			session := router.Group("/session", h.currentUserAccess(), h.requiredAccess())
 			session.Get("/", h.wrapWithTimeout(h.SessionList))
@@ -117,11 +118,15 @@ func (h srv) parseQuery(c *fiber.Ctx, d interface{}) {
 	http.ParseQuery(c, h.validator, *h.i18n, d)
 }
 
-func (h srv) twoFactorRoute() fiber.Handler {
+func (h srv) verifyRoute() fiber.Handler {
 	return verification.New(verification.Config{
 		Service: h.verifySrv,
 		I18n:    *h.i18n,
 	})
+}
+
+func (h srv) twoFactorRequired() fiber.Handler {
+	return two_factor.New()
 }
 
 func (h srv) currentUserAccess() fiber.Handler {

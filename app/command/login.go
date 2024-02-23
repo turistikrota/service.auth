@@ -48,6 +48,7 @@ func NewLoginHandler(userRepo user.Repo, userFactory user.Factory, sessionSrv se
 		ses := &session.SessionUser{
 			UUID:             user.UUID,
 			Email:            user.Email,
+			Phone:            user.Phone,
 			Roles:            user.Roles,
 			Accounts:         accounts,
 			Businesses:       businesses,

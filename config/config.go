@@ -78,6 +78,7 @@ type Urls struct {
 
 type NotifyTopics struct {
 	SendSpecialEmail string `env:"STREAMING_TOPIC_NOTIFY_SEND_SPECIAL_EMAIL"`
+	SendSpecialSms string `env:"STREAMING_TOPIC_NOTIFY_SEND_SPECIAL_SMS"`
 }
 
 type AdminTopics struct {

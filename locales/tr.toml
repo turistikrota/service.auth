@@ -107,6 +107,12 @@ http_error_admin_route = "Bu işlem için yönetici olmalısınız."
 http_error_turnstile_bad_request = "İstek geçersiz."
 http_error_turnstile_unauthorized = "Robot doğrulaması başarısız oldu."
 
+subject_verification_code = "Doğrulama Kodu"
+sms_verification_code = "Oturumunuzu doğrulamak için onay kodunuz: %s"
+
+session_op_failed = "Oturum işlemi başarısız oldu."
+session_not_found = "Oturum bulunamadı."
+
 # Verify
 verify_redis_fetch_failed = "Doğrulama kodu alınamadı."
 verify_redis_set_failed = "Doğrulama kodu ayarlanamadı."
@@ -115,3 +121,6 @@ verify_not_found = "Doğrulama kodu bulunamadı."
 verify_invalid_token = "Geçersiz doğrulama belirteci."
 verify_invalid_code = "Geçersiz doğrulama kodu."
 verify_exceed_try_count = "Doğrulama kodu deneme sayısı aşıldı."
+verify_unknown = "Bilinmeyen"
+verify_expired_code = "Doğrulama kodu süresi doldu."
+verify_started = "Doğrulama başlatıldı."

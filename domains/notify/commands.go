@@ -9,3 +9,10 @@ type SendSpecialEmailCmd struct {
 	Translate      bool   `json:"translate"`
 	Locale         string `json:"locale"`
 }
+
+type NotifySendSpecialSmsCmd struct {
+	Phone     string `json:"phone"`
+	Text      string `json:"text"`
+	Locale    string `json:"locale"`
+	Translate bool   `json:"translate"`
+}

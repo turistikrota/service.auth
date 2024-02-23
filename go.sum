@@ -108,6 +108,16 @@ github.com/turistikrota/service.shared v0.2.2 h1:wKqizx3LekBuJpeVrkjf8pO++ssJ6eJ
 github.com/turistikrota/service.shared v0.2.2/go.mod h1:N6c7ZRcor79GQla2XYQ1FK1JLpZAuGIMN8aJKRkB7Qw=
 github.com/turistikrota/service.shared v0.2.3 h1:8RT+mTBxknn9rpwBFds0G00IZnPttpWg1h8NoF2CDt8=
 github.com/turistikrota/service.shared v0.2.3/go.mod h1:N6c7ZRcor79GQla2XYQ1FK1JLpZAuGIMN8aJKRkB7Qw=
+github.com/turistikrota/service.shared v0.2.4 h1:lP6clUiaA31CoaySrWtnlGFB1ODKJez5LVw14L5tv+s=
+github.com/turistikrota/service.shared v0.2.4/go.mod h1:D4XPSIa6zvAYI5Du+ugRTqi1gw5w1ezkrP2qPekL9IA=
+github.com/turistikrota/service.shared v0.2.5 h1:rNxD1d2in6f7MgSgFTuobcDEFDuWiJmnRnuh/zarJNY=
+github.com/turistikrota/service.shared v0.2.5/go.mod h1:D4XPSIa6zvAYI5Du+ugRTqi1gw5w1ezkrP2qPekL9IA=
+github.com/turistikrota/service.shared v0.2.6 h1:652SdINAOlu+u4YoukrPSXurBKZfRdoSMXxnvUXsnxw=
+github.com/turistikrota/service.shared v0.2.6/go.mod h1:D4XPSIa6zvAYI5Du+ugRTqi1gw5w1ezkrP2qPekL9IA=
+github.com/turistikrota/service.shared v0.2.7 h1:G0tBlLJqJTUoHdQSb4xk4LpIlYalw8RO3R5R5MWmItw=
+github.com/turistikrota/service.shared v0.2.7/go.mod h1:D4XPSIa6zvAYI5Du+ugRTqi1gw5w1ezkrP2qPekL9IA=
+github.com/turistikrota/service.shared v0.2.8 h1:OjdlF0EKQReiQ5y032M5OdW/0/vDxA4oMaBISjiC1a8=
+github.com/turistikrota/service.shared v0.2.8/go.mod h1:D4XPSIa6zvAYI5Du+ugRTqi1gw5w1ezkrP2qPekL9IA=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
 github.com/valyala/fasthttp v1.48.0 h1:oJWvHb9BIZToTQS3MuQ2R3bJZiNSa2KiNdeI8A+79Tc=

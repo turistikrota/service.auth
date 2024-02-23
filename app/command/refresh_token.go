@@ -48,6 +48,7 @@ func NewRefreshTokenHandler(sessionSrv session.Service, repo user.Repo, factory 
 		ses := &session.SessionUser{
 			UUID:             user.UUID,
 			Email:            user.Email,
+			Phone:            user.Phone,
 			Roles:            user.Roles,
 			Accounts:         accounts,
 			Businesses:       business,
