@@ -18,6 +18,7 @@ import (
 	"github.com/turistikrota/service.auth/config"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
+	"github.com/turistikrota/service.shared/auth/verify"
 	httpServer "github.com/turistikrota/service.shared/server/http"
 	"github.com/turistikrota/service.shared/server/http/auth"
 	"github.com/turistikrota/service.shared/server/http/auth/claim_guard"
@@ -26,6 +27,8 @@ import (
 	"github.com/turistikrota/service.shared/server/http/auth/refresh_token"
 	"github.com/turistikrota/service.shared/server/http/auth/required_access"
 	turnstile_middleware "github.com/turistikrota/service.shared/server/http/auth/turnstile"
+	"github.com/turistikrota/service.shared/server/http/auth/two_factor"
+	"github.com/turistikrota/service.shared/server/http/auth/verification"
 )
 
 type srv struct {
@@ -37,6 +40,7 @@ type srv struct {
 	sessionSrv   session.Service
 	httpHeaders  config.HttpHeaders
 	turnstileSrv turnstile.Service
+	verifySrv    verify.Service
 }
 
 type Config struct {
@@ -48,6 +52,7 @@ type Config struct {
 	TokenSrv     token.Service
 	SessionSrv   session.Service
 	TurnstileSrv turnstile.Service
+	VerifySrv    verify.Service
 }
 
 func New(config Config) server.Server {
@@ -60,6 +65,7 @@ func New(config Config) server.Server {
 		sessionSrv:   config.SessionSrv,
 		httpHeaders:  config.HttpHeaders,
 		turnstileSrv: config.TurnstileSrv,
+		verifySrv:    config.VerifySrv,
 	}
 }
 
@@ -83,10 +89,12 @@ func (h srv) Listen() error {
 			router.Post("/re-verify", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.ReSendVerificationCode))
 			router.Post("/:token", h.rateLimit(10), h.turnstile(), h.wrapWithTimeout(h.Verify))
 			router.Get("/", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.GetCurrentUser))
-			router.Delete("/", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.wrapWithTimeout(h.UserDelete))
+			router.Delete("/", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.verifyRoute(), h.wrapWithTimeout(h.UserDelete))
 			router.Get("/user-list", h.currentUserAccess(), h.requiredAccess(), h.adminRoute(config.Roles.User.List), h.wrapWithTimeout(h.UserList))
 			router.Patch("/fcm", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.SetFcmToken))
-			router.Patch("/password", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.wrapWithTimeout(h.ChangePassword))
+			router.Patch("/password", h.currentUserAccess(), h.requiredAccess(), h.turnstile(), h.verifyRoute(), h.wrapWithTimeout(h.ChangePassword))
+			router.Patch("/2fa/enable", h.currentUserAccess(), h.requiredAccess(), h.wrapWithTimeout(h.EnableTwoFactor))
+			router.Patch("/2fa/disable", h.currentUserAccess(), h.requiredAccess(), h.twoFactorRequired(), h.verifyRoute(), h.wrapWithTimeout(h.DisableTwoFactor))
 
 			session := router.Group("/session", h.currentUserAccess(), h.requiredAccess())
 			session.Get("/", h.wrapWithTimeout(h.SessionList))
@@ -108,6 +116,17 @@ func (h srv) parseParams(c *fiber.Ctx, d interface{}) {
 
 func (h srv) parseQuery(c *fiber.Ctx, d interface{}) {
 	http.ParseQuery(c, h.validator, *h.i18n, d)
+}
+
+func (h srv) verifyRoute() fiber.Handler {
+	return verification.New(verification.Config{
+		Service: h.verifySrv,
+		I18n:    *h.i18n,
+	})
+}
+
+func (h srv) twoFactorRequired() fiber.Handler {
+	return two_factor.New()
 }
 
 func (h srv) currentUserAccess() fiber.Handler {

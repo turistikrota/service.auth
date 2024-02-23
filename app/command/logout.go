@@ -19,7 +19,7 @@ type LogoutHandler cqrs.HandlerFunc[LogoutCmd, *LogoutRes]
 
 func NewLogoutHandler(sessionSrv session.Service) LogoutHandler {
 	return func(ctx context.Context, cmd LogoutCmd) (*LogoutRes, *i18np.Error) {
-		err := sessionSrv.Destroy(session.DestroyCommand{
+		err := sessionSrv.Destroy(ctx, session.DestroyCommand{
 			UserUUID:   cmd.UserUUID,
 			DeviceUUID: cmd.DeviceUUID,
 		})

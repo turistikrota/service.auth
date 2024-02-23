@@ -46,13 +46,15 @@ func NewLoginHandler(userRepo user.Repo, userFactory user.Factory, sessionSrv se
 			return nil, userFactory.Errors.AnErrorOccurred()
 		}
 		ses := &session.SessionUser{
-			UUID:       user.UUID,
-			Email:      user.Email,
-			Roles:      user.Roles,
-			Accounts:   accounts,
-			Businesses: businesses,
+			UUID:             user.UUID,
+			Email:            user.Email,
+			Phone:            user.Phone,
+			Roles:            user.Roles,
+			Accounts:         accounts,
+			Businesses:       businesses,
+			TwoFactorEnabled: user.TwoFactorEnabled,
 		}
-		tokens, _err := sessionSrv.New(session.NewCommand{
+		tokens, _err := sessionSrv.New(ctx, session.NewCommand{
 			UserUUID:   user.UUID,
 			DeviceUUID: cmd.DeviceUUID,
 			Device:     cmd.Device,

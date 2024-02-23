@@ -20,7 +20,7 @@ type SetFcmTokenHandler cqrs.HandlerFunc[SetFcmTokenCmd, *SetFcmTokenRes]
 
 func NewSetFcmTokenHandler(sessionSrv session.Service) SetFcmTokenHandler {
 	return func(ctx context.Context, cmd SetFcmTokenCmd) (*SetFcmTokenRes, *i18np.Error) {
-		err := sessionSrv.SetFcmToken(cmd.UserUUID, cmd.DeviceUUID, cmd.FcmToken)
+		err := sessionSrv.SetFcmToken(ctx, cmd.UserUUID, cmd.DeviceUUID, cmd.FcmToken)
 		if err != nil {
 			return nil, err
 		}

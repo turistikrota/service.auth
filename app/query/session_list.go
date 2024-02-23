@@ -26,7 +26,7 @@ type SessionListHandler cqrs.HandlerFunc[SessionListQuery, *SessionListRes]
 
 func NewSessionListHandler(sessionSrv session.Service) SessionListHandler {
 	return func(ctx context.Context, query SessionListQuery) (*SessionListRes, *i18np.Error) {
-		sessions, err := sessionSrv.GetAll(query.UserUUID)
+		sessions, err := sessionSrv.GetAll(ctx, query.UserUUID)
 		if err != nil {
 			return nil, err
 		}

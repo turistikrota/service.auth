@@ -18,6 +18,31 @@ import (
 	"github.com/turistikrota/service.shared/server/http/auth/refresh_token"
 )
 
+func (h srv) EnableTwoFactor(ctx *fiber.Ctx) error {
+	cmd := command.TwoFactorEnableCmd{}
+	cmd.UserUUID = current_user.Parse(ctx).UUID
+	res, err := h.app.Commands.TwoFactorEnable(ctx.UserContext(), cmd)
+	if err != nil {
+		l, a := i18n.ParseLocales(ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	current_user.RemoveCookie(ctx, auth.Cookies.RefreshToken, h.config.HttpHeaders.Domain)
+	current_user.RemoveCookie(ctx, auth.Cookies.AccessToken, h.config.HttpHeaders.Domain)
+	h.removeSelectedAccountInCookie(ctx)
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
+func (h srv) DisableTwoFactor(ctx *fiber.Ctx) error {
+	cmd := command.TwoFactorDisableCmd{}
+	cmd.UserUUID = current_user.Parse(ctx).UUID
+	res, err := h.app.Commands.TwoFactorDisable(ctx.UserContext(), cmd)
+	if err != nil {
+		l, a := i18n.ParseLocales(ctx)
+		return result.Error(h.i18n.TranslateFromError(*err, l, a))
+	}
+	return result.SuccessDetail(Messages.Success.Ok, res)
+}
+
 func (h srv) Register(ctx *fiber.Ctx) error {
 	cmd := command.RegisterCmd{}
 	h.parseBody(ctx, &cmd)

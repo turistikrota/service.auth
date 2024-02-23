@@ -1,17 +1,23 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/cilloparch/cillop/env"
+	"github.com/cilloparch/cillop/events"
 	"github.com/cilloparch/cillop/events/nats"
 	"github.com/cilloparch/cillop/i18np"
 	"github.com/cilloparch/cillop/validation"
 	"github.com/ssibrahimbas/turnstile"
 	"github.com/turistikrota/service.auth/config"
+	"github.com/turistikrota/service.auth/domains/notify"
+	"github.com/turistikrota/service.auth/domains/user"
 	event_stream "github.com/turistikrota/service.auth/server/event-stream"
 	"github.com/turistikrota/service.auth/server/http"
 	"github.com/turistikrota/service.auth/service"
 	"github.com/turistikrota/service.shared/auth/session"
 	"github.com/turistikrota/service.shared/auth/token"
+	"github.com/turistikrota/service.shared/auth/verify"
 	"github.com/turistikrota/service.shared/db/mongo"
 	"github.com/turistikrota/service.shared/db/redis"
 )
@@ -35,6 +41,12 @@ func main() {
 		Password: cnf.Redis.Pw,
 		DB:       cnf.Redis.Db,
 	})
+	verifyRedis := redis.New(&redis.Config{
+		Host:     cnf.CacheRedis.Host,
+		Port:     cnf.CacheRedis.Port,
+		Password: cnf.CacheRedis.Pw,
+		DB:       cnf.VerifyRedis.DB,
+	})
 	tknSrv := token.New(token.Config{
 		Expiration:     cnf.TokenSrv.Expiration,
 		PublicKeyFile:  cnf.RSA.PublicKeyFile,
@@ -46,6 +58,11 @@ func main() {
 		TokenSrv:    tknSrv,
 		Topic:       cnf.Session.Topic,
 		Project:     cnf.TokenSrv.Project,
+	})
+	verifySrv := verify.New(verify.Config{
+		Redis:        verifyRedis,
+		SessionSrv:   session.Service,
+		NotifySender: createNotificationSender(i18n, eventEngine, cnf),
 	})
 	app := service.NewApplication(service.Config{
 		App:         cnf,
@@ -68,6 +85,7 @@ func main() {
 		TokenSrv:     tknSrv,
 		SessionSrv:   session.Service,
 		TurnstileSrv: turnstileSrv,
+		VerifySrv:    verifySrv,
 	})
 	eventStream := event_stream.New(event_stream.Config{
 		App:    app,
@@ -92,4 +110,45 @@ func loadMongo(cnf config.App) *mongo.DB {
 		panic(err)
 	}
 	return d
+}
+
+func createNotificationSender(i18n *i18np.I18n, events events.Engine, cnf config.App) verify.NotifySender {
+	return func(cmd verify.NotifyCommand) {
+		fmt.Println("before mo or after me")
+		if cmd.Phone != "" {
+			_ = events.Publish(cnf.Topics.Notify.SendSpecialSms, notify.NotifySendSpecialSmsCmd{
+				Phone:     cmd.Phone,
+				Text:      fmt.Sprintf(i18n.Translate(user.I18nMessages.SMSVerificationCode, cmd.Locale), cmd.Code),
+				Locale:    cmd.Locale,
+				Translate: false,
+			})
+		}
+		if cmd.Email != "" {
+			subject := i18n.Translate(user.I18nMessages.SubjectVerificationCode, cmd.Locale)
+			template := fmt.Sprintf("verify/code.%s", cmd.Locale)
+			if cmd.IpAddress == "" {
+				cmd.IpAddress = "N/A"
+			}
+			if cmd.BrowserName == "" {
+				cmd.BrowserName = "N/A"
+			}
+			if cmd.OperatingSystem == "" {
+				cmd.OperatingSystem = "N/A"
+			}
+			_ = events.Publish(cnf.Topics.Notify.SendSpecialEmail, notify.SendSpecialEmailCmd{
+				Email:    cmd.Email,
+				Template: template,
+				Subject:  subject,
+				TemplateParams: i18np.P{
+					"Code":       cmd.Code,
+					"IP":         cmd.IpAddress,
+					"Browser":    cmd.BrowserName,
+					"OS":         cmd.OperatingSystem,
+					"DeviceUUID": cmd.DeviceId,
+				},
+				Locale:    cmd.Locale,
+				Translate: false,
+			})
+		}
+	}
 }

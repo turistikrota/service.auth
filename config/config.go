@@ -41,6 +41,10 @@ type Redis struct {
 	Db   int    `env:"REDIS_DB"`
 }
 
+type VerifyRedis struct {
+	DB int `env:"REDIS_VERIFY_DB"`
+}
+
 type CacheRedis struct {
 	Host string `env:"REDIS_CACHE_HOST"`
 	Port string `env:"REDIS_CACHE_PORT"`
@@ -74,6 +78,7 @@ type Urls struct {
 
 type NotifyTopics struct {
 	SendSpecialEmail string `env:"STREAMING_TOPIC_NOTIFY_SEND_SPECIAL_EMAIL"`
+	SendSpecialSms string `env:"STREAMING_TOPIC_NOTIFY_SEND_SPECIAL_SMS"`
 }
 
 type AdminTopics struct {
@@ -108,6 +113,7 @@ type App struct {
 	Nats        Nats
 	Session     Session
 	CacheRedis  CacheRedis
+	VerifyRedis VerifyRedis
 	TokenSrv    TokenSrv
 	Urls        Urls
 	Turnstile   Turnstile

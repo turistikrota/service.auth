@@ -18,6 +18,8 @@ type Repo interface {
 	GetByEmail(ctx context.Context, email string) (*Entity, *i18np.Error)
 	GetByToken(ctx context.Context, token string) (*Entity, *i18np.Error)
 	CheckEmail(ctx context.Context, email string) (bool, *i18np.Error)
+	EnableTwoFactor(ctx context.Context, uuid string) *i18np.Error
+	DisableTwoFactor(ctx context.Context, uuid string) *i18np.Error
 	Create(ctx context.Context, entity *Entity) (*Entity, *i18np.Error)
 	SetToken(ctx context.Context, email string, token string) *i18np.Error
 	Verify(ctx context.Context, token string) *i18np.Error
@@ -136,6 +138,38 @@ func (r *repo) Verify(ctx context.Context, token string) *i18np.Error {
 			fields.IsVerified:  true,
 			fields.VerifyToken: "",
 			fields.UpdatedAt:   time.Now(),
+		},
+	}
+	return r.helper.UpdateOne(ctx, filter, update)
+}
+
+func (r *repo) EnableTwoFactor(ctx context.Context, uuid string) *i18np.Error {
+	id, _err := mongo2.TransformId(uuid)
+	if _err != nil {
+		return r.factory.Errors.InvalidUUID()
+	}
+	filter := bson.M{
+		fields.UUID: id,
+	}
+	update := bson.M{
+		"$set": bson.M{
+			fields.TwoFactorEnabled: true,
+		},
+	}
+	return r.helper.UpdateOne(ctx, filter, update)
+}
+
+func (r *repo) DisableTwoFactor(ctx context.Context, uuid string) *i18np.Error {
+	id, _err := mongo2.TransformId(uuid)
+	if _err != nil {
+		return r.factory.Errors.InvalidUUID()
+	}
+	filter := bson.M{
+		fields.UUID: id,
+	}
+	update := bson.M{
+		"$set": bson.M{
+			fields.TwoFactorEnabled: false,
 		},
 	}
 	return r.helper.UpdateOne(ctx, filter, update)

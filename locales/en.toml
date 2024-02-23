@@ -104,3 +104,21 @@ http_error_admin_route = "Admin route is required."
 
 http_error_turnstile_bad_request = "Bad request. Please robot check."
 http_error_turnstile_unauthorized = "Robot check failed."
+
+subject_verification_code = "Verification Code"
+sms_verification_code = "Your confirmation code to verify your session: %s"
+
+session_op_failed = "Failed to session."
+session_not_found = "Session not found."
+
+# Verify
+verify_redis_fetch_failed = "Failed to fetch verify."
+verify_redis_set_failed = "Failed to set verify."
+verify_json_marshal_failed = "Failed to marshal verify."
+verify_not_found = "Verify not found."
+verify_invalid_token = "Invalid token for verification."
+verify_invalid_code = "Invalid code for verification."
+verify_exceed_try_count = "Exceed try count for verification."
+verify_unknown = "Unknown"
+verify_expired_code = "Expired code for verification."
+verify_started = "Verification started."
