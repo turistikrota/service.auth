@@ -43,5 +43,6 @@ jobs:
         run: |
           docker service ls | grep -q service-auth && docker service rm service-auth || true
           cd $DIR
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login docker.io --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker pull turistikrota/service.auth:$IMAGE_TAG
           docker service create --name service-auth --network $NETWORK_NAME --secret $SECRET_NAME_1 --secret $SECRET_NAME_2 --env-file .env --host $HOST_ALIAS:$HOST_IP --host $REDIS_HOST_ALIAS:$HOST_IP --publish $APP_PORT:$APP_PORT turistikrota/service.auth:$IMAGE_TAG
